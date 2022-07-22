@@ -1,41 +1,27 @@
 package kr.human.camping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import kr.human.camping.service.TestService;
-import kr.human.camping.vo.TestVO;
 
-@RestController
+@Controller
 public class TestController {
 
 	@Autowired
-	TestService testService;
+	private TestService testService;
 	
-	@RequestMapping(value = "/")
-	public String main(Model model) {
-		return testService.today();
-	}
 	@RequestMapping(value = "/today")
 	public String today(Model model) {
-		return testService.today();
-	}
-
-	@RequestMapping(value = "/sum")
-	public String sum(@RequestParam(defaultValue = "0") int num1, @RequestParam(defaultValue = "0") int num2) {
-		return "덧셈 : " + testService.sum(num1, num2);
-	}
-	@RequestMapping(value = "/mul")
-	public String mul(@RequestParam(defaultValue = "0") int num1, @RequestParam(defaultValue = "0") int num2) {
-		return "곱셈 : " + testService.mul(num1, num2);
-	}
-
-	@RequestMapping(value = "/testVO")
-	public TestVO vo(@RequestParam(defaultValue = "0") int num1, @RequestParam(defaultValue = "0") int num2) {
-		return testService.vo(num1, num2);
+		model.addAttribute("today", testService.today());
+		return "today";
 	}
 	
+	@RequestMapping(value = "/")
+	public String home(Model model) {
+		model.addAttribute("serverTime", testService.today());
+		return "index";
+	}
 }
