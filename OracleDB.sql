@@ -26,8 +26,8 @@ CREATE TABLE member_role(
 -- 업체 테이블
 CREATE SEQUENCE company_idx_seq;
 CREATE table company(
-	name varchar2(100) PRIMARY KEY,
-	id varchar2(100) NOT NULL,			-- 회원 및 관리자 계정 테이블의 id와 연결
+	idx NUMBER PRIMARY KEY,
+	name varchar2(100) NOT null,
 	add1 varchar2(100) NOT NULL,
 	add2 varchar2(100) NOT NULL,
 	postcode number(20) NOT NULL,
@@ -42,9 +42,11 @@ CREATE table company(
 );
 
 -- 업체 방 테이블
+CREATE SEQUENCE company_room_roomidx_seq;
 CREATE TABLE company_room(
-	roomname varchar2(100) PRIMARY KEY,
-	name varchar2(100) NOT NULL,		-- 업체 테이블의 name과 연결
+	roomidx number PRIMARY KEY,
+	idx NUMBER NOT NULL,				-- 업체 테이블의 idx와 연결
+	roomname varchar2(100) NOT NULL,
 	minpeople number(2) NOT NULL,
 	maxpeople number(2) NOT NULL,
 	price number(10) NOT NULL,
@@ -57,7 +59,7 @@ CREATE TABLE company_room(
 -- 방 예약 테이블
 CREATE TABLE reservation(
 	id varchar2(100),					-- 회원 및 관리자 계정 테이블의 id와 연결
-	roomname varchar2(100),				-- 업체방 테이블의 roomname과 연결
+	roomidx number NOT null,			-- 업체방 테이블의 roomidx와 연결
 	email varchar2(100) NOT NULL,
 	col1 varchar2(100),
 	col2 NUMBER
@@ -86,6 +88,20 @@ CREATE TABLE fileBoard(
 	clickCount NUMBER(20) DEFAULT 0
 );
 
+INSERT INTO JSPUSER.FILEBOARD
+(IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
+VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject', 'testcontent', sysdate, 0
+);
+INSERT INTO JSPUSER.FILEBOARD
+(IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
+VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject2', 'testcontent2', sysdate, 0
+);
+INSERT INTO JSPUSER.FILEBOARD
+(IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
+VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject3', 'testcontent3', sysdate, 0
+);
+
+
 -- 전국지도 테이블
 CREATE SEQUENCE map_idx_seq;
 CREATE TABLE map(
@@ -112,4 +128,4 @@ COMMIT;
 
 
 DROP SEQUENCE member_idx_seq;
-DROP TABLE RESERVATION ;
+DROP TABLE reservation ;
