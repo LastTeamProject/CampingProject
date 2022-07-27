@@ -18,6 +18,11 @@
 		insert into company_room values(company_room_roomidx_seq.nextval,#{roomname},#{idx},#{roomname},#{minpeople},#{maxpeople},#{price},0,#{content},NULL,NULL)
 	</insert>
 	
+	<!-- 방 수정 -->
+	<update id="insertRoom" parameterType="roomVO">
+		update company_room set roomname=#{roomname},minpeople=#{minpeople},maxpeople=#{maxpeople},price=#{price},content=#{content} where roomidx=#{roomidx}
+	</update>
+	
 	<!-- 방 삭제 -->
 	<delete id="deleteRoom" parameterType="roomVO">
 		delete from company_room where roomidx = #{roomidx}

@@ -10,7 +10,7 @@
 	
 	<!-- 예약 1개 보기 -->
 	<select id="selectReservation" parameterType="int" resultType="reservationVO">
-		 select * from reservation where roomidx=#{roomidx}
+		 select * from reservation where roomidx=#{roomidx} 
 	</select>
 	
 	<!-- 나의 예약목록 보기 -->
@@ -24,12 +24,12 @@
 	</insert>
 	
 	<!-- 예약 취소하기 -->
-	<delete id="deleteReservation" parameterType="string">
+	<delete id="deleteReservation" parameterType="int">
 		delete from reservation where roomidx = #{roomidx}
 	</delete>
 	
 	<!-- 1 페이지 구하기 -->
-	<select id="selectReservationList" parameterType="hashmap" resultType="MemoVO">
+	<select id="selectReservationList" parameterType="hashmap" resultType="reservationVO">
 		select * from reservation order by idx desc limit #{startNo}, #{pageSize}
 	</select>
 	
