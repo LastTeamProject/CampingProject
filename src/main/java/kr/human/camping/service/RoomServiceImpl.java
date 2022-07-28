@@ -11,7 +11,7 @@ import kr.human.camping.dao.RoomDAO;
 import kr.human.camping.vo.PagingVO;
 import kr.human.camping.vo.RoomVO;
 
-@Service
+@Service("roomService")
 public class RoomServiceImpl implements RoomService{
 	
 	@Autowired

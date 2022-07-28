@@ -11,7 +11,7 @@ import kr.human.camping.dao.ReservationDAO;
 import kr.human.camping.vo.PagingVO;
 import kr.human.camping.vo.ReservationVO;
 
-@Service
+@Service("reservationService")
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
@@ -23,9 +23,9 @@ public class ReservationServiceImpl implements ReservationService {
 		try {
 			int totalCount = reservationDAO.selectReservationCount();
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, Integer> hashMap = new HashMap<>();
-			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("pageSize", pagingVO.getPageSize());
+			HashMap<String, String> hashMap = new HashMap<>();
+			hashMap.put("startNo",  Integer.toString(pagingVO.getStartNo()));
+			hashMap.put("pageSize", Integer.toString(pagingVO.getPageSize()));
 			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
@@ -35,14 +35,21 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationVO> selectMyReservation(String id) {
-		List<ReservationVO> list = null;
+	public PagingVO<ReservationVO> selectMyReservation(int currentPage, int pageSize, int blockSize, String id) {
+		PagingVO<ReservationVO> pagingVO = null;
 		try {
-			list = reservationDAO.selectMyReservation(id);
+			int totalCount = reservationDAO.selectReservationCount();
+			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
+			HashMap<String, String> hashMap = new HashMap<>();
+			hashMap.put("startNo",  Integer.toString(pagingVO.getStartNo()));
+			hashMap.put("pageSize", Integer.toString(pagingVO.getPageSize()));
+			hashMap.put("id", id);
+			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
+			pagingVO.setList(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return pagingVO;
 	}
 
 	@Override

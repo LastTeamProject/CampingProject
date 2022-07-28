@@ -44,11 +44,17 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!-- JSP를 사용하기 위한 추가 시작 -->
+		<!-- Thymeleaf 추가 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
+		<!-- JSP를 사용하기 위한 추가 시작 -->
+		<!-- 
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -58,6 +64,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		 -->
 		<!-- JSP를 사용하기 위한 추가 종료 -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>

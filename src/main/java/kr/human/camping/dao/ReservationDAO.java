@@ -21,5 +21,5 @@ public interface ReservationDAO {
 	// 예약 취소하기
 	void deleteReservation(int roomidx) throws SQLException;
     // 한 페이지 정보 보기
-	List<ReservationVO> selectReservationList(HashMap<String, Integer> map) throws SQLException;
+	List<ReservationVO> selectReservationList(HashMap<String, String> map) throws SQLException;
 }
