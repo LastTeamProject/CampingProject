@@ -24,7 +24,6 @@ CREATE TABLE member_role(
 );
 
 -- 업체 테이블
-
 CREATE SEQUENCE company_idx_seq;
 DROP SEQUENCE company_idx_seq;
 DROP TABLE COMPANY;
