@@ -2,6 +2,7 @@ package kr.human.camping.service;
 
 import java.util.Random;
 
+
 public class PasswordService {
 	public static String makeNewPassword() {
 		Random random  = new Random();
