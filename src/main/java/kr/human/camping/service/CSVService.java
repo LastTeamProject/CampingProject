@@ -28,7 +28,7 @@ public class CSVService {
 		
 		for(int i=1;i<list.size();i++) {
 			// DB에 저장하는 코드
-			String lines[] = list.get(i).split(",",12);
+			String lines[] = list.get(i).split(",",13);
 			System.out.println(lines.length + "개 : " + Arrays.toString(lines));
 			// VO를 만들어서 setter로 1개씩 넣기
 			CompanyVO companyVO = new CompanyVO();
@@ -41,20 +41,21 @@ public class CSVService {
 			companyVO.setRoomtype(lines[6]);
 			companyVO.setTheme(lines[7]);
 			companyVO.setAreacode(Integer.parseInt(lines[8]));
-			companyVO.setLatitude(Double.parseDouble(lines[9]));
-			companyVO.setLongitude(Double.parseDouble(lines[10]));
-			companyVO.setCol1(lines[11]);
+			companyVO.setDetailcode(Integer.parseInt(lines[9]));
+			companyVO.setLatitude(Double.parseDouble(lines[10]));
+			companyVO.setLongitude(Double.parseDouble(lines[11]));
+			companyVO.setCol1(lines[12]);
 			try {
-				int x = Integer.parseInt(lines[12]);
+				int x = Integer.parseInt(lines[13]);
 				companyVO.setCol2(x);		
 			}catch (Exception e) {
 				;
 			}
 			
 			
-			jdbcTemplate.update("insert into company values (company_idx_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?)",
+			jdbcTemplate.update("insert into company values (company_idx_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 								companyVO.getName(), companyVO.getAdd1(), companyVO.getAdd2(),companyVO.getPostcode(),companyVO.getEco(),
-								companyVO.getRoomtype(),companyVO.getTheme(),companyVO.getAreacode(),companyVO.getLatitude(),companyVO.getLongitude(),
+								companyVO.getRoomtype(),companyVO.getTheme(),companyVO.getAreacode(),companyVO.getDetailcode(),companyVO.getLatitude(),companyVO.getLongitude(),
 								companyVO.getCol1(),companyVO.getCol2());
 		}
 		
