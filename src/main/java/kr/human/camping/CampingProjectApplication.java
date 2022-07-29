@@ -35,7 +35,7 @@ public class CampingProjectApplication {
 				try {
 					System.setProperty("java.awt.headless", "false");
 					Desktop.getDesktop().browse(new URI("http://localhost:8080/"));
-					csvService.saveDB(); //DB에 데이터를 저장하는 함수
+//					csvService.saveDB(); //DB에 데이터를 저장하는 함수
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (URISyntaxException e) {

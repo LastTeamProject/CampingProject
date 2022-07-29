@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.human.camping.service.FileBoardService;
+import kr.human.camping.service.FileBoardServiceImpl;
 import kr.human.camping.vo.CommVO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
@@ -37,6 +38,14 @@ public class FileBoardController {
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "list";
+	}
+	
+	// 내용보기
+	@RequestMapping("/view")
+	public String selectBiIdx(@RequestParam("idx") int idx, Model model) {
+		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		model.addAttribute("vo", vo);
+		return "Notice/view";
 	}
 	
 	// 저장/수정/삭제
