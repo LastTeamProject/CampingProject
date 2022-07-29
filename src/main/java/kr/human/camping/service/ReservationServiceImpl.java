@@ -41,9 +41,9 @@ public class ReservationServiceImpl implements ReservationService {
 			int totalCount = reservationDAO.selectReservationCount();
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
 			HashMap<String, String> hashMap = new HashMap<>();
+			hashMap.put("id", id);
 			hashMap.put("startNo",  Integer.toString(pagingVO.getStartNo()));
 			hashMap.put("pageSize", Integer.toString(pagingVO.getPageSize()));
-			hashMap.put("id", id);
 			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
