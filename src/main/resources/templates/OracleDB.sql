@@ -88,6 +88,9 @@ CREATE TABLE fileBoard(
 	clickCount NUMBER(20) DEFAULT 0
 );
 
+DROP TABLE fileboard;
+DROP SEQUENCE fileBoard_idx_seq;
+
 INSERT INTO JSPUSER.FILEBOARD
 (IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
 VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject', 'testcontent', sysdate, 0

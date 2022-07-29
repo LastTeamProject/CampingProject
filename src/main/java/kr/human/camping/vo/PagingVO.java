@@ -91,6 +91,7 @@ public class PagingVO<T> {
 		return endPage;
 	}
 	
+	
 	// 메서드 2개 추가하자 : 상단의 페이지 정보, 하단의 페이지 리스트
 	// 상단의 페이지 정보
 	public String getPageInfo() {
@@ -140,7 +141,7 @@ public class PagingVO<T> {
 		sb.append("</ul>");
 		return sb.toString();
 	}
-
+	
 	@Override
 	public String toString() {
 		return "PagingVO [totalCount=" + totalCount + ", currentPage=" + currentPage + ", pageSize=" + pageSize

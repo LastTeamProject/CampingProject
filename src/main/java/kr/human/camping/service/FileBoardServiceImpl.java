@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,30 @@ public class FileBoardServiceImpl  implements FileBoardService{
 		}
 		return pagingVO;
 	}
+	
+	@Override
+	public FileBoardVO selectByIdx(int idx, boolean isClick) {
+		FileBoardVO fileBoardVO= null;
+		//------------------------------------------------------------
+		SqlSession sqlSession = null;
+		FileBoardDAO fileBoardDAO = null;
+		try {
+			//--------------------------------------------------------------------
+			// 1. 해당 글번호의 글을 가져온다.
+			fileBoardVO = fileBoardDAO.selectByIdx(idx);
+
+			if(fileBoardVO!=null && isClick) { // 글이 존재하면서 isClick이 참이면 조회수 증가
+				fileBoardVO.setClickCount(fileBoardVO.getClickCount()+1); // 나의 조회수 증가
+//				fileBoardDAO.increment(sqlSession, idx); // DB의 조회수 증가
+			}
+			//--------------------------------------------------------------------
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		//----------------------------------------------------------------------------------
+		return fileBoardVO;
+	}
+	
 
 	@Override
 	public boolean insert(FileBoardVO fileBoarVO) {
