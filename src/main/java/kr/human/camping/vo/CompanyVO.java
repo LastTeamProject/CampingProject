@@ -17,6 +17,7 @@ public class CompanyVO {
 	private String roomtype;
 	private String theme;
 	private int areacode;
+	private int detailcode;
 	private double latitude; //위도
 	private double longitude; //경도
 	private String col1;

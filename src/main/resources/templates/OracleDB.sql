@@ -37,7 +37,8 @@ CREATE table company(
 	eco varchar2(100) NOT NULL,
 	roomtype varchar2(100) NOT NULL,
 	theme varchar2(100) NOT NULL,
-	areacode number(10) NOT NULL,		-- 전국지도 테이블의 areacode와 연결
+	areacode number(10) NOT NULL,		-- 전국지도 
+	detailcode number(10) NOT NULL,     -- 세부지역  
 	Latitude float(30) NOT NULL,
 	logitude float(30) NOT NULL,
 	col1 varchar2(100),
@@ -45,13 +46,10 @@ CREATE table company(
 );
 
 -- 업체 방 테이블
-<<<<<<< HEAD
-CREATE SEQUENCE company_room_roomidx_seq;
-=======
 
 CREATE SEQUENCE company_room_roomidx_seq;
 DROP TABLE COMPANY_ROOM;
->>>>>>> hwan91
+
 CREATE TABLE company_room(
 	roomidx number PRIMARY KEY,
 	idx NUMBER NOT NULL,				-- 업체 테이블의 idx와 연결
@@ -98,15 +96,9 @@ CREATE TABLE fileBoard(
 	clickCount NUMBER(20) DEFAULT 0
 );
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 DROP TABLE fileboard;
 DROP SEQUENCE fileBoard_idx_seq;
 
-=======
->>>>>>> hoegyeong99
-=======
->>>>>>> hwan91
 INSERT INTO JSPUSER.FILEBOARD
 (IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
 VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject', 'testcontent', sysdate, 0
@@ -125,8 +117,6 @@ VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject3', 'testcontent3', sysda
 CREATE SEQUENCE map_idx_seq;
 CREATE TABLE map(
 	areacode NUMBER PRIMARY KEY,
-	coordinate varchar2(1000) NOT NULL,
-	mapimage varchar2(100) NOT NULL,
 	col1 varchar2(100),
 	col2 number
 );
@@ -148,10 +138,4 @@ COMMIT;
 SELECT * FROM TAB;
 DROP SEQUENCE member_idx_seq;
 DROP TABLE reservation ;
-<<<<<<< HEAD
-=======
-SELECT * FROM COMPANY;
 
-SELECT * FROM DETAILMAP d ;
-
->>>>>>> hwan91
