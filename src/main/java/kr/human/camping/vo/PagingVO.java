@@ -3,8 +3,11 @@ package kr.human.camping.vo;
 import java.util.List;
 
 public class PagingVO<T> {
+<<<<<<< HEAD
 	private List<T> list;
 	
+=======
+>>>>>>> hoegyeong99
 	private int totalCount;
 	private int currentPage;
 	private int pageSize;
@@ -16,6 +19,11 @@ public class PagingVO<T> {
 	private int startPage;
 	private int endPage;
 	
+<<<<<<< HEAD
+=======
+	private List<T> list;
+	
+>>>>>>> hoegyeong99
 	public PagingVO(int totalCount, int currentPage, int pageSize, int blockSize) {
 		this.totalCount = totalCount;
 		this.currentPage = currentPage;
@@ -91,7 +99,10 @@ public class PagingVO<T> {
 		return endPage;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> hoegyeong99
 	// 메서드 2개 추가하자 : 상단의 페이지 정보, 하단의 페이지 리스트
 	// 상단의 페이지 정보
 	public String getPageInfo() {
@@ -141,7 +152,11 @@ public class PagingVO<T> {
 		sb.append("</ul>");
 		return sb.toString();
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> hoegyeong99
 	@Override
 	public String toString() {
 		return "PagingVO [totalCount=" + totalCount + ", currentPage=" + currentPage + ", pageSize=" + pageSize

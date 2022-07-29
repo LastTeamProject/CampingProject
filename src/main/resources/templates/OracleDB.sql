@@ -24,6 +24,7 @@ CREATE TABLE member_role(
 );
 
 -- 업체 테이블
+
 CREATE SEQUENCE company_idx_seq;
 CREATE table company(
 	idx NUMBER PRIMARY KEY,
@@ -88,9 +89,12 @@ CREATE TABLE fileBoard(
 	clickCount NUMBER(20) DEFAULT 0
 );
 
+<<<<<<< HEAD
 DROP TABLE fileboard;
 DROP SEQUENCE fileBoard_idx_seq;
 
+=======
+>>>>>>> hoegyeong99
 INSERT INTO JSPUSER.FILEBOARD
 (IDX, ID, SUBJECT, CONTENT, REGDATE, CLICKCOUNT)
 VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject', 'testcontent', sysdate, 0
