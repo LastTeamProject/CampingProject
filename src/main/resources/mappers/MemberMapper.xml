@@ -37,7 +37,7 @@
 		select role from member_role where id = #{id}
 	</select>
 	
-	<!-- 7. 사용자 권한 주기 -->
+	<!-- 7. 사용자 권한 생성 -->
 	<insert id="insertAccess" parameterType="MemberVO">
 		insert into member_role(idx, id, Role) values(member_role_idx_seq, #{id}, #{role})
 	</insert>

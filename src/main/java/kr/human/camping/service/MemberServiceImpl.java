@@ -4,9 +4,12 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import kr.human.SHA256.SHA256;
 import kr.human.camping.dao.MemberDAO;
@@ -67,15 +70,22 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public boolean Login(String id, String password) {
+		SHA256 sha256 = new SHA256();
 		boolean result = true;
 		HashMap<String, String> map = new HashMap<>();
+		MemberVO vo = new MemberVO();
 		try {
 			map.put("id", id);
-			map.put("password", password);
-			if(memberDAO.login(map) == 0) {
-				result = false;
+			map.put("password", sha256.encrypt(password));
+			if(memberDAO.IDOverlap(id) != 0) {
+				if(memberDAO.login(map) != 0) {
+					vo = memberDAO.selectByMemberInfo(id);
+					
+				}
 			}
 		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 		return result;
