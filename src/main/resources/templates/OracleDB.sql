@@ -113,29 +113,10 @@ VALUES(fileBoard_idx_seq.nextval, 'admin', 'testsubject3', 'testcontent3', sysda
 );
 
 
--- 전국지도 테이블
-CREATE SEQUENCE map_idx_seq;
-CREATE TABLE map(
-	areacode NUMBER PRIMARY KEY,
-	col1 varchar2(100),
-	col2 number
-);
-
--- 상세지도 테이블
-CREATE SEQUENCE detailmap_idx_seq;
-CREATE TABLE detailmap(
-	idx NUMBER PRIMARY KEY,
-	areacode NUMBER NOT NULL,			-- 전국지도 테이블의 areacode와 연결
-	detailmap varchar2(100) NOT NULL,
-	detailmapimage varchar2(100) NOT NULL,
-	coordinate varchar2(1000) NOT NULL,
-	col1 varchar2(100),
-	col2 number
-);
-
 COMMIT;
 
 SELECT * FROM TAB;
 DROP SEQUENCE member_idx_seq;
 DROP TABLE reservation ;
+SELECT * FROM company;
 
