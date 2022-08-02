@@ -47,6 +47,26 @@ public class FileBoardController {
 		model.addAttribute("vo", vo);
 		return "Notice/view";
 	}
+
+	// 새글쓰기
+	@RequestMapping("/insert")
+	public String insert(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
+		boolean result = false;
+		switch (commVO.getMode()) {
+		case "insert":
+			result = fileBoardService.insert(fileBoardVO);
+			break;
+		}
+		return result ? "Notice/view":"실패";
+	}
+	
+//	// 업데이트
+//	@RequestMapping("/update")
+//	public String selectBiIdx(@RequestParam("idx") int idx, Model model) {
+//		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+//		model.addAttribute("vo", vo);
+//		return "Notice/view";
+//	}
 	
 	// 저장/수정/삭제
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
