@@ -48,8 +48,17 @@ public class FileBoardController {
 		return "Notice/view";
 	}
 
+	// 삭제하기
+	@RequestMapping("/delete")
+	public String delete(@RequestParam("idx") int idx, Model model) {
+		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		model.addAttribute("vo", vo);
+		return "Notice/delete";
+	}
+
 	// 새글쓰기
-	@RequestMapping("/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
+	@ResponseBody
 	public String insert(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
 		boolean result = false;
 		switch (commVO.getMode()) {
@@ -57,9 +66,9 @@ public class FileBoardController {
 			result = fileBoardService.insert(fileBoardVO);
 			break;
 		}
-		return result ? "Notice/view":"실패";
+		return result ? "Notice/insert":"실패";
 	}
-	
+
 //	// 업데이트
 //	@RequestMapping("/update")
 //	public String selectBiIdx(@RequestParam("idx") int idx, Model model) {
@@ -74,21 +83,21 @@ public class FileBoardController {
 		return "redirect:/list";
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
-	@ResponseBody
-	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
-		boolean result = false;
-		switch (commVO.getMode()) {
-		case "insert":
-			result = fileBoardService.insert(fileBoardVO);
-			break;
-		case "update":
-			result = fileBoardService.update(fileBoardVO);
-			break;
-		case "delete":
-			result = fileBoardService.delete(fileBoardVO);
-			break;
-		}
-		return result ? "성공":"실패";
-	}
+//	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
+//	@ResponseBody
+//	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
+//		boolean result = false;
+//		switch (commVO.getMode()) {
+//		case "insert":
+//			result = fileBoardService.insert(fileBoardVO);
+//			break;
+//		case "update":
+//			result = fileBoardService.update(fileBoardVO);
+//			break;
+//		case "delete":
+//			result = fileBoardService.delete(fileBoardVO);
+//			break;
+//		}
+//		return result ? "성공":"실패";
+//	}
 }

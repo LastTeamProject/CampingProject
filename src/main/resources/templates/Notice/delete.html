@@ -29,13 +29,17 @@
 	</script>
 </head>
 <body>
+<!-- 	<form action="updateOk.html"  method="post"> -->
+	<!-- 여기에서 몇개를 숨겨서 가지고 가자 -->
+	<input type="hidden" name="p" value="${p }" />
+	<input type="hidden" name="s" value="${s }" />
+	<input type="hidden" name="b" value="${b }" />
+	<input type="hidden" name="idx" value="${idx }" />
+	<input type="hidden" name="mode" value="3" />
+	<input type="hidden" name="isClick" value="false"/>
 	<table>
 		<tr>
-			<td colspan="4" class="title"><b>공지사항 내용보기</b></td>
-		</tr>
-		<tr>
-			<td class="item" >작성일</td>
-			<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd(E요일) hh:mm:ss')}" colspan="3"/>
+			<td colspan="4" class="title"><b>공지사항 삭제하기</b></td>
 		</tr>
 		<tr>
 			<td class="item">제목</td>
@@ -45,15 +49,16 @@
 			<td class="item" valign="top">내용</td>
 			<td th:text="${vo.content}" colspan="3"></td>
 		</tr>
+
 		<tr>
 			<td colspan="4" style="border: none;text-align: right;">
+				<button class="btn btn-dark">삭제하기</button>
 				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{${update}} + '\''">수정</button>	
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{delete(idx = ${vo.idx})} + '\''">삭제</button>
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{list} + '\''">목록</button>
-				
+				th:onclick="'location.href=\''+ @{view} + 'p':${p} + 's':${s} + 'b':${b} + 'idx':${vo.idx} + '\''">내용보기</button>
+<!-- 				<button class="btn btn-dark"  -->
+<!-- 				th:onclick="'location.href=\''+ @{list} + '\''">목록</button> -->
+				<input type="button" class="btn btn-dark" 
+				th:onclick="'location.href=\''+ @{list} + '\''" value="목록으로">
 			</td>
 		</tr>
 	</table>
