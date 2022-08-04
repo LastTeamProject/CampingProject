@@ -8,5 +8,5 @@ public class CommVO {
 	private int    p;
 	private int    s;
 	private int    b;
-	private String mode;
+	private int	   mode;
 }

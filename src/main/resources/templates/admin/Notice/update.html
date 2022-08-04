@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>공지사항</title>
+	<title>공지사항 수정</title>
 	<!-- axicon 사용하기 -->
 	<link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 	<!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -29,33 +29,41 @@
 	</script>
 </head>
 <body>
-	<table>
-		<tr>
-			<td colspan="4" class="title"><b>공지사항 내용보기</b></td>
-		</tr>
-		<tr>
-			<td class="item" >작성일</td>
-			<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd(E요일) hh:mm:ss')}" colspan="3"/>
-		</tr>
-		<tr>
-			<td class="item">제목</td>
-			<td th:text="${vo.subject}" colspan="3"></td>
-		</tr>
-		<tr>
-			<td class="item" valign="top">내용</td>
-			<td th:text="${vo.content}" colspan="3"></td>
-		</tr>
-		<tr>
-			<td colspan="4" style="border: none;text-align: right;">
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{${update}} + '\''">수정</button>	
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{delete(idx = ${vo.idx})} + '\''">삭제</button>
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{list} + '\''">목록</button>
-				
-			</td>
-		</tr>
-	</table>
+	<form action="updateOk" method="post">
+		<!-- 여기에서 몇개를 숨겨서 가지고 가자 -->
+		<input type="hidden" name="p" th:value="${p }" />
+		<input type="hidden" name="s" th:value="${s }" />
+		<input type="hidden" name="b" th:value="${b }" />
+		<input type="hidden" name="idx" th:value="${vo.idx }" />
+		<input type="hidden" name="mode" value="2" />
+		<input type="hidden" name="isClick" value="false"/>
+		<table>
+			<tr>
+				<td colspan="4" class="title"><b>공지사항 수정하기</b></td>
+			</tr>
+			<tr>
+				<td class="item">제목</td>
+				<td colspan="3">
+					<input type="text" name="subject" id="subject" required="required" size="90" maxlength="100" th:value="${vo.subject }"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="item" valign="top">내용</td>
+				<td colspan="3">
+					<textarea name="content" id="content" cols="93" rows="10" th:text="${vo.content}"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="border: none;text-align: right;">
+					<input type="submit" class="btn btn-dark" 
+					th:onclick="'location.href=\''+ @{updateOk} + '\''" value="수정">
+					<input type="button" class="btn btn-dark" 
+					th:onclick="'location.href=\''+ @{view(idx = ${vo.idx})} + '\''" value="내용보기">
+					<input type="button" class="btn btn-dark" 
+					th:onclick="'location.href=\''+ @{list} + '\''" value="목록으로">
+				</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
