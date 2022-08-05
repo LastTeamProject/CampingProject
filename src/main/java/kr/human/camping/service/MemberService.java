@@ -28,4 +28,6 @@ public interface MemberService {
 	String findID(String email);
 	// 9. 비밀번호 비교
 	boolean passwordcheck(String password, MemberVO vo);
+	// 10. 메일인증후 권한 'user'로 변환해주기
+	void updateAccess(String id);
 }

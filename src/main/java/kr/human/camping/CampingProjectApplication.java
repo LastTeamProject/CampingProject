@@ -9,20 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import org.springframework.context.annotation.Bean;
 
 import kr.human.camping.service.CSVService;
 
 
 
+
 @SpringBootApplication
 public class CampingProjectApplication {
 	
-	@Autowired
-	CSVService csvService;
+	//@Autowired
+	//CSVService csvService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CampingProjectApplication.class, args);
+		
 		
 	}
 	@Bean // 처음 BOOT가 실행될때 실행되는 함수
@@ -35,7 +38,7 @@ public class CampingProjectApplication {
 				try {
 					System.setProperty("java.awt.headless", "false");
 					Desktop.getDesktop().browse(new URI("http://localhost:8080/"));
-					csvService.saveDB(); //DB에 데이터를 저장하는 함수
+					//csvService.saveDB(); //DB에 데이터를 저장하는 함수
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (URISyntaxException e) {

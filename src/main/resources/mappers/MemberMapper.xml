@@ -8,7 +8,7 @@
 	<!-- 1. 회원가입 회원정보 저장 -->
 	<insert id="insert" parameterType="MemberVO">
 		insert into member(idx, id, password, name, phone, email, gender) 
-		values(member_idx_seq.nextval(),#{id}, #{password},#{name},#{phone},#{email},#{gender})
+		values(member_idx_seq.nextval,#{id},#{password},#{name},#{phone},#{email},#{gender})
 	</insert>
 
 	<!-- 2. 회원 정보 수정 -->
@@ -39,7 +39,7 @@
 	
 	<!-- 7. 사용자 권한 생성 -->
 	<insert id="insertAccess" parameterType="MemberVO">
-		insert into member_role(idx, id, Role) values(member_role_idx_seq, #{id}, #{role})
+		insert into member_role(idx, id, Role) values(member_role_idx_seq.nextval, #{id}, 'unknown')
 	</insert>
 	
 	<!-- 8. 로그인 -->
@@ -73,6 +73,9 @@
 	</delete>
 	
 	
-	<!-- 14.  -->
+	<!-- 14. 인증후 권한 바꿔주기 -->
+	<update id="updateAccess" parameterType="string">
+		update member_role set role = 'user' where id = #{id}
+	</update>
 	
 </mapper>

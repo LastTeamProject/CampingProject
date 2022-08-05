@@ -7,14 +7,22 @@ import java.util.HashMap;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import kr.human.SHA256.SHA256;
+import kr.human.camping.config.EmployeeSecurityConfiguration;
 import kr.human.camping.dao.MemberDAO;
 import kr.human.camping.vo.MemberVO;
+import kr.human.email.MailService;
+import kr.human.email.MailServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Service("MemberService")
 @Transactional
 public class MemberServiceImpl implements MemberService{
@@ -22,19 +30,31 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	@Autowired
+	private MailServiceImpl mailService;
+	
 	@Override
 	public void MemberInsert(MemberVO vo) {
+		log.debug("회원가입 시작: " + vo);
 		SHA256 sha256 = new SHA256();
 		String password = vo.getPassword();
 		try {
 			vo.setPassword(sha256.encrypt(password));
-			memberDAO.insert(vo);
-			memberDAO.insertAccess(vo);
-		} catch(SQLException e) {
+			// 사용자 데이터를 테이블에 넣는다.
+			//memberDAO.insert(vo);
+			// 사용자 권한 등급은 초기에 unknown을주게되며
+			//memberDAO.insertAccess(vo);
+			
+			// 사용자 email로 인증메일이 날라가서 인증을 하게되면 권한등급을 user로 변환해준다.
+			// 메일 발송!!!
+			mailService.sendEmail(vo.getEmail(), vo.getName(), vo.getId());
+			
+		} /*catch(SQLException e) {
 			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
+		}*/ catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		log.debug("회원가입 종료: ");
 	}
 
 	@Override
@@ -156,6 +176,17 @@ public class MemberServiceImpl implements MemberService{
 			e.printStackTrace();
 		}
 		return Ischeck;
+	}
+
+	@Override
+	public void updateAccess(String id) {
+		
+		try {
+			memberDAO.updateAccess(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

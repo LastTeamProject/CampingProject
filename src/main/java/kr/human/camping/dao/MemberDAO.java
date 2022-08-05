@@ -37,5 +37,7 @@ public interface MemberDAO {
 	void changePassword(HashMap<String, String> map) throws SQLException;
 	// 13. 권한테이블 회원정보 삭제
 	void deleteAccess(String id) throws SQLException;
+	// 14. 권한'user'로 바꿔주기
+	void updateAccess(String id) throws SQLException;
 	
 }

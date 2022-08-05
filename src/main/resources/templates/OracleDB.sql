@@ -5,7 +5,7 @@ CREATE TABLE MEMBER(
 	idx NUMBER,
 	password varchar2(100) NOT NULL,
 	name varchar2(100) NOT NULL,
-	phone NUMBER(11) NOT NULL,
+	phone varchar2(20) NOT NULL,
 	email varchar2(100) NOT NULL,
 	gender char(1) check(gender IN('0','1'))NOT NULL,
 	col1 varchar2(100),
@@ -117,6 +117,6 @@ COMMIT;
 
 SELECT * FROM TAB;
 DROP SEQUENCE member_idx_seq;
-DROP TABLE reservation ;
+DROP TABLE MEMBERS ;
 SELECT * FROM company;
 
