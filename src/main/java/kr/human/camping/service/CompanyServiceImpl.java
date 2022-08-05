@@ -73,7 +73,7 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 		return result;
 	}
-
+ 
 	@Override
 	public boolean deleteCompany(CompanyVO companyVO) {
 		boolean result = false;
