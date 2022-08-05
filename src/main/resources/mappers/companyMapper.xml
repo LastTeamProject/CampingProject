@@ -2,15 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.human.camping.dao.CompanyDAO">
+<mapper namespace="kr.human.camping.dao.SearchDAO">
 	<!-- namespace를 인터페이스 이름과 일치 시켜야 한다. -->
 	<!-- 전체 업체 구하기 -->
 	<select id="selectCompanyCount" resultType="int">
 		select count(*) from company
 	</select>
-	<!-- 업체 한개 가져오기(예약시) -->
-	<select id="selectById" parameterType="int" resultType="CompanyVO">
-		select * from company where idx=#{idx}
+	<!-- 업체 리스트가져오기(검색시) 지역코드-->
+	<select id="searchByareacode" parameterType="int" resultType="CompanyVO">
+		select * from company where areacode=#{areacode} 
+	</select>
+	<!-- 업체 리스트(검색시) 지역코드 , 상세코드-->
+	<select id="searchBycode" parameterType="hashmap" resultType="CompanyVO">
+		select * from company where areacode=#{areacode} and detailcode=#{detailcode}
 	</select>
 	<!-- 업체 저장하기 -->
 	<insert id="insert" parameterType="CompanyVO">
@@ -22,7 +26,7 @@
 		update company set eco=#{eco}, roomtype=#{roomtype}, theme=#{theme} where idx=#{idx}
 	</update>
 	<!-- 업체 삭제하기 -->
-	<delete id="delete" parameterType="String">
+	<delete id="delete" parameterType="int">
 		delete from company where idx=#{idx}
 	</delete>
 	
