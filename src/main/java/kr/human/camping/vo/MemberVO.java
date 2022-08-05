@@ -19,8 +19,9 @@ public class MemberVO {
 	private long idx;
 	private String password;
 	private String name;
-	private String phone;
+	private long phone;
 	private String email;
 	private short gender;
+	private String role;
 	
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.human.camping.service.FileBoardService;
-import kr.human.camping.service.FileBoardServiceImpl;
 import kr.human.camping.vo.CommVO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
@@ -30,6 +29,7 @@ public class FileBoardController {
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
+//			@RequestParam(required = false, defaultValue = "0") int idx,
 			Model model 
 			){
 		PagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(p, s, b);
@@ -106,7 +106,7 @@ public class FileBoardController {
 		return "redirect:/list";
 	}
 	@RequestMapping(value = "/updateOk", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
-	@ResponseBody
+//	@ResponseBody
 	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
 		boolean result = false;
 		log.info("updatePost : " + fileBoardVO);
@@ -125,7 +125,8 @@ public class FileBoardController {
 			log.info("delete 실행결과 : " + result);
 			break;
 		}
-		return result ? "성공":"실패";
+		return "admin/Notice/list";
+//		return result ? "성공":"실패";
 	}
 
 }

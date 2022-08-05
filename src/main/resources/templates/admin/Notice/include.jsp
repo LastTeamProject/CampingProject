@@ -14,7 +14,7 @@ try{
 }
 
 // 페이지 사이즈 받기
-int pageSize = 10;
+int pageSize = 5;
 try{
 	pageSize = Integer.parseInt(request.getParameter("s"));
 }catch(Exception e){
@@ -22,7 +22,7 @@ try{
 }
 
 // 페이지 개수 받기
-int blockSize = 10;
+int blockSize = 5;
 try{
 	blockSize = Integer.parseInt(request.getParameter("b"));
 }catch(Exception e){
