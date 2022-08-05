@@ -57,9 +57,7 @@
 				<tr>
 					<td th:text="${no}"/>
 					<td style="text-align: left;">
-						<a th:text="${vo.subject}" href="#" 
-						th:onclick="sendPost('view.html',{'p':${p } , 's': ${s }, 'b':${b } , 'idx':${vo.idx},'isClick':true})">
-						</a>
+						<a th:text="${vo.subject}" th:href="@{view(idx = ${vo.idx})}"></a>
 					</td>
 					<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd')}"/>
 					<td th:text="${vo.clickCount}"/>
@@ -73,7 +71,7 @@
 		<tr>
 			<td class="sub_title" colspan="6">
 				<button class="btn btn-dark" 
-				 th:onclick='sendPost("insert.jsp",{"p":${p } , "s": ${s }, "b":${b }})'>새글쓰기</button>
+				 th:onclick="'location.href=\''+ @{insert} + '\''">새글쓰기</button>
 			</td>
 		</tr>
 	</table>

@@ -14,19 +14,22 @@ import kr.human.camping.service.FileBoardService;
 import kr.human.camping.vo.CommVO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class FileBoardController {
 
 	@Autowired
 	private FileBoardService fileBoardService;
 	
-	// 목록보기
+	// 전체 목록보기
 	@RequestMapping("/list")
 	public String selectList(
 			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "3") int s,
-			@RequestParam(required = false, defaultValue = "10") int b,
+			@RequestParam(required = false, defaultValue = "5") int s,
+			@RequestParam(required = false, defaultValue = "5") int b,
+//			@RequestParam(required = false, defaultValue = "0") int idx,
 			Model model 
 			){
 		PagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(p, s, b);
@@ -36,30 +39,94 @@ public class FileBoardController {
 		model.addAttribute("b", b);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
-		return "list";
+		return "admin/Notice/list";
 	}
 	
-	// 저장/수정/삭제
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateGet() {
-		return "redirect:/list";
+	// 1개 내용보기
+	@RequestMapping("/view")
+	public String selectBiIdx(@RequestParam("idx") int idx, Model model) {
+		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		model.addAttribute("vo", vo);
+		return "admin/Notice/view";
+	}
+	
+	// 새글쓰기
+	@RequestMapping("/insert")
+	public String insert(
+			@RequestParam(required = false, defaultValue = "1") int p,
+			@RequestParam(required = false, defaultValue = "5") int s,
+			@RequestParam(required = false, defaultValue = "5") int b,
+			Model model) {
+		model.addAttribute("p", p);
+		model.addAttribute("s", s);
+		model.addAttribute("b", b);
+		model.addAttribute("br", "<br>");
+		model.addAttribute("newLine", "\n");
+		return "admin/Notice/insert";
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
-	@ResponseBody
+	// 수정하기
+	@RequestMapping("/update")
+	public String selectByIdx(
+			@RequestParam(required = false, defaultValue = "1") int p,
+			@RequestParam(required = false, defaultValue = "5") int s,
+			@RequestParam(required = false, defaultValue = "5") int b,
+			@RequestParam("idx") int idx, Model model) {
+		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		model.addAttribute("vo", vo);
+		model.addAttribute("p", p);
+		model.addAttribute("s", s);
+		model.addAttribute("b", b);
+		model.addAttribute("br", "<br>");
+		model.addAttribute("newLine", "\n");
+		return "admin/Notice/update";
+	}
+	
+	// 삭제하기
+	@RequestMapping("/delete")
+	public String delete(
+			@RequestParam(required = false, defaultValue = "1") int p,
+			@RequestParam(required = false, defaultValue = "5") int s,
+			@RequestParam(required = false, defaultValue = "5") int b,
+			@RequestParam("idx") int idx, Model model) {
+		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		model.addAttribute("vo", vo);
+		model.addAttribute("p", p);
+		model.addAttribute("s", s);
+		model.addAttribute("b", b);
+		model.addAttribute("br", "<br>");
+		model.addAttribute("newLine", "\n");
+		return "admin/Notice/delete";
+	}
+
+	// 저장/수정/삭제
+	@RequestMapping(value = "/updateOk", method = RequestMethod.GET)
+	public String updateGet() {
+		
+		return "redirect:/list";
+	}
+	@RequestMapping(value = "/updateOk", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
+//	@ResponseBody
 	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
 		boolean result = false;
+		log.info("updatePost : " + fileBoardVO);
+		log.info("updatePost : " + commVO);
 		switch (commVO.getMode()) {
-		case "insert":
+		case 1:
 			result = fileBoardService.insert(fileBoardVO);
+			log.info("insert 실행결과 : " + result);
 			break;
-		case "update":
+		case 2:
 			result = fileBoardService.update(fileBoardVO);
+			log.info("update 실행결과 : " + result);
 			break;
-		case "delete":
+		case 3:
 			result = fileBoardService.delete(fileBoardVO);
+			log.info("delete 실행결과 : " + result);
 			break;
 		}
-		return result ? "성공":"실패";
+		return "admin/Notice/list";
+//		return result ? "성공":"실패";
 	}
+
 }

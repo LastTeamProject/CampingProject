@@ -27,20 +27,20 @@ public class PagingVO<T> {
 
 	private void calc() {
 		if(currentPage<1) currentPage = 1;
-		if(pageSize<2) pageSize = 10;
-		if(blockSize<2) blockSize = 10;
+		if(pageSize<2) pageSize = 5;
+		if(blockSize<2) blockSize = 5;
 		
 		if(totalCount>0) {
 			totalPage = (totalCount-1)/pageSize + 1;
 			if(currentPage>totalPage) currentPage = 1;
 			
-			startNo = (currentPage-1) * pageSize; // 0, 10, 20, .....
+			startNo = (currentPage-1) * pageSize;
 			endNo   = startNo + pageSize - 1;
 			if(endNo>totalCount) {
 				endNo = totalCount-1;
 			}
 			
-			startPage = (currentPage-1)/blockSize * blockSize + 1; // 1, 11, 21 ...
+			startPage = (currentPage-1)/blockSize * blockSize + 1;
 			endPage = startPage + blockSize - 1;
 			if(endPage>totalPage) {
 				endPage = totalPage;

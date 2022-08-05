@@ -12,6 +12,17 @@ CREATE TABLE MEMBER(
 	col2 NUMBER,
 	col3 varchar2(100)
 );
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user01', member_idx_seq.nextval, '1234', '한사람', 01053244561, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user02', member_idx_seq.nextval, '1234', '두사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user03', member_idx_seq.nextval, '1234', '세사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+
+select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
 
 -- 회원 및 관리자 계정 권한 나누는 테이블
 CREATE SEQUENCE member_role_idx_seq;
@@ -22,6 +33,17 @@ CREATE TABLE member_role(
 	col1 varchar2(100),
 	col2 NUMBER
 );
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user01', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user02', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
+
+SELECT * FROM member;
 
 -- 업체 테이블
 

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>공지사항</title>
+	<title>회원 목록 보기</title>
 	<!-- axicon 사용하기 -->
 	<link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 	<!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -31,44 +31,44 @@
 <body>
 	<table>
 		<tr>
-			<td colspan="4" class="title">
-				<b>공 지 사 항</b>
-			</td>
+			<td class="title" colspan="6">전체 회원 목록</td>
 		</tr>
 		<tr>
-			<td th:text="${pv.pageInfo}" colspan="4" class="sub_title"/>
+			<td th:text="${pv.pageInfo}" colspan="6" class="sub_title"/>
 		</tr>
 		<tr>
-			<th>No</th>
-			<th width="55%">제목</th>
-			<th>작성일</th>
-			<th>조회수</th>
+			<th scope="col">번호</th>
+			<th scope="col">이름</th>
+			<th scope="col">아이디</th>
+			<th scope="col">전화번호</th>
+			<th scope="col">이메일</th>
+			<th scope="col">성별</th>
 		</tr>
-		<th:block th:unless="${pv.totalCount}">
-			<tr>
-				<td colspan="5" style="text-align: center;">
-				등록된 글이 없습니다.
-				</td>
-			</tr>
-		</th:block>
 		
 		<th:block th:if="${pv.totalCount}">
-			<th:block th:each="vo : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize}">
+			<th:block th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
 				<tr>
 					<td th:text="${no}"/>
-					<td style="text-align: left;">
-						<a th:text="${vo.subject}" href="#" th:onclick="sendPost('view.html',{'p':${p } , 's': ${s }, 'b':${b } , 'idx':${vo.idx},'isClick':true})"></a>
-					</td>
-					<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd')}"/>
-					<td th:text="${vo.clickCount}"/>
+					<td th:text="${vo.name}"/>
+					<td th:text="${vo.id}"/>
+					<td th:text="${vo.phone}"/>
+					<td th:text="${vo.email}"/>
+					<td th:text="${vo.gender} ? 'M' : 'W'"/>
 				</tr>
 			</th:block>
 		</th:block>
 		
+		<th:block th:unless="${pv.totalCount}">
+			<tr>
+				<td colspan="6" align="center">
+				등록된 회원이 없습니다.
+				</td>
+			</tr>
+		</th:block>
+		
 		<tr>
-			<td th:text="${pv.pageList}" colspan="4" class="sub_title" style="text-align: center;"/>
-		</tr>						
-
+			<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
+		</tr>
 	</table>
 </body>
 </html>
