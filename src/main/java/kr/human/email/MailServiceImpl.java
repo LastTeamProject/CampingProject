@@ -19,7 +19,7 @@ public class MailServiceImpl implements MailService{
 		MailHandler mailHandler=null;
 		try {
 			mailHandler = new MailHandler(javaMailSender);
-			mailHandler.setFrom("hyunwoungkim@naver.com", "힐링캠핑");
+			mailHandler.setFrom("보내는 사람 이메일", "힐링캠핑");
 			mailHandler.setTo(toAddress); // 받는사람
 			mailHandler.setSubject(subject + " 님 가입 축하드립니다. 인증 메일입니다."); // 제목
 			mailHandler.setText("<h1>하하하하하 정말 갈까?</h1>"); // 내용
