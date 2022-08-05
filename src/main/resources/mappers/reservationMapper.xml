@@ -9,17 +9,17 @@
 	</select>
 	
 	<!-- 예약 1개 보기 -->
-	<select id="selectReservation" parameterType="int" resultType="reservationVO">
+	<select id="selectReservation" parameterType="int" resultType="ReservationVO">
 		 select * from reservation where roomidx=#{roomidx} 
 	</select>
 	
 	<!-- 나의 예약목록 보기 -->
-	<select id="selectMyReservation" parameterType="hashmap" resultType="reservationVO">
+	<select id="selectMyReservation" parameterType="hashmap" resultType="ReservationVO">
 		select * from reservation where id = #{id} order by idx desc limit #{startNo}, #{pageSize}
 	</select>
 	
 	<!-- 예약하기 -->
-	<insert id="insertReservation" parameterType="reservationVO">
+	<insert id="insertReservation" parameterType="ReservationVO">
 		insert into reservation values(id=#{id},roomidx=#{roomidx},email=#{email})
 	</insert>
 	
@@ -29,7 +29,7 @@
 	</delete>
 	
 	<!-- 1 페이지 구하기 -->
-	<select id="selectReservationList" parameterType="hashmap" resultType="reservationVO">
+	<select id="selectReservationList" parameterType="hashmap" resultType="ReservationVO">
 		select * from reservation order by idx desc limit #{startNo}, #{pageSize}
 	</select>
 	
