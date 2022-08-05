@@ -46,7 +46,6 @@ VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
 SELECT * FROM member;
 
 -- 업체 테이블
-
 CREATE SEQUENCE company_idx_seq;
 DROP SEQUENCE company_idx_seq;
 DROP TABLE COMPANY;

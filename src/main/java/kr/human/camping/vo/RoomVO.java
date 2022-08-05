@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class RoomVO {
-	private int roomidx;
-	private int idx;
-	private String roomname;
+	private int roomidx; // roomidx
+	private int idx; //회원 idx
+	private String roomname; 
 	private int minpeople;
 	private int maxpeople;
 	private int price;
