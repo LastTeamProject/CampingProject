@@ -36,8 +36,8 @@ public class ReservationController {
 			@RequestParam(required = false, defaultValue = "10") int b,
 			Model model 
 			){
-		PagingVO<CompanyVO> pagingVO = companyService.CompanyList(p, s, b);
-		model.addAttribute("pv", pagingVO);
+		PagingVO<CompanyVO> CpagingVO = companyService.CompanyList(p, s, b);
+		model.addAttribute("cpv", CpagingVO);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
