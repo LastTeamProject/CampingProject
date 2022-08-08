@@ -106,7 +106,7 @@ public class FileBoardController {
 		return "redirect:/list";
 	}
 	@RequestMapping(value = "/updateOk", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
-//	@ResponseBody
+	@ResponseBody
 	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
 		boolean result = false;
 		log.info("updatePost : " + fileBoardVO);
@@ -125,8 +125,8 @@ public class FileBoardController {
 			log.info("delete 실행결과 : " + result);
 			break;
 		}
-		return "admin/Notice/list";
-//		return result ? "성공":"실패";
+//		return "admin/Notice/list";
+		return result ? "성공":"실패";
 	}
 
 }

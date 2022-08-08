@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.human.camping.dao.Admin_CompanyDAO">
+	<!-- 전체 업체수 구하기 -->
+	<select id="selectCompanyCount" resultType="int">
+		select count(*) from company
+	</select>
+	
+	<!-- 업체 1개 가져오기 -->
+	<select id="selectByIdx" parameterType="int" resultType="CompanyVO">
+		select * from company where idx=#{idx}
+	</select>
+	
+	<!-- 업체 1페이지 구하기 -->
+	<select id="selectList" parameterType="hashmap" resultType="CompanyVO">
+		select 
+ 			*
+ 		from
+	 		(select 
+	 			rownum rnum, R.*
+	 		from
+	 			(select * from company order by idx desc) R
+	 		where
+	 			<![CDATA[
+	 				rownum <= #{endNo}
+	 			]]>
+			) Q
+		where
+ 			<![CDATA[
+ 			rnum >= #{startNo}
+ 			]]>
+	</select>
+	
+	<!-- 업체 저장하기 -->
+	<insert id="insert" parameterType="CompanyVO">
+		insert into company (name, id, add1, add2, postcode, eco,roomtype, theme, areacode, hardness, latitude)
+		valuse (#{name},#{id},#{add1},#{add2},#{postcode},#{eco},#{roomtype},#{theme},#{areacode},#{hardness},#{latitude})
+	</insert>
+	
+	<!-- 업체 수정하기 -->
+	<update id="update" parameterType="CompanyVO">
+		update company set eco=#{eco}, roomtype=#{roomtype}, theme=#{theme} where idx=#{idx}
+	</update>
+	
+	<!-- 업체 삭제하기 -->
+	<delete id="delete" parameterType="int">
+		delete from company where idx=#{idx}
+	</delete>
+	
+</mapper>
