@@ -35,15 +35,17 @@
 	
 	<!-- 업체 저장하기 -->
 	<insert id="insert" parameterType="CompanyVO">
-		insert into company (name, id, add1, add2, postcode, eco,roomtype, theme, areacode, hardness, latitude)
-		valuse (#{name},#{id},#{add1},#{add2},#{postcode},#{eco},#{roomtype},#{theme},#{areacode},#{hardness},#{latitude})
+		insert into company
+			(idx, name, add1, add2, postcode, eco, roomtype, theme, areacode, detailcode, latitude, logitude)
+		values
+			(company_idx_seq.nextval, #{name}, #{add1}, #{add2}, #{postcode}, #{eco}, #{roomtype}, #{theme}, #{areacode}, #{detailcode}, #{latitude}, #{logitude})
 	</insert>
-	
+
 	<!-- 업체 수정하기 -->
 	<update id="update" parameterType="CompanyVO">
-		update company set eco=#{eco}, roomtype=#{roomtype}, theme=#{theme} where idx=#{idx}
+		update company set name=#{name}, eco=#{eco}, roomtype=#{roomtype}, theme=#{theme}, add1=#{add1}, add2=#{add2} where idx=#{idx}
 	</update>
-	
+
 	<!-- 업체 삭제하기 -->
 	<delete id="delete" parameterType="int">
 		delete from company where idx=#{idx}

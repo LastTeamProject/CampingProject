@@ -27,7 +27,7 @@ public class Admin_MemberServiceImpl implements Admin_MemberService{
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
 			HashMap<String, Integer> hashMap = new HashMap<>();
 			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("endNo", pagingVO.getPageSize());
+			hashMap.put("endNo", pagingVO.getEndNo());
 			List<MemberVO> list = memberDAO.selectByMemberList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {

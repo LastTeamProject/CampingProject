@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.human.camping.dao.Admin_CompanyDAO;
 import kr.human.camping.vo.CompanyVO;
 import kr.human.camping.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
 @Service("Admin_CompanyService")
 @Transactional
+@Slf4j
 public class Admin_CompanyServiceImpl  implements Admin_CompanyService{
 
 	@Autowired
@@ -27,8 +29,9 @@ public class Admin_CompanyServiceImpl  implements Admin_CompanyService{
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
 			HashMap<String, Integer> hashMap = new HashMap<>();
 			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("endNo", pagingVO.getPageSize());
+			hashMap.put("endNo", pagingVO.getEndNo());
 			List<CompanyVO> list = admin_CompanyDAO.selectList(hashMap);
+			log.info("쿼리결과 : {}",list.toString());
 			pagingVO.setList(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,38 +51,47 @@ public class Admin_CompanyServiceImpl  implements Admin_CompanyService{
 	}
 
 	@Override
-	public void insert(CompanyVO companyVO) {
+	public boolean insert(CompanyVO companyVO) {
+		boolean result = false;
 		if(companyVO!=null) {
 			try {
 				admin_CompanyDAO.insert(companyVO);
+				result = true;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return result;
 	}
 
 	@Override
-	public void update(CompanyVO companyVO) {
+	public boolean update(CompanyVO companyVO) {
+		boolean result = false;
 		if(companyVO!=null) {
 			try {
 				CompanyVO dbVO = admin_CompanyDAO.selectByIdx(companyVO.getIdx()); // DB에서 원본 가져오기
 				admin_CompanyDAO.update(companyVO);
+				result = true;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return result;
 	}
 
 	@Override
-	public void delete(CompanyVO companyVO) {
+	public boolean delete(CompanyVO companyVO) {
+		boolean result = false;
 		if(companyVO!=null) {
 			try {
 				CompanyVO dbVO = admin_CompanyDAO.selectByIdx(companyVO.getIdx()); // DB에서 원본 가져오기
 				admin_CompanyDAO.delete(companyVO.getIdx());
+				result = true;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return result;
 	}
 
 }

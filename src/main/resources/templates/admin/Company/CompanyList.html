@@ -40,8 +40,8 @@
 		</tr>
 		<tr>
 			<th>No</th>
-			<th width="55%">업체명</th>
-			<th>주소</th>
+			<th width="25%">업체명</th>
+			<th width="35%">주소</th>
 			<th>자연환경</th>
 			<th>룸타입</th>
 			<th>테마</th>
@@ -59,7 +59,7 @@
 				<tr>
 					<td th:text="${no}"/>
 					<td style="text-align: left;">
-						<a th:text="${vo.name}" th:href="@{view(idx = ${vo.idx})}"></a>
+						<a th:text="${vo.name}" th:href="@{CompanyView(idx = ${vo.idx})}"></a>
 					</td>
 					<td th:text="${vo.add1}"/>
 					<td th:text="${vo.eco}"/>
@@ -71,7 +71,7 @@
 		
 		<tr>
 			<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
-		</tr>						
+		</tr>
 		<tr>
 			<td class="sub_title" colspan="6">
 				<button class="btn btn-dark" 

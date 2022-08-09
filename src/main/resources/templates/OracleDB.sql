@@ -58,8 +58,8 @@ CREATE table company(
 	eco varchar2(100) NOT NULL,
 	roomtype varchar2(100) NOT NULL,
 	theme varchar2(100) NOT NULL,
-	areacode number(10) NOT NULL,		-- 전국지도 
-	detailcode number(10) NOT NULL,     -- 세부지역  
+	areacode number(10) NOT NULL,		-- 전국지도
+	detailcode number(10) NOT NULL,     -- 세부지역
 	Latitude float(30) NOT NULL,
 	logitude float(30) NOT NULL,
 	col1 varchar2(100),

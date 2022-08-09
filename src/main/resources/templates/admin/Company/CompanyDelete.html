@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>공지사항</title>
+	<title>업체 삭제하기</title>
 	<!-- axicon 사용하기 -->
 	<link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 	<!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -23,54 +23,50 @@
 		.item { width: 100px; background-color: black; color: white; text-align: center;}
 	</style>
 	<script type="text/javascript">
-// 		function formCheck(){
-// 			var obj = $("#subject");
-// 			if(obj.val()==null || obj.val().trim().length==0){
-// 				alert("제목은 반드시 입력해야 합니다.");
-// 				obj.val("");
-// 				obj.focus();
-// 				return false;
-// 			}
-// 			var obj = $("#content");
-// 			if(obj.val()==null || obj.val().trim().length==0){
-// 				alert("내용은 반드시 입력해야 합니다.");
-// 				obj.val("");
-// 				obj.focus();
-// 				return false;
-// 			}
-// 		}
+		$(function(){
+			
+		});
 	</script>
 </head>
 <body>
-	<form action="updateOk"  method="post" > 
+	<form action="CompanyUpdateOk"  method="post">
 		<!-- 여기에서 몇개를 숨겨서 가지고 가자 -->
 		<input type="hidden" name="p" th:value="${p }" />
 		<input type="hidden" name="s" th:value="${s }" />
 		<input type="hidden" name="b" th:value="${b }" />
-		<input type="hidden" name="mode" th:value="1" />
-		<input type="hidden" name="isclick" value="false"/>
+		<input type="hidden" name="idx" th:value="${vo.idx }" />
+		<input type="hidden" name="mode" value="3" />
 		<table>
 			<tr>
-				<td colspan="4" class="title"><b>공지사항 새글쓰기</b></td>
+				<td colspan="4" class="title"><b>업체 삭제하기</b></td>
 			</tr>
 			<tr>
-				<td class="item">제목</td>
-				<td colspan="3">
-					<input type="text" name="subject" id="subject" required="required" size="90" maxlength="100"/>
-				</td>
+				<td class="item">업체명</td>
+				<td th:text="${vo.name}" colspan="3"></td>
 			</tr>
 			<tr>
-				<td class="item" valign="top">내용</td>
-				<td colspan="3">
-					<textarea name="content" id="content" cols="93" rows="10"></textarea>
-				</td>
+				<td class="item">주소</td>
+				<td th:text="${vo.add1}"/>
+			<tr>
+				<td class="item">자연환경</td>
+				<td th:text="${vo.eco}"/>
+			</tr>
+			<tr>
+				<td class="item">룸 타입</td>
+				<td th:text="${vo.roomtype}"/>
+			</tr>
+			<tr>
+				<td class="item">테마</td>
+				<td th:text="${vo.theme}"/>
 			</tr>
 			<tr>
 				<td colspan="4" style="border: none;text-align: right;">
 					<input type="submit" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{updateOk} + '\''" value="저장">
+					th:onclick="'location.href=\''+ @{CompanyUpdateOk} + '\''" value="삭제하기">
 					<input type="button" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{list} + '\''" value="목록으로">
+					th:onclick="'location.href=\''+ @{CompanyView(idx = ${vo.idx})} + '\''" value="내용보기">
+					<input type="button" class="btn btn-dark" 
+					th:onclick="'location.href=\''+ @{CompanyList} + '\''" value="목록으로">
 				</td>
 			</tr>
 		</table>

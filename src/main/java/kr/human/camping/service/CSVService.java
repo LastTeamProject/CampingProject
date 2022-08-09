@@ -43,7 +43,7 @@ public class CSVService {
 			companyVO.setAreacode(Integer.parseInt(lines[8]));
 			companyVO.setDetailcode(Integer.parseInt(lines[9]));
 			companyVO.setLatitude(Double.parseDouble(lines[10]));
-			companyVO.setLongitude(Double.parseDouble(lines[11]));
+			companyVO.setLogitude(Double.parseDouble(lines[11]));
 			companyVO.setCol1(lines[12]);
 			try {
 				int x = Integer.parseInt(lines[13]);
@@ -55,7 +55,7 @@ public class CSVService {
 			
 			jdbcTemplate.update("insert into company values (company_idx_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 								companyVO.getName(), companyVO.getAdd1(), companyVO.getAdd2(),companyVO.getPostcode(),companyVO.getEco(),
-								companyVO.getRoomtype(),companyVO.getTheme(),companyVO.getAreacode(),companyVO.getDetailcode(),companyVO.getLatitude(),companyVO.getLongitude(),
+								companyVO.getRoomtype(),companyVO.getTheme(),companyVO.getAreacode(),companyVO.getDetailcode(),companyVO.getLatitude(),companyVO.getLogitude(),
 								companyVO.getCol1(),companyVO.getCol2());
 		}
 		
