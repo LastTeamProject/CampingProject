@@ -83,6 +83,9 @@ CREATE TABLE company_room(
 	col1 varchar2(100),
 	col2 number
 );
+INSERT INTO JSPUSER.COMPANY_ROOM
+(ROOMIDX, IDX, ROOMNAME, MINPEOPLE, MAXPEOPLE, PRICE, R_CHECK, CONTENT, COL1, COL2)
+VALUES(company_room_roomidx_seq.nextval, 3961, '테스트1', 1, 6, 30000, '0', '테스트1내용', '', 0);
 
 -- 방 예약 테이블
 DROP TABLE reservation;

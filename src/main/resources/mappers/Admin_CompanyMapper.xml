@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.human.camping.dao.Admin_CompanyDAO">
+	
 	<!-- 전체 업체수 구하기 -->
 	<select id="selectCompanyCount" resultType="int">
 		select count(*) from company
