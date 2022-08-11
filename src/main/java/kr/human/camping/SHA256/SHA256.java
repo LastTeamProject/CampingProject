@@ -1,4 +1,4 @@
-package kr.human.SHA256;
+package kr.human.camping.SHA256;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

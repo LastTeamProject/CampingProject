@@ -58,8 +58,8 @@
 	</select>
 	
 	<!-- 11. id찾기 -->
-	<select id="findID" parameterType="string" resultType="string">
-		select id from member where email = #{email}
+	<select id="findID" parameterType="string" resultType="MemberVO">
+		select * from member where email = #{email}
 	</select>
 	
 	<!-- 12. password임시비번으로 교환 -->
@@ -77,5 +77,13 @@
 	<update id="updateAccess" parameterType="string">
 		update member_role set role = 'user' where id = #{id}
 	</update>
+	
+	<!-- 로그인 -->
+    <select id="getUserAccount" parameterType="string" resultType="kr.human.camping.vo.UserVo">
+        SELECT idx USER_NO, ID, PASSWORD,
+        		NAME, '1' USER_AUTH, '' APPEND_DATE, '' UPDATE_DATE
+        FROM member
+        WHERE id= #{id}
+    </select>
 	
 </mapper>

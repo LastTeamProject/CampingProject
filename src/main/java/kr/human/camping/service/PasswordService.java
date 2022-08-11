@@ -2,7 +2,9 @@ package kr.human.camping.service;
 
 import java.util.Random;
 
+import org.springframework.stereotype.Service;
 
+@Service("passwordService")
 public class PasswordService {
 	public static String makeNewPassword() {
 		Random random  = new Random();
@@ -26,9 +28,9 @@ public class PasswordService {
 		return newPassword;
 	}
 	
-	public static void main(String[] args) {
-		for(int i=0;i<10;i++) {
-			System.out.println(makeNewPassword());
-		}
-	}
+//	public static void main(String[] args) {
+//		for(int i=0;i<10;i++) {
+//			System.out.println(makeNewPassword());
+//		}
+//	}
 }

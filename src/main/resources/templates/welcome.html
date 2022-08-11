@@ -21,7 +21,8 @@
 	}
 	
 	.container{
-		background-image:url("img/congrats.jpg");
+		background-image:url("img/congrats1.jpg");
+		background-size: 100%;
 		margin-top:10%;
 		width: 1000px;
 		height: 500px;
@@ -46,7 +47,8 @@
 		<div class="container">
 			<img class = "mailImg" alt="" src="img/mail_gateway.png">
 			<h2 th:utext="${memberVO.name}+ ' 님 가입 축하합니다!'"></h2><br />
-			<h2 th:utext="${memberVO.email}+ '으로 인증메일 발송되었습니다.<br /> 메일 인증후 로그인 가능합니다.'"></h2>				
+			<h2 th:utext="${memberVO.email}+ '으로 인증메일 발송되었습니다.<br /> 메일 인증후 로그인 가능합니다.'"></h2>
+			<button type="button" class="btn btn-outline-success" onclick="location.href='/login'">홈으로 가기</button>
 		</div>		
 	</div>
 </body>
