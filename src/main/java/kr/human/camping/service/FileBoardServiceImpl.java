@@ -28,7 +28,7 @@ public class FileBoardServiceImpl  implements FileBoardService{
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
 			HashMap<String, Integer> hashMap = new HashMap<>();
 			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("endNo", pagingVO.getPageSize());
+			hashMap.put("endNo", pagingVO.getEndNo());
 			List<FileBoardVO> list = fileBoardDAO.selectList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {

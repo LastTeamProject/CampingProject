@@ -19,7 +19,7 @@ public class CompanyVO {
 	private int areacode;
 	private int detailcode;
 	private double latitude; //위도
-	private double longitude; //경도
+	private double logitude; //경도
 	private String col1;
 	private int col2;
 }

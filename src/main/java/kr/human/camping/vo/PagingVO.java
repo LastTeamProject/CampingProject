@@ -34,10 +34,10 @@ public class PagingVO<T> {
 			totalPage = (totalCount-1)/pageSize + 1;
 			if(currentPage>totalPage) currentPage = 1;
 			
-			startNo = (currentPage-1) * pageSize;
+			startNo = (currentPage-1) * pageSize + 1;
 			endNo   = startNo + pageSize - 1;
 			if(endNo>totalCount) {
-				endNo = totalCount-1;
+				endNo = totalCount;
 			}
 			
 			startPage = (currentPage-1)/blockSize * blockSize + 1;

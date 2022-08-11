@@ -58,8 +58,8 @@ CREATE table company(
 	eco varchar2(100) NOT NULL,
 	roomtype varchar2(100) NOT NULL,
 	theme varchar2(100) NOT NULL,
-	areacode number(10) NOT NULL,		-- 전국지도 
-	detailcode number(10) NOT NULL,     -- 세부지역  
+	areacode number(10) NOT NULL,		-- 전국지도
+	detailcode number(10) NOT NULL,     -- 세부지역
 	Latitude float(30) NOT NULL,
 	longitude float(30) NOT NULL,
 	col1 varchar2(100),
@@ -83,6 +83,11 @@ CREATE TABLE company_room(
 	col1 varchar2(100),
 	col2 number
 );
+INSERT INTO JSPUSER.COMPANY_ROOM
+(ROOMIDX, IDX, ROOMNAME, MINPEOPLE, MAXPEOPLE, PRICE, R_CHECK, CONTENT, COL1, COL2)
+VALUES(company_room_roomidx_seq.nextval, 3961, '테스트1', 1, 6, 30000, '0', '테스트1내용', '', 0);
+
+SELECT * FROM company_room WHERE idx=(SELECT idx FROM company c WHERE idx=3961);
 
 -- 방 예약 테이블
 DROP TABLE reservation;
@@ -141,5 +146,10 @@ DROP SEQUENCE member_idx_seq;
 DROP TABLE MEMBERS ;
 SELECT * FROM company;
 
+<<<<<<< HEAD
 SELECT * FROM company
 WHERE areacode = 3 AND detailcode = 303 AND eco='강';
+=======
+
+
+>>>>>>> seongseok2

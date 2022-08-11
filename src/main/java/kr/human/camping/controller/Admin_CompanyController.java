@@ -10,48 +10,51 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.human.camping.service.Admin_CompanyRoomService;
+import kr.human.camping.service.Admin_CompanyService;
 import kr.human.camping.service.FileBoardService;
 import kr.human.camping.vo.CommVO;
+import kr.human.camping.vo.CompanyVO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class FileBoardController {
+public class Admin_CompanyController {
 
 	@Autowired
-	private FileBoardService fileBoardService;
+	private Admin_CompanyService admin_CompanyService;
 	
 	// 전체 목록보기
-	@RequestMapping("/list")
+	@RequestMapping("/CompanyList")
 	public String selectList(
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
-//			@RequestParam(required = false, defaultValue = "0") int idx,
 			Model model 
 			){
-		PagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(p, s, b);
+		PagingVO<CompanyVO> pagingVO = admin_CompanyService.selectList(p, s, b);
 		model.addAttribute("pv", pagingVO);
+		log.info("pagingVO : " + pagingVO);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
-		return "admin/Notice/list";
+		return "admin/Company/CompanyList";
 	}
 	
 	// 1개 내용보기
-	@RequestMapping("/view")
-	public String selectBiIdx(@RequestParam("idx") int idx, Model model) {
-		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+	@RequestMapping("/CompanyView")
+	public String selectByIdx(@RequestParam("idx") int idx, Model model) {
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
 		model.addAttribute("vo", vo);
-		return "admin/Notice/view";
+		return "admin/Company/CompanyView";
 	}
 	
 	// 새글쓰기
-	@RequestMapping("/insert")
+	@RequestMapping("/CompanyInsert")
 	public String insert(
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
@@ -62,70 +65,69 @@ public class FileBoardController {
 		model.addAttribute("b", b);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
-		return "admin/Notice/insert";
+		return "admin/Company/CompanyInsert";
 	}
 
 	// 수정하기
-	@RequestMapping("/update")
+	@RequestMapping("/CompanyUpdate")
 	public String selectByIdx(
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
 			@RequestParam("idx") int idx, Model model) {
-		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
 		model.addAttribute("vo", vo);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
-		return "admin/Notice/update";
+		return "admin/Company/CompanyUpdate";
 	}
 	
 	// 삭제하기
-	@RequestMapping("/delete")
+	@RequestMapping("/CompanyDelete")
 	public String delete(
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
 			@RequestParam("idx") int idx, Model model) {
-		FileBoardVO vo = fileBoardService.selectByIdx(idx, false);
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
 		model.addAttribute("vo", vo);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
-		return "admin/Notice/delete";
+		return "admin/Company/CompanyDelete";
 	}
 
 	// 저장/수정/삭제
-	@RequestMapping(value = "/updateOk", method = RequestMethod.GET)
+	@RequestMapping(value = "/CompanyUpdateOk", method = RequestMethod.GET)
 	public String updateGet() {
 		
-		return "redirect:/list";
+		return "redirect:/CompanyList";
 	}
-	@RequestMapping(value = "/updateOk", method = RequestMethod.POST)
-	public String updatePost(@ModelAttribute CommVO commVO, @ModelAttribute FileBoardVO fileBoardVO) {
+	@RequestMapping(value = "/CompanyUpdateOk", method = RequestMethod.POST)
+	public String updateCompany(@ModelAttribute CommVO commVO, @ModelAttribute CompanyVO companyVO) {
 		boolean result = false;
-		log.info("updatePost : " + fileBoardVO);
-		log.info("updatePost : " + commVO);
+		log.info("updateCompany : " + companyVO);
+		log.info("updateCompany : " + commVO);
 		switch (commVO.getMode()) {
 		case 1:
-			result = fileBoardService.insert(fileBoardVO);
+			result = admin_CompanyService.insert(companyVO);
 			log.info("insert 실행결과 : " + result);
 			break;
 		case 2:
-			result = fileBoardService.update(fileBoardVO);
+			result = admin_CompanyService.update(companyVO);
 			log.info("update 실행결과 : " + result);
 			break;
 		case 3:
-			result = fileBoardService.delete(fileBoardVO);
+			result = admin_CompanyService.delete(companyVO);
 			log.info("delete 실행결과 : " + result);
 			break;
 		}
-//		return "admin/Notice/list";
-		return "redirect:/list";
+		return "redirect:/CompanyList";
 	}
 
 }
