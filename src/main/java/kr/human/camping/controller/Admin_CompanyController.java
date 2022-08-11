@@ -25,9 +25,6 @@ public class Admin_CompanyController {
 
 	@Autowired
 	private Admin_CompanyService admin_CompanyService;
-//
-//	@Autowired
-//	private Admin_CompanyRoomService admin_CompanyRoomService;
 	
 	// 전체 목록보기
 	@RequestMapping("/CompanyList")

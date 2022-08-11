@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>업체 내용보기</title>
+	<title>업체 방 내용보기</title>
 	<!-- axicon 사용하기 -->
 	<link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 	<!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -32,42 +32,36 @@
 
 	<table>
 		<tr>
-			<td colspan="5" class="title"><b>업체 내용보기</b></td>
+			<td colspan="5" class="title"><b>업체 방 내용보기</b></td>
 		</tr>
 			<tr>
-				<td class="item" >업체명</td>
-				<td th:text="${vo.name}" colspan="4"/>
+				<td class="item" >객실 이름</td>
+				<td class="item" >최소인원</td>
+				<td class="item" >최대인원</td>
+				<td class="item" >가격</td>
+				<td class="item" >예약</td>
 			</tr>
 			<tr>
-				<td class="item" >주소</td>
-				<td th:text="${vo.add1}" colspan="4"/>
+				<td th:text="${vo.roomname}"/>
+				<td th:text="${vo.minpeople}"/>
+				<td th:text="${vo.maxpeople}"/>
+				<td th:text="${vo.price}"/>
+				<td th:text="${vo.r_check} ? '예약마감' : '예약가능'"/>
 			</tr>
 			<tr>
-				<td class="item" >자연환경</td>
-				<td th:text="${vo.eco}" colspan="4"/>
+				<td class="item" colspan="5">내용</td>
 			</tr>
 			<tr>
-				<td class="item" >룸타입</td>
-				<td th:text="${vo.roomtype}" colspan="4"/>
-			</tr>
-			<tr>
-				<td class="item" >테마</td>
-				<td th:text="${vo.theme}" colspan="4"/>
+				<td th:text="${vo.content}" colspan="5"/>
 			</tr>
 		<tr>
 			<td colspan="5" style="border: none;text-align: right;">
 				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''">방 목록 보기</button>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5" style="border: none;text-align: right;">
+				th:onclick="'location.href=\'' + @{CompanyRoomUpdate(idx = ${vo.idx})} + '\''">수정</button>	
 				<button class="btn btn-dark" 
-				th:onclick="'location.href=\'' + @{CompanyUpdate(idx = ${vo.idx})} + '\''">수정</button>	
+				th:onclick="'location.href=\''+ @{CompanyRoomDelete(idx = ${vo.idx})} + '\''">삭제</button>
 				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{CompanyDelete(idx = ${vo.idx})} + '\''">삭제</button>
-				<button class="btn btn-dark" 
-				th:onclick="'location.href=\''+ @{CompanyList} + '\''">목록</button>
+				th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''">목록</button>
 			</td>
 		</tr>
 	</table>

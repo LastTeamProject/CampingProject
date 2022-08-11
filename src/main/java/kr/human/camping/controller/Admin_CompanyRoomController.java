@@ -1,6 +1,8 @@
 package kr.human.camping.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,45 +27,39 @@ import lombok.extern.slf4j.Slf4j;
 public class Admin_CompanyRoomController {
 
 	@Autowired
+	private Admin_CompanyService admin_CompanyService;
+	
+	@Autowired
 	private Admin_CompanyRoomService admin_CompanyRoomService;
 	
 	// 업체 방 전체 보기
 	@RequestMapping("/CompanyRoomList")
-	public String selectRoomList(
-			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "5") int s,
-			@RequestParam(required = false, defaultValue = "5") int b,
-			Model model 
-			){
-		PagingVO<RoomVO> pagingVO = admin_CompanyRoomService.selectRoomList(p, s, b);
-		model.addAttribute("pv", pagingVO);
-		log.info("pagingVO : " + pagingVO);
-		model.addAttribute("p", p);
-		model.addAttribute("s", s);
-		model.addAttribute("b", b);
+	public String selectRoomList(@RequestParam("idx") int idx, Model model){
+		List<RoomVO> list = admin_CompanyRoomService.selectRoomList(idx);
+		CompanyVO cvo = admin_CompanyService.selectByIdx(idx);
+		model.addAttribute("list", list);
+		model.addAttribute("cvo", cvo);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomList";
 	}
-	
-	// 1개 내용보기
+
+	// 객실 1개 내용보기
 	@RequestMapping("/CompanyRoomView")
 	public String selectRoomIdx(@RequestParam("roomidx") int roomidx, Model model) {
-		RoomVO vo = admin_CompanyRoomService.selectByRoomIdx(roomidx);
-		model.addAttribute("vo", vo);
+		List<RoomVO> vos = admin_CompanyRoomService.selectByRoomIdx(roomidx);
+		model.addAttribute("vos", vos);
+		log.info("방 1개 가져오기 : " + vos);
 		return "admin/Company/CompanyRoomView";
 	}
 	
-	// 새글쓰기
+	// 객실 등록
 	@RequestMapping("/CompanyRoomInsert")
-	public String insert(
-			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "5") int s,
-			@RequestParam(required = false, defaultValue = "5") int b,
-			Model model) {
-		model.addAttribute("p", p);
-		model.addAttribute("s", s);
-		model.addAttribute("b", b);
+	public String insert(@RequestParam("idx") int idx, Model model) {
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
+//		RoomVO rvo = admin_CompanyRoomService.selectByRoomIdx(idx);
+		model.addAttribute("vo", vo);
+//		model.addAttribute("rvo", rvo);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomInsert";
@@ -71,16 +67,14 @@ public class Admin_CompanyRoomController {
 
 	// 수정하기
 	@RequestMapping("/CompanyRoomUpdate")
-	public String selectByIdx(
-			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "5") int s,
-			@RequestParam(required = false, defaultValue = "5") int b,
-			@RequestParam("roomidx") int roomidx, Model model) {
-		RoomVO vo = admin_CompanyRoomService.selectByRoomIdx(roomidx);
+	public String selectByIdx(@RequestParam("idx") int idx, Model model) {
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
+		log.info("vo 가져오기 : " + vo);
+		int idx2 = vo.getIdx();
+		List<RoomVO> rvos = admin_CompanyRoomService.selectByRoomIdx(idx2);
 		model.addAttribute("vo", vo);
-		model.addAttribute("p", p);
-		model.addAttribute("s", s);
-		model.addAttribute("b", b);
+		model.addAttribute("rvos", rvos);
+		log.info("rvos 가져오기 : " + rvos);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomUpdate";
@@ -88,16 +82,11 @@ public class Admin_CompanyRoomController {
 	
 	// 삭제하기
 	@RequestMapping("/CompanyRoomDelete")
-	public String delete(
-			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "5") int s,
-			@RequestParam(required = false, defaultValue = "5") int b,
-			@RequestParam("roomidx") int roomidx, Model model) {
-		RoomVO vo = admin_CompanyRoomService.selectByRoomIdx(roomidx);
+	public String delete(@RequestParam("idx") int idx, Model model) {
+		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
+		List<RoomVO> rvos = admin_CompanyRoomService.selectByRoomIdx(idx);
 		model.addAttribute("vo", vo);
-		model.addAttribute("p", p);
-		model.addAttribute("s", s);
-		model.addAttribute("b", b);
+		model.addAttribute("rvos", rvos);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomDelete";
@@ -105,15 +94,19 @@ public class Admin_CompanyRoomController {
 
 	// 저장/수정/삭제
 	@RequestMapping(value = "/CompanyRoomUpdateOk", method = RequestMethod.GET)
-	public String updateGet() {
+	public String updateGet(@RequestParam("idx") int idx) {
 		
-		return "redirect:/CompanyRoomList";
+		return "redirect:/CompanyRoomList?idx="+idx;
 	}
 	@RequestMapping(value = "/CompanyRoomUpdateOk", method = RequestMethod.POST)
-	public String updateCompany(@ModelAttribute CommVO commVO, @ModelAttribute RoomVO roomVO) {
+	public String updateCompany(@ModelAttribute CommVO commVO, @ModelAttribute RoomVO roomVO,
+								@RequestParam("idx") int idx, Model model){
+		List<RoomVO> vos = admin_CompanyRoomService.selectByRoomIdx(idx);
+		model.addAttribute("vos", vos);
 		boolean result = false;
 		log.info("updateCompanyRoom : " + roomVO);
 		log.info("updateCompanyRoom : " + commVO);
+		log.info("등록 idx 가져오기 : " + idx);
 		switch (commVO.getMode()) {
 		case 1:
 			result = admin_CompanyRoomService.insert(roomVO);
@@ -128,7 +121,7 @@ public class Admin_CompanyRoomController {
 			log.info("delete 실행결과 : " + result);
 			break;
 		}
-		return "redirect:/CompanyRoomList";
+		return "redirect:/CompanyRoomList?idx="+idx;
 	}
 
 }

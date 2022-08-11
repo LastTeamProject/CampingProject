@@ -31,31 +31,27 @@
 <body>
 	<table>
 		<tr>
-			<td colspan="6" class="title">
+			<td colspan="5" class="title">
 				<b>객실목록</b>
 			</td>
-		</tr>
-		<tr>
-			<td th:text="${pv.pageInfo}" colspan="6" class="sub_title"/>
 		</tr>
 		<tr>
 			<th>객실 이름</th>
 			<th>최소인원</th>
 			<th>최대인원</th>
 			<th>가격</th>
-			<th>내용</th>
 			<th>예약</th>
 		</tr>
-		<th:block th:unless="${pv.totalCount}">
+		<th:block th:unless="${list}">
 			<tr>
-				<td colspan="6" style="text-align: center;">
+				<td colspan="5" style="text-align: center;">
 				등록된 글이 없습니다.
 				</td>
 			</tr>
 		</th:block>
 		
-		<th:block th:if="${pv.totalCount}">
-			<th:block th:each="vo, status : ${pv.list}">
+		<th:block th:if="${list}">
+			<th:block th:each="vo, status : ${list}">
 				<tr>
 					<td style="text-align: left;">
 						<a th:text="${vo.roomname}" th:href="@{CompanyRoomView(roomidx = ${vo.roomidx})}"></a>
@@ -63,19 +59,17 @@
 					<td th:text="${vo.minpeople}"/>
 					<td th:text="${vo.maxpeople}"/>
 					<td th:text="${vo.price}"/>
-					<td th:text="${vo.content}"/>
 					<td th:text="${vo.r_check} ? '예약마감' : '예약가능'"/>
 				</tr>
 			</th:block>
 		</th:block>
-		
 		<tr>
-			<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
-		</tr>
-		<tr>
-			<td class="sub_title" colspan="6">
+			<td class="sub_title" colspan="5">
 				<button class="btn btn-dark" 
-				 th:onclick="'location.href=\''+ @{CompanyView} + '\''">돌아가기</button>
+				 th:onclick="'location.href=\''+ @{CompanyRoomInsert(idx = ${cvo.idx})} + '\''">객실 등록</button>
+<!-- 				 th:with="vo=${list}" -->
+				<button class="btn btn-dark" 
+				 th:onclick="'location.href=\''+ @{CompanyView(idx = ${cvo.idx})} + '\''">돌아가기</button>
 			</td>
 		</tr>
 	</table>

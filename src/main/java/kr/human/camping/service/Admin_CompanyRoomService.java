@@ -1,13 +1,14 @@
 package kr.human.camping.service;
 
-import kr.human.camping.vo.PagingVO;
+import java.util.List;
+
 import kr.human.camping.vo.RoomVO;
 
 public interface Admin_CompanyRoomService {
-	// 목록보기
-	PagingVO<RoomVO> selectRoomList(int currentPage, int pageSize, int blockSize);
-	// 1개 내용보기
-	RoomVO selectByRoomIdx(int roomidx);
+	// 업체당 방 목록 가져오기
+	List<RoomVO> selectRoomList(int idx);
+	// 방 1개 내용보기
+	List<RoomVO> selectByRoomIdx(int roomidx);
 	// 저장하기
 	boolean insert(RoomVO roomVO);
 	// 수정하기
