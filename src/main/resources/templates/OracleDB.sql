@@ -61,7 +61,7 @@ CREATE table company(
 	areacode number(10) NOT NULL,		-- 전국지도 
 	detailcode number(10) NOT NULL,     -- 세부지역  
 	Latitude float(30) NOT NULL,
-	logitude float(30) NOT NULL,
+	longitude float(30) NOT NULL,
 	col1 varchar2(100),
 	col2 number
 );
@@ -141,3 +141,5 @@ DROP SEQUENCE member_idx_seq;
 DROP TABLE MEMBERS ;
 SELECT * FROM company;
 
+SELECT * FROM company
+WHERE areacode = 3 AND detailcode = 303 AND eco='강';

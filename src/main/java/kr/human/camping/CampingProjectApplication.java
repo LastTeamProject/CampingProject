@@ -20,8 +20,8 @@ import kr.human.camping.service.CSVService;
 @SpringBootApplication
 public class CampingProjectApplication {
 	
-	//@Autowired
-	//CSVService csvService;
+	@Autowired
+	CSVService csvService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CampingProjectApplication.class, args);

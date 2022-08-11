@@ -108,7 +108,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		var a2 = [[${area2}]];
 		/*]]>*/
 	
-	alert(a1 + "\n" + a2);
 	
 	selectItem=[];
 	$(function(){
@@ -146,32 +145,75 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			url : "search", <!-- controller에 mapping 되어있는 주소를 맞춰주는 거  -->
 			type : "GET",   <!-- method = RequestMethod.GET 에 맞춰서 -->
 			data : {"area1":area1},
-			success : function(data){
+			success : function(data){	
 				
 			}
-		})
-		
+		})		
 	});
 	
 	$(document).on('change','#area2',function(){ <!--document 태그들의 이벤트  -->
 		var area1 = document.getElementById("area1").value;
 		var area2 = $(this).val();
+		var url = '?area1=' + area1 + "&area2=" + area2
+
+		if($("#mountain1").is(':checked')){
+			url += "&eco=" + $("#mountain1").val();
+		}
+		if($("#sea2").is(':checked')){
+			url += "&eco=" + $("#sea2").val();
+		}
+		if($("#river3").is(':checked')){
+			url += "&eco=" + $("#river3").val();
+		}
+		if($("#lake4").is(':checked')){
+			url += "&eco=" + $("#lake4").val();
+		}
+		if($("#camping1").is(':checked')){
+			url += "&roomtype=" + $("#camping1").val();
+		}
+		if($("#caravan2").is(':checked')){
+			url += "&roomtype=" + $("#caravan2").val();
+		}
+		if($("#glamping3").is(':checked')){
+			url += "&roomtype=" + $("#glamping3").val();
+		}
+		if($("#easycamping4").is(':checked')){
+			url += "&roomtype=" + $("#easycamping4").val();
+		}
+		if($("#family1").is(':checked')){
+			url += "&theme=" + $("#family1").val();
+		}
+		if($("#couple2").is(':checked')){
+			url += "&theme=" + $("#couple2").val();
+		}
+		if($("#kids3").is(':checked')){
+			url += "&theme=" + $("#kids3").val();
+		}
+		if($("#pet4").is(':checked')){
+			url += "&theme=" + $("#pet4").val();
+		}
 		/*
 		$.ajax({
-			url : "search2", <!-- controller에 mapping 되어있는 주소를 맞춰주는 거  -->
+			url : "search", <!-- controller에 mapping 되어있는 주소를 맞춰주는 거  -->
 			type : "GET",   <!-- method = RequestMethod.GET 에 맞춰서 -->
 			data : {"area1":area1,
-					"area2":area2	
+					"area2":area2,
+					"eco":eco,
+					"roomtype":roomtype,
+					"theme":theme
 			},
 			
 			success : function(data){
 				
 				alert("area1" + area1);
-				alert(area2);
+				alert("area2" + area2);
+				alert("eco" + eco);
+				alert("roomtype" + roomtype);
+				alert("theme" + theme);
 			}
 		})
 		*/
-		location.href='?area1=' + area1 + "&area2=" + area2
+		location.href=url
 		
 	});
 		
@@ -186,35 +228,88 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	margin-bottom: 10px;
 	font-size: 15px;
 }
+a{
+	text-decoration: none;
+}
+table{
+	border-collapse: collapse;
+	width: 1000px;
+	margin-top : 20px;
+	text-align: center;
+}
 
+td, th{
+	border : 1px solid black;
+	height : 50px;
+}
+
+th{
+	font-size: 17px;
+}
+
+thead{
+	font-weight : 700;
+}
 </style>
 </head>
 <body>
-<h1>검색창</h1>
-<table>
-	<div id="select" class="info"></div>
-	<select name="area1" id="area1"></select>
-	<select name="area2" id="area2"></select>
-	
-	<tbody>
-		<tr th:each="item : ${list}">
-			<td th:text="${item.name}">name</td> 
-			<td th:text="${item.areacode}">areacode</td> 
-			<td th:text="${item.detailcode}">detailcode</td> 
-			<!--<td th:text="${item.idx}">idx</td> 
-			<td th:text="${item.add1}">add1</td> 
-			<td th:text="${item.add2}">add2</td> 
-			<td th:text="${item.postcode}">postcode</td> 
-			<td th:text="${item.eco}">eco</td> 
-			<td th:text="${item.roomtype}">roomtype</td> 
-			<td th:text="${item.theme}">theme</td> 
-			<td th:text="${item.latitude}">latitude</td> 
-			<td th:text="${item.longitude}">longitude</td> 
-			 -->
-		</tr>
-	</tbody>
-</table>
-
-
+	<form th:action="@{/search}" method="get" th:object="${search}">
+		<h1>검색창</h1>
+			<div id="select" class="info"></div>
+			<select name="area1" id="area1"></select>
+			<select name="area2" id="area2"></select>
+		<div>	
+			<h3>자연환경</h3>
+			<div>
+				<th:block th:each="eco, cnt:${eco}" >
+				<label >
+					<input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}'/>
+					<span th:text="${eco.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<h3>숙소유형</h3>
+			<div>
+				<th:block th:each="roomtype, cnt:${roomtype}" >
+				<label >
+					<input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}'/>
+					<span th:text="${roomtype.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<h3>테마</h3>
+			<div>
+				<th:block th:each="theme, cnt:${theme}" >
+				<label >
+					<input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}'/>
+					<span th:text="${theme.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<input type ="button" value="검색">
+		</div>
+	</form>
+	<table>
+		<tbody>
+			<tr th:each="item : ${list}">
+				<td th:text="${item.name}">name</td> 
+				<td th:text="${item.areacode}">areacode</td> 
+				<td th:text="${item.detailcode}">detailcode</td> 
+				<td th:text="${item.eco}">eco</td> 
+				<td th:text="${item.roomtype}">roomtype</td> 
+				<td th:text="${item.theme}">theme</td> 
+				<!--<td th:text="${item.idx}">idx</td> 
+				<td th:text="${item.add1}">add1</td> 
+				<td th:text="${item.add2}">add2</td> 
+				<td th:text="${item.postcode}">postcode</td> 
+				<td th:text="${item.latitude}">latitude</td> 
+				<td th:text="${item.longitude}">longitude</td> 
+				 -->
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

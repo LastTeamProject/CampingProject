@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.human.camping.vo.CompanyVO;
+import kr.human.camping.vo.SearchVO;
 
 @Mapper
 public interface SearchDAO {
@@ -15,7 +16,7 @@ public interface SearchDAO {
 	// 2. 지역코드만 같은 업체 리스트
 	List<CompanyVO> searchByareacode(int areacode) throws SQLException;
 	// 3. 지역코드, 상세코드가 같은 업체 리스트
-	List<CompanyVO> searchBycode(HashMap<String, Integer> map)throws SQLException;
+	List<CompanyVO> searchBycode(HashMap<String, Object> map)throws SQLException;
 	// 4. 업체 추가
 	void insert(CompanyVO companyVO) throws SQLException;
 	// 5. 업체 업데이트
