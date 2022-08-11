@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.human.camping.vo.CompanyVO;
 import kr.human.camping.vo.ReservationVO;
 
 @Mapper
@@ -21,5 +22,8 @@ public interface ReservationDAO {
 	// 예약 취소하기
 	void deleteReservation(int roomidx) throws SQLException;
     // 한 페이지 정보 보기
-	List<ReservationVO> selectReservationList(HashMap<String, String> map) throws SQLException;
+	List<ReservationVO> selectReservationList(HashMap<String, Integer> map) throws SQLException;
+	// 업체 한개 가져오기(예약시)
+	CompanyVO selectByIdx(int roomidx) throws SQLException;
+	
 }

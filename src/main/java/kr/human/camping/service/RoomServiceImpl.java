@@ -1,16 +1,16 @@
 package kr.human.camping.service;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.human.camping.dao.RoomDAO;
-import kr.human.camping.vo.PagingVO;
 import kr.human.camping.vo.RoomVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service("roomService")
 public class RoomServiceImpl implements RoomService{
 	
@@ -18,27 +18,21 @@ public class RoomServiceImpl implements RoomService{
 	private RoomDAO roomDAO;
 	
 	@Override
-	public PagingVO<RoomVO> selectRoomList(int currentPage, int pageSize, int blockSize) {
-		PagingVO<RoomVO> pagingVO = null;
+	public List<RoomVO> selectRoomList(int idx) {
+		List<RoomVO> list = null;
 		try {
-			int totalCount = roomDAO.selectRoomnCount();
-			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, Integer> hashMap = new HashMap<>();
-			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("pageSize", pagingVO.getPageSize());
-			List<RoomVO> list = roomDAO.selectRoomList(hashMap);
-			pagingVO.setList(list);
+			list = roomDAO.selectRoomList(idx);	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return pagingVO;
+		return list;
 	}
 	
 	@Override
-	public RoomVO selectRoom(int roomidx) {
+	public RoomVO selectRoom(int roomIdx) {
 		RoomVO vo = null;
 		try {
-			vo = roomDAO.selectRoom(roomidx);
+			vo = roomDAO.selectRoom(roomIdx);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,5 +80,17 @@ public class RoomServiceImpl implements RoomService{
 		}
 		return result;
 	}
+
+	@Override
+	public int companyidx(int roomidx) {
+		int a = 0;
+		try {
+			a = roomDAO.companyidx(roomidx);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
+
 
 }

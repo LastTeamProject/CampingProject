@@ -79,7 +79,7 @@ CREATE TABLE company_room(
 	maxpeople number(2) NOT NULL,
 	price number(10) NOT NULL,
 	r_check char(1) check(r_check IN('0','1'))NOT NULL,
-	content varchar2(4000) NOT NULL,
+	content varchar2(4000),
 	col1 varchar2(100),
 	col2 number
 );
@@ -89,9 +89,9 @@ DROP TABLE reservation;
 CREATE TABLE reservation(
 	id varchar2(100),					-- 회원 및 관리자 계정 테이블의 id와 연결
 	roomidx number NOT null,			-- 업체방 테이블의 roomidx와 연결
-	email varchar2(100) NOT NULL,
-	col1 varchar2(100),
-	col2 NUMBER
+	--email varchar2(100) NOT NULL,
+	startday varchar2(100) NOT NULL,
+	endday varchar2(100) NOT NULL
 );
 
 -- 광고 테이블
