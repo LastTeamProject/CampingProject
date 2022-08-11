@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.human.camping.vo.MemberVO;
+import kr.human.camping.vo.UserVo;
 
 @Mapper
 public interface MemberDAO {
@@ -32,12 +33,15 @@ public interface MemberDAO {
 	// 10. email중복 검사
 	int EmailOverlap(String email) throws SQLException;
 	// 11. id찾기
-	String findID(String email) throws SQLException;
+	MemberVO findID(String email) throws SQLException;
 	// 12. password바꾸기
 	void changePassword(HashMap<String, String> map) throws SQLException;
 	// 13. 권한테이블 회원정보 삭제
 	void deleteAccess(String id) throws SQLException;
 	// 14. 권한'user'로 바꿔주기
 	void updateAccess(String id) throws SQLException;
+	
+	// 로그인
+    UserVo getUserAccount(String id);
 	
 }

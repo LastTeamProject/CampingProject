@@ -1,4 +1,4 @@
-package kr.human.email;
+package kr.human.camping.email;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -54,6 +54,8 @@ public class MailHandler {
 	public void addInline(String contentId, DataSource source) throws MessagingException {
 		messageHelper.addInline(contentId, source);
 	}
+	
+	
 
 	// 실제로 메일을 보내는 메서드..
 	public void send() {

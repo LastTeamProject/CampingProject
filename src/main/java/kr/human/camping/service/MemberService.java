@@ -4,6 +4,8 @@ package kr.human.camping.service;
 
 import java.util.HashMap;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import kr.human.camping.vo.MemberVO;
 
 public interface MemberService {
@@ -25,9 +27,10 @@ public interface MemberService {
 	// 7. password 변경
 	void changePassword(HashMap<String, String> map);
 	// 8. ID 찾기
-	String findID(String email);
+	HashMap<String, String> findID(String email);
 	// 9. 비밀번호 비교
 	boolean passwordcheck(String password, MemberVO vo);
 	// 10. 메일인증후 권한 'user'로 변환해주기
 	void updateAccess(String id);
+	
 }

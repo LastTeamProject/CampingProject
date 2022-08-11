@@ -9,51 +9,58 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import kr.human.SHA256.SHA256;
-import kr.human.camping.config.EmployeeSecurityConfiguration;
+import kr.human.camping.SHA256.SHA256;
+import kr.human.camping.config.SecurityConfiguration;
 import kr.human.camping.dao.MemberDAO;
+import kr.human.camping.email.MailService;
 import kr.human.camping.vo.MemberVO;
-import kr.human.email.MailService;
-import kr.human.email.MailServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @Service("MemberService")
 @Transactional
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	private MemberDAO memberDAO;
-	
 	@Autowired
-	private MailServiceImpl mailService;
+	private MailService mailService;
 	
 	@Override
 	public void MemberInsert(MemberVO vo) {
 		log.debug("회원가입 시작: " + vo);
-		SHA256 sha256 = new SHA256();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 		String password = vo.getPassword();
 		try {
-			vo.setPassword(sha256.encrypt(password));
+			//vo.setPassword(sha256.encrypt(password));
+			vo.setPassword(passwordEncoder.encode(password));
+			
 			// 사용자 데이터를 테이블에 넣는다.
-			//memberDAO.insert(vo);
+			memberDAO.insert(vo);
 			// 사용자 권한 등급은 초기에 unknown을주게되며
-			//memberDAO.insertAccess(vo);
+			memberDAO.insertAccess(vo);
 			
 			// 사용자 email로 인증메일이 날라가서 인증을 하게되면 권한등급을 user로 변환해준다.
 			// 메일 발송!!!
 			mailService.sendEmail(vo.getEmail(), vo.getName(), vo.getId());
 			
-		} /*catch(SQLException e) {
-			e.printStackTrace();
-		}*/ catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
 		}
+		//catch(SQLException e) {
+			//e.printStackTrace();
+		//} 
+		/*
+			 * catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+			 */
 		log.debug("회원가입 종료: ");
 	}
 
@@ -136,40 +143,40 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void changePassword(HashMap<String, String> map) {
-		SHA256 sha256 = new SHA256();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String result = map.get("password");
 		
 		try {
-			String password = sha256.encrypt(result);
+			String password = passwordEncoder.encode(result);
 			map.put("password",password);
 			memberDAO.changePassword(map);
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
-		}catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
 		}
 		
 	}
 
 	@Override
-	public String findID(String email) {
-		String id = null;
-		
+	public HashMap<String, String> findID(String email) {
+		MemberVO vo = new MemberVO();
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
-			id = memberDAO.findID(email);
+			 vo = memberDAO.findID(email);
+			 map.put("id",vo.getId());
+			 map.put("name", vo.getName());
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return id;
+		return map;
 	}
 
 	@Override
 	public boolean passwordcheck(String password, MemberVO vo) {
 		boolean Ischeck = true;
-		SHA256 sha256 = new SHA256();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		try {
-			if(!vo.getPassword().equals(sha256.encrypt(password))) {
+			if(!vo.getPassword().equals(passwordEncoder.encode(password))) {
 				Ischeck = false;
 			}
 		}catch (Exception e) {
