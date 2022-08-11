@@ -38,46 +38,46 @@
 		<input type="hidden" name="mode" value="2" />
 		<table>
 			<tr>
-				<td colspan="4" class="title"><b>업체 수정하기</b></td>
+				<td colspan="6" class="title"><b>업체 수정하기</b></td>
 			</tr>
 			<tr>
 				<td class="item">업체명</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="name" id="name" required="required" size="90" maxlength="100" th:value="${vo.name }"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">지번주소</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="add1" id="add1" required="required" size="90" maxlength="100" th:value="${vo.add1 }"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">도로명주소</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="add2" id="add2" required="required" size="90" maxlength="100" th:value="${vo.add2 }"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">자연환경</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="eco" id="eco" required="required" size="90" maxlength="100" th:value="${vo.eco }"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">룸 타입</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="roomtype" id="roomtype" required="required" size="90" maxlength="100" th:value="${vo.roomtype }"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">테마</td>
-				<td colspan="3">
+				<td colspan="4">
 					<input type="text" name="theme" id="theme" required="required" size="90" maxlength="100" th:value="${vo.theme }"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4" style="border: none;text-align: right;">
+				<td colspan="6" style="border: none;text-align: right;">
 					<input type="submit" class="btn btn-dark" 
 					th:onclick="'location.href=\''+ @{CompanyUpdateOk} + '\''" value="수정">
 					<input type="button" class="btn btn-dark" 

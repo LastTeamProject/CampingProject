@@ -37,9 +37,9 @@
 	<!-- 업체 저장하기 -->
 	<insert id="insert" parameterType="CompanyVO">
 		insert into company
-			(idx, name, add1, add2, postcode, eco, roomtype, theme, areacode, detailcode, latitude, logitude)
+			(idx, name, add1, add2, postcode, eco, roomtype, theme, areacode, detailcode, latitude, longitude)
 		values
-			(company_idx_seq.nextval, #{name}, #{add1}, #{add2}, #{postcode}, #{eco}, #{roomtype}, #{theme}, #{areacode}, #{detailcode}, #{latitude}, #{logitude})
+			(company_idx_seq.nextval, #{name}, #{add1}, #{add2}, #{postcode}, #{eco}, #{roomtype}, #{theme}, #{areacode}, #{detailcode}, #{latitude}, #{longitude})
 	</insert>
 
 	<!-- 업체 수정하기 -->

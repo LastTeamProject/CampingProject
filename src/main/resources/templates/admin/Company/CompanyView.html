@@ -32,15 +32,19 @@
 
 	<table>
 		<tr>
-			<td colspan="5" class="title"><b>업체 내용보기</b></td>
+			<td colspan="6" class="title"><b>업체 내용보기</b></td>
 		</tr>
 			<tr>
 				<td class="item" >업체명</td>
 				<td th:text="${vo.name}" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item" >주소</td>
+				<td class="item" >지번주소</td>
 				<td th:text="${vo.add1}" colspan="4"/>
+			</tr>
+			<tr>
+				<td class="item" >도로명주소</td>
+				<td th:text="${vo.add2}" colspan="4"/>
 			</tr>
 			<tr>
 				<td class="item" >자연환경</td>
@@ -55,13 +59,13 @@
 				<td th:text="${vo.theme}" colspan="4"/>
 			</tr>
 		<tr>
-			<td colspan="5" style="border: none;text-align: right;">
+			<td colspan="6" style="border: none;text-align: right;">
 				<button class="btn btn-dark" 
 				th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''">방 목록 보기</button>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5" style="border: none;text-align: right;">
+			<td colspan="6" style="border: none;text-align: right;">
 				<button class="btn btn-dark" 
 				th:onclick="'location.href=\'' + @{CompanyUpdate(idx = ${vo.idx})} + '\''">수정</button>	
 				<button class="btn btn-dark" 

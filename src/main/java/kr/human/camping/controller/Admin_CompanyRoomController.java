@@ -47,9 +47,9 @@ public class Admin_CompanyRoomController {
 	// 객실 1개 내용보기
 	@RequestMapping("/CompanyRoomView")
 	public String selectRoomIdx(@RequestParam("roomidx") int roomidx, Model model) {
-		List<RoomVO> vos = admin_CompanyRoomService.selectByRoomIdx(roomidx);
-		model.addAttribute("vos", vos);
-		log.info("방 1개 가져오기 : " + vos);
+		RoomVO vo = admin_CompanyRoomService.selectByRoomIdx(roomidx);
+		model.addAttribute("vo", vo);
+		log.info("방 1개 가져오기 : " + vo);
 		return "admin/Company/CompanyRoomView";
 	}
 	
@@ -57,9 +57,7 @@ public class Admin_CompanyRoomController {
 	@RequestMapping("/CompanyRoomInsert")
 	public String insert(@RequestParam("idx") int idx, Model model) {
 		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
-//		RoomVO rvo = admin_CompanyRoomService.selectByRoomIdx(idx);
 		model.addAttribute("vo", vo);
-//		model.addAttribute("rvo", rvo);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomInsert";
@@ -67,14 +65,12 @@ public class Admin_CompanyRoomController {
 
 	// 수정하기
 	@RequestMapping("/CompanyRoomUpdate")
-	public String selectByIdx(@RequestParam("idx") int idx, Model model) {
-		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
+	public String selectByIdx(@RequestParam("roomidx") int roomidx, Model model) {
+		RoomVO vo = admin_CompanyRoomService.selectByRoomIdx(roomidx);
+//		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
 		log.info("vo 가져오기 : " + vo);
-		int idx2 = vo.getIdx();
-		List<RoomVO> rvos = admin_CompanyRoomService.selectByRoomIdx(idx2);
+//		int idx2 = vo.getIdx();
 		model.addAttribute("vo", vo);
-		model.addAttribute("rvos", rvos);
-		log.info("rvos 가져오기 : " + rvos);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomUpdate";
@@ -84,9 +80,7 @@ public class Admin_CompanyRoomController {
 	@RequestMapping("/CompanyRoomDelete")
 	public String delete(@RequestParam("idx") int idx, Model model) {
 		CompanyVO vo = admin_CompanyService.selectByIdx(idx);
-		List<RoomVO> rvos = admin_CompanyRoomService.selectByRoomIdx(idx);
 		model.addAttribute("vo", vo);
-		model.addAttribute("rvos", rvos);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyRoomDelete";
@@ -101,8 +95,6 @@ public class Admin_CompanyRoomController {
 	@RequestMapping(value = "/CompanyRoomUpdateOk", method = RequestMethod.POST)
 	public String updateCompany(@ModelAttribute CommVO commVO, @ModelAttribute RoomVO roomVO,
 								@RequestParam("idx") int idx, Model model){
-		List<RoomVO> vos = admin_CompanyRoomService.selectByRoomIdx(idx);
-		model.addAttribute("vos", vos);
 		boolean result = false;
 		log.info("updateCompanyRoom : " + roomVO);
 		log.info("updateCompanyRoom : " + commVO);

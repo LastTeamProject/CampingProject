@@ -8,7 +8,7 @@ public interface Admin_CompanyRoomService {
 	// 업체당 방 목록 가져오기
 	List<RoomVO> selectRoomList(int idx);
 	// 방 1개 내용보기
-	List<RoomVO> selectByRoomIdx(int roomidx);
+	RoomVO selectByRoomIdx(int roomidx);
 	// 저장하기
 	boolean insert(RoomVO roomVO);
 	// 수정하기

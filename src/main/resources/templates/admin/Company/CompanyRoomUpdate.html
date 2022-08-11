@@ -40,37 +40,37 @@
 			<tr>
 				<td class="item">객실 이름</td>
 				<td colspan="3">
-					<input type="text" name="roomname" id="roomname" required="required" size="90" maxlength="100" th:value="${rvo.roomname}"/>
+					<input type="text" name="roomname" id="roomname" required="required" size="90" maxlength="100" th:value="${vo.roomname}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">최소인원</td>
 				<td colspan="3">
-					<input type="text" name="minpeople" id="minpeople" required="required" size="90" maxlength="100" th:value="${rvo.minpeople}"/>
+					<input type="text" name="minpeople" id="minpeople" required="required" size="90" maxlength="100" th:value="${vo.minpeople}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">최대인원</td>
 				<td colspan="3">
-					<input type="text" name="maxpeople" id="maxpeople" required="required" size="90" maxlength="100" th:value="${rvo.maxpeople}"/>
+					<input type="text" name="maxpeople" id="maxpeople" required="required" size="90" maxlength="100" th:value="${vo.maxpeople}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">가격</td>
 				<td colspan="3">
-					<input type="text" name="price" id="price" required="required" size="90" maxlength="100" th:value="${rvo.price}"/>
+					<input type="text" name="price" id="price" required="required" size="90" maxlength="100" th:value="${vo.price}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">예약</td>
 				<td colspan="3">
-					<input type="text" name="r_check" id="r_check" required="required" size="90" maxlength="100" th:value="${rvo.r_check} ? '예약마감' : '예약가능'"/>
+					<input type="text" name="r_check" id="r_check" required="required" size="90" maxlength="100" th:value="${vo.r_check} ? '예약마감' : '예약가능'"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="item">내용</td>
 				<td colspan="3">
-					<input type="text" name="content" id="content" required="required" size="90" maxlength="100" th:value="${rvo.content}"/>
+					<input type="text" name="content" id="content" required="required" size="90" maxlength="100" th:value="${vo.content}"/>
 				</td>
 			</tr>
 			<tr>
@@ -78,7 +78,7 @@
 					<input type="submit" class="btn btn-dark" 
 					th:onclick="'location.href=\''+ @{CompanyRoomUpdateOk(idx = ${vo.idx})} + '\''" value="수정">
 					<input type="button" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{CompanyRoomView(idx = ${vo.idx})} + '\''" value="내용보기">
+					th:onclick="'location.href=\''+ @{CompanyRoomView(roomidx = ${vo.roomidx})} + '\''" value="내용보기">
 					<input type="button" class="btn btn-dark" 
 					th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''" value="목록으로">
 				</td>
