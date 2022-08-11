@@ -57,10 +57,10 @@
 				<tr>
 					<td th:text="${no}"/>
 					<td style="text-align: left;">
-						<a th:text="${vo.subject}" th:href="@{view(idx = ${vo.idx})}"></a>
+						<a th:text="${vo.name}"></a>
 					</td>
-					<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd')}"/>
-					<td th:text="${vo.clickCount}"/>
+					<td th:text="${vo.add1}"/>
+					<td th:text="${vo.add2}"/>
 				</tr>
 			</th:block>
 		</th:block>

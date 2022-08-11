@@ -33,9 +33,14 @@
 		update company_room set r_check=#{r_check} where roomidx=#{roomidx}
 	</update>
 	
-	<!-- 1 페이지 구하기 -->
-	<select id="selectRoomList" parameterType="hashmap" resultType="RoomVO">
-		select * from company_room order by idx desc limit #{startNo}, #{pageSize}
+	<!-- 해당 회사의 방 리스트 구하기 -->
+	<select id="selectRoomList" parameterType="int" resultType="RoomVO">
+		select * from company_room where idx=#{idx}
+	</select>
+	
+	<!-- 해당 방의 업체 아이디 가져오기 -->
+	<select id="companyidx" parameterType="int" resultType="int">
+		select idx from company_room where roomidx=#{roomidx}
 	</select>
 	
 </mapper>

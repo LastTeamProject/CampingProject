@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.human.camping.dao.CompanyDAO;
 import kr.human.camping.dao.ReservationDAO;
+import kr.human.camping.vo.CompanyVO;
 import kr.human.camping.vo.PagingVO;
 import kr.human.camping.vo.ReservationVO;
 
@@ -23,9 +25,9 @@ public class ReservationServiceImpl implements ReservationService {
 		try {
 			int totalCount = reservationDAO.selectReservationCount();
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, String> hashMap = new HashMap<>();
-			hashMap.put("startNo",  Integer.toString(pagingVO.getStartNo()));
-			hashMap.put("pageSize", Integer.toString(pagingVO.getPageSize()));
+			HashMap<String, Integer> hashMap = new HashMap<>();
+			hashMap.put("startNo", pagingVO.getStartNo());
+			hashMap.put("endNo", pagingVO.getEndNo());
 			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
@@ -40,10 +42,10 @@ public class ReservationServiceImpl implements ReservationService {
 		try {
 			int totalCount = reservationDAO.selectReservationCount();
 			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, String> hashMap = new HashMap<>();
-			hashMap.put("id", id);
-			hashMap.put("startNo",  Integer.toString(pagingVO.getStartNo()));
-			hashMap.put("pageSize", Integer.toString(pagingVO.getPageSize()));
+			HashMap<String, Integer> hashMap = new HashMap<>();
+			hashMap.put("id", Integer.parseInt(id));
+			hashMap.put("startNo", pagingVO.getStartNo());
+			hashMap.put("endNo", pagingVO.getEndNo());
 			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
@@ -89,6 +91,17 @@ public class ReservationServiceImpl implements ReservationService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public CompanyVO selectCompany(int roomidx) {
+		CompanyVO vo = null;
+		try {
+			vo = reservationDAO.selectByIdx(roomidx);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
 	}
 
 }
