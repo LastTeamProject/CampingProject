@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -31,22 +32,22 @@
 <body>
 	<table>
 		<tr>
-			<td colspan="4" class="title">
+			<td colspan="3" class="title">
 				<b>공 지 사 항</b>
 			</td>
 		</tr>
 		<tr>
-			<td th:text="${pv.pageInfo}" colspan="4" class="sub_title"/>
+			<td th:text="${pv.pageInfo}" colspan="3" class="sub_title"/>
 		</tr>
 		<tr>
-			<th>No</th>
+			<th width="10%">No</th>
 			<th width="55%">제목</th>
 			<th>작성일</th>
-			<th>조회수</th>
+<!-- 			<th>조회수</th> -->
 		</tr>
 		<th:block th:unless="${pv.totalCount}">
 			<tr>
-				<td colspan="5" style="text-align: center;">
+				<td colspan="3" style="text-align: center;">
 				등록된 글이 없습니다.
 				</td>
 			</tr>
@@ -57,19 +58,23 @@
 				<tr>
 					<td th:text="${no}"/>
 					<td style="text-align: left;">
-						<a th:text="${vo.name}"></a>
+						<a th:text="${vo.subject}" th:href="@{view(idx = ${vo.idx})}"></a>
 					</td>
-					<td th:text="${vo.add1}"/>
-					<td th:text="${vo.add2}"/>
+					<td th:text="${#dates.format(vo.regDate, 'yyyy-MM-dd')}"/>
+<!-- 					<td th:text="${vo.clickCount}"/> -->
 				</tr>
 			</th:block>
 		</th:block>
 		
 		<tr>
-			<td th:utext="${pv.pageList}" colspan="4" class="sub_title" style="text-align: center;"/>
+			<td th:utext="${pv.pageList}" colspan="3" class="sub_title" style="text-align: center;"/>
 		</tr>						
 		<tr>
-			<td class="sub_title" colspan="6">
+			<td class="sub_title" colspan="2" >
+				<input type="text" placeholder="제목검색">
+				<button>검색</button>
+			</td>
+			<td class="sub_title" colspan="3">
 				<button class="btn btn-dark" 
 				 th:onclick="'location.href=\''+ @{insert} + '\''">새글쓰기</button>
 			</td>

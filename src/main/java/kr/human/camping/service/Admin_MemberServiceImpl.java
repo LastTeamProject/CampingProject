@@ -1,6 +1,7 @@
 package kr.human.camping.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +35,26 @@ public class Admin_MemberServiceImpl implements Admin_MemberService{
 			e.printStackTrace();
 		}
 		return pagingVO;
+	}
+
+
+
+	@Override
+	public PagingVO<MemberVO> selectByDormancyMember(String dormancy, int currentPage, int pageSize, int blockSize) {
+		PagingVO<MemberVO> dormancyVO = null;
+		try {
+			int totalCount = memberDAO.selectDormancyCount();
+			dormancyVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
+			HashMap<String, Object> hashMap = new HashMap<>();
+			hashMap.put("dormancy", dormancy);
+			hashMap.put("startNo", dormancyVO.getStartNo());
+			hashMap.put("endNo", dormancyVO.getEndNo());
+			List<MemberVO> list = memberDAO.selectByDormancyMember(hashMap);
+			dormancyVO.setList(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dormancyVO;
 	}
 
 }

@@ -12,7 +12,7 @@
 	
 	<!-- 업체 방 1개 가져오기 -->
 	<select id="selectByRoomIdx" parameterType="int" resultType="RoomVO">
-		select * from company_room where idx=#{roomidx}
+		select * from company_room where roomidx=#{roomidx}
 	</select>
 	
 	<!-- 방 저장하기 -->

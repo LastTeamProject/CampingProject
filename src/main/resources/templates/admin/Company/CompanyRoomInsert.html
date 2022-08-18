@@ -45,9 +45,6 @@
 		<div class="container" style="border: 1px solid gray;padding: 15px;margin-top: 30px;border-radius: 30px;">
 			<form action="CompanyRoomUpdateOk"  method="post" > 
 				<!-- 여기에서 몇개를 숨겨서 가지고 가자 -->
-<!-- 				<input type="hidden" name="p" th:value="${p }" /> -->
-<!-- 				<input type="hidden" name="s" th:value="${s }" /> -->
-<!-- 				<input type="hidden" name="b" th:value="${b }" /> -->
 				<input type="hidden" name="mode" th:value="1" />
 				<input type="hidden" name="idx" th:value="${vo.idx}" />
 				<div class="title" >객실 등록</div>
@@ -89,7 +86,7 @@
 				<div class="mb-3 row">
 					<div class="col-sm-12" style="text-align: right;">
 					<input type="submit" class="btn btn-outline-light" 
-					th:onclick="'location.href=\''+ @{CompanyRoomUpdateOk(idx = ${vo.idx})} + '\''" value="저장">
+					th:onclick="'location.href=\''+ @{CompanyRoomUpdateOk(idx = ${vo.idx} and roomidx = ${vo.roomidx})} + '\''" value="저장">
 					<input type="button" class="btn btn-outline-light" 
 					th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''" value="목록으로">
 					</div>

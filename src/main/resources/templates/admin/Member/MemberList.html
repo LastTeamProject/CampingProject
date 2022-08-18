@@ -23,52 +23,84 @@
 		.sub_title {border: none; text-align: right;}
 	</style>
 	<script type="text/javascript">
+	
+		var membertype={
+			"user":"일반회원",
+			"dormancy":"휴먼회원"
+		};
+		
 		$(function(){
-			
+			// 대항목 표시
+			for(key in membertype){
+				$("#membertype").append("<option value='"+key+"'"+ (membertype==key ?  " selected='selected' " : "") +" >" + membertype[key] + "</option>");
+			}
+		});
+		
+		//membertype이 바뀌면 그값을 가져와서 ajax한다.
+		$(document).on('change','#membertype',function(){
+			var membertype = $(this).val();
+			$.ajax({
+				url : "MemberList", <!-- controller에 mapping 되어있는 주소를 맞춰주는 거  -->
+				type : "GET",   <!-- method = RequestMethod.GET 에 맞춰서 -->
+				data : {"membertype":membertype},
+				success : function(data){
+				}
+			})
+		});
+		
+		$(document).on('change', function(){ <!--document 태그들의 이벤트  -->
+			var membertype = document.getElementById("membertype").value;
+			var url = '?membertype=' + membertype
+			location.href=url
 		});
 	</script>
 </head>
 <body>
-	<table>
-		<tr>
-			<td class="title" colspan="6">전체 회원 목록</td>
-		</tr>
-		<tr>
-			<td th:text="${pv.pageInfo}" colspan="6" class="sub_title"/>
-		</tr>
-		<tr>
-			<th scope="col">번호</th>
-			<th scope="col">이름</th>
-			<th scope="col">아이디</th>
-			<th scope="col">전화번호</th>
-			<th scope="col">이메일</th>
-			<th scope="col">성별</th>
-		</tr>
-		
-		<th:block th:if="${pv.totalCount}">
-			<th:block th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
+	<form th:action="@{/MemberList}" method="get" th:object="${search}">
+		<table>
+			<tr>
+				<td class="title" colspan="6">전체 회원 목록</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="sub_title">
+					<select name="membertype" id="membertype"></select>
+				</td>
+				<td th:text="${pv.pageInfo}" colspan="6" class="sub_title"/>
+			</tr>
+			<tr>
+				<th scope="col">번호</th>
+				<th scope="col">이름</th>
+				<th scope="col">아이디</th>
+				<th scope="col">전화번호</th>
+				<th scope="col">이메일</th>
+				<th scope="col">성별</th>
+			</tr>
+			
+			<th:block th:if="${pv.totalCount}">
+				<th:block th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
+					<tr>
+						<td th:text="${no}"/>
+						<td th:text="${vo.name}"/>
+						<td th:text="${vo.id}"/>
+						<td th:text="${vo.phone}"/>
+						<td th:text="${vo.email}"/>
+						<td th:text="${vo.gender} ? 'M' : 'W'"/>
+					</tr>
+				</th:block>
+			</th:block>
+			
+			<th:block th:unless="${pv.totalCount}">
 				<tr>
-					<td th:text="${no}"/>
-					<td th:text="${vo.name}"/>
-					<td th:text="${vo.id}"/>
-					<td th:text="${vo.phone}"/>
-					<td th:text="${vo.email}"/>
-					<td th:text="${vo.gender} ? 'M' : 'W'"/>
+					<td colspan="6" align="center">
+					등록된 회원이 없습니다.
+					</td>
 				</tr>
 			</th:block>
-		</th:block>
-		
-		<th:block th:unless="${pv.totalCount}">
+			
 			<tr>
-				<td colspan="6" align="center">
-				등록된 회원이 없습니다.
-				</td>
+				<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
 			</tr>
-		</th:block>
-		
-		<tr>
-			<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
-		</tr>
-	</table>
+		</table>
+	</form>
 </body>
 </html>

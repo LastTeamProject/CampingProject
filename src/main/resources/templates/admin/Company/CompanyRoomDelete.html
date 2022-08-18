@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>업체 수정</title>
+	<title>업체 방 삭제하기</title>
 	<!-- axicon 사용하기 -->
 	<link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 	<!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -29,61 +29,43 @@
 	</script>
 </head>
 <body>
-	<form action="CompanyUpdateOk" method="post">
+	<form action="CompanyRoomUpdateOk"  method="post">
 		<!-- 여기에서 몇개를 숨겨서 가지고 가자 -->
-		<input type="hidden" name="p" th:value="${p }" />
-		<input type="hidden" name="s" th:value="${s }" />
-		<input type="hidden" name="b" th:value="${b }" />
 		<input type="hidden" name="idx" th:value="${vo.idx }" />
-		<input type="hidden" name="mode" value="2" />
+		<input type="hidden" name="roomidx" th:value="${vo.roomidx }" />
+		<input type="hidden" name="mode" value="3" />
 		<table>
 			<tr>
-				<td colspan="6" class="title"><b>업체 수정하기</b></td>
+				<td colspan="5" class="title"><b>객실 삭제하기</b></td>
 			</tr>
 			<tr>
-				<td class="item">업체명</td>
-				<td colspan="4">
-					<input type="text" name="name" id="name" required="required" size="90" maxlength="100" th:value="${vo.name }"/>
-				</td>
+				<td class="item" >객실이름</td>
+				<td th:text="${vo.roomname}" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item">지번주소</td>
-				<td colspan="4">
-					<input type="text" name="add1" id="add1" required="required" size="90" maxlength="100" th:value="${vo.add1 }"/>
-				</td>
+				<td class="item" >최소인원</td>
+				<td th:text="${vo.minpeople}" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item">도로명주소</td>
-				<td colspan="4">
-					<input type="text" name="add2" id="add2" required="required" size="90" maxlength="100" th:value="${vo.add2 }"/>
-				</td>
+				<td class="item" >최대인원</td>
+				<td th:text="${vo.maxpeople}" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item">자연환경</td>
-				<td colspan="4">
-					<input type="text" name="eco" id="eco" required="required" size="90" maxlength="100" th:value="${vo.eco }"/>
-				</td>
+				<td class="item" >가격</td>
+				<td th:text="${vo.price}" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item">룸 타입</td>
-				<td colspan="4">
-					<input type="text" name="roomtype" id="roomtype" required="required" size="90" maxlength="100" th:value="${vo.roomtype }"/>
-				</td>
+				<td class="item" >예약</td>
+				<td th:text="${vo.r_check} ? '예약마감' : '예약가능'" colspan="4"/>
 			</tr>
 			<tr>
-				<td class="item">테마</td>
-				<td colspan="4">
-					<input type="text" name="theme" id="theme" required="required" size="90" maxlength="100" th:value="${vo.theme }"/>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="6" style="border: none;text-align: right;">
+				<td colspan="5" style="border: none;text-align: right;">
 					<input type="submit" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{CompanyUpdateOk} + '\''" value="수정">
+					th:onclick="'location.href=\''+ @{CompanyRoomUpdateOk(roomidx = ${vo.roomidx})} + '\''" value="삭제하기">
 					<input type="button" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{CompanyView(idx = ${vo.idx})} + '\''" value="내용보기">
+					th:onclick="'location.href=\''+ @{CompanyRoomView(roomidx = ${vo.roomidx})} + '\''" value="내용보기">
 					<input type="button" class="btn btn-dark" 
-					th:onclick="'location.href=\''+ @{CompanyList} + '\''" value="목록으로">
+					th:onclick="'location.href=\''+ @{CompanyRoomList(idx = ${vo.idx})} + '\''" value="목록으로">
 				</td>
 			</tr>
 		</table>

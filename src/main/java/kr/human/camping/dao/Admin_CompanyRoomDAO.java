@@ -12,7 +12,7 @@ public interface Admin_CompanyRoomDAO {
 	// 업체당 방 목록 가져오기
 	List<RoomVO> selectCompanyRoomList(int idx) throws SQLException;
 	// 업체 방 1개 가져오기
-	List<RoomVO> selectByRoomIdx(int roomidx) throws SQLException;
+	RoomVO selectByRoomIdx(int roomidx) throws SQLException;
 	// 업체 방 등록
 	void insert(RoomVO roomVO) throws SQLException;
 	// 업체 방 수정

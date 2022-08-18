@@ -24,6 +24,7 @@ public class Admin_CompanyRoomServiceImpl  implements Admin_CompanyRoomService{
 		List<RoomVO> list = null;
 		try {
 			list = admin_CompanyRoomDAO.selectCompanyRoomList(idx);
+			log.info("selectRoomList 가져오기 : " + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -31,14 +32,15 @@ public class Admin_CompanyRoomServiceImpl  implements Admin_CompanyRoomService{
 	}
 
 	@Override
-	public List<RoomVO> selectByRoomIdx(int roomidx) {
-		List<RoomVO> list= null;
+	public RoomVO selectByRoomIdx(int roomidx) {
+		RoomVO vo = null;
 		try {
-			list = admin_CompanyRoomDAO.selectByRoomIdx(roomidx);
+			vo = admin_CompanyRoomDAO.selectByRoomIdx(roomidx);
+			log.info("selectByRoomIdx 가져오기 : " + vo);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return vo;
 	}
 
 	@Override
