@@ -1,6 +1,5 @@
 package kr.human.camping.controller;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.human.camping.service.SearchService;
 import kr.human.camping.vo.CompanyVO;
+import kr.human.camping.vo.SearchPagingVO;
 
 @Controller
 public class SearchController {
@@ -30,26 +30,30 @@ public class SearchController {
 			@RequestParam(required = false) List<String> eco,
 			@RequestParam(required = false) List<String> roomtype,
 			@RequestParam(required = false) List<String> theme,
+			@RequestParam(required = false, defaultValue = "1") int p,  //현재 페이지
+			@RequestParam(required = false, defaultValue = "10") int s, //보여줄 리스트 갯수
+			@RequestParam(required = false, defaultValue = "5") int b,  //네비게이션 바의 갯수
+			@RequestParam(required = false, value="keyword") String keyword,
 			Model model) {
 		
-		if(area2 == null) {
-			List<CompanyVO> list = new ArrayList<CompanyVO>(); 
-			list = searchService.CompanyAreaCode(area1);
-			model.addAttribute("list", list);		
-		}else {		
-			List<CompanyVO> list = new ArrayList<CompanyVO>();
-			System.out.println("데이터 확인!!" + "area1 : " + area1 + "+" +"area2 : "+ area2 + "+" +"eco : "+ eco + "+" +"roomtype : "+roomtype+ "+"+"theme : " +theme);
-			list =searchService.CompanyCode(area1, area2,eco,roomtype,theme);
+
+			System.out.println("데이터 확인!!" + "area1 : " + area1 + "," +"area2 : "+ area2 + "," +"eco : "+ eco + "," +"roomtype : "+roomtype+ ","+"theme : " +theme+","+"keyword : "+keyword);
+			//여기서 안넘어감 왜지 ??? 
+			SearchPagingVO<CompanyVO> pv = searchService.CompanyCode(area1, area2,eco,roomtype,theme,p, s, b,keyword);
 			
-			
-			System.out.println("업체 목록:" + list);
-			model.addAttribute("list",list);
-		}
-		model.addAttribute("area1",area1);
-		model.addAttribute("area2",area2);
-		model.addAttribute("eco",eco_list());
-		model.addAttribute("roomtype",roomtype_list());
-		model.addAttribute("theme",theme_list());
+			System.out.println("SearchController 에서 search(pv) 호출 :" + pv);
+			model.addAttribute("pv",pv);
+			model.addAttribute("p", p);
+			model.addAttribute("s", s);
+			model.addAttribute("b", b);
+			model.addAttribute("br", "<br>");
+			model.addAttribute("newLine", "\n");		
+			model.addAttribute("area1",area1);
+			model.addAttribute("area2",area2);
+			model.addAttribute("eco",eco_list());
+			model.addAttribute("roomtype",roomtype_list());
+			model.addAttribute("theme",theme_list());
+			model.addAttribute("keyword",keyword);
 		return "search";
 	}
 	@ModelAttribute("eco")
@@ -79,4 +83,6 @@ public class SearchController {
 		theme.put("pet", "반려동물");
 		return theme;
 	}
+	
+	
 }

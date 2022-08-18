@@ -32,10 +32,15 @@ public class Admin_CompanyServiceImpl  implements Admin_CompanyService{
 			hashMap.put("endNo", pagingVO.getEndNo());
 			List<CompanyVO> list = admin_CompanyDAO.selectList(hashMap);
 			log.info("쿼리결과 : {}",list.toString());
+			System.out.println("----------------------------------------------------------");
+			System.out.println("Admin_CompanyServiceImpl에서의 selectList(pagingVO)호출 :  " + pagingVO);
+			System.out.println("----------------------------------------------------------");
+			System.out.println("Admin_CompanyServiceImpl에서의 selectList(list)호출 :  " + list);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Admin_CompanyServiceImpl에서의 리턴전selectList(pagingVO)호출 :  " + pagingVO);
 		return pagingVO;
 	}
 

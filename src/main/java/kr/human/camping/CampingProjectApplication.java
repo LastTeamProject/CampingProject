@@ -21,11 +21,16 @@ import kr.human.camping.service.CSVService2;
 @SpringBootApplication
 public class CampingProjectApplication {
 	
-	@Autowired
-	CSVService csvService;
+	//@Autowired
+	//CSVService csvService;
 	
+<<<<<<< HEAD
 //	@Autowired
 //	CSVService2 csvService2;
+=======
+	//@Autowired
+	//CSVService2 csvService2;
+>>>>>>> hwan91
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CampingProjectApplication.class, args);
@@ -45,6 +50,7 @@ public class CampingProjectApplication {
 					//csvService.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 업체 데이터)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 =======
 <<<<<<< HEAD
@@ -56,6 +62,9 @@ public class CampingProjectApplication {
 =======
 //					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 >>>>>>> seongseok
+=======
+					//csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
+>>>>>>> hwan91
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (URISyntaxException e) {

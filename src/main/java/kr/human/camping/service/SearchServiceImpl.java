@@ -1,16 +1,20 @@
 package kr.human.camping.service;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.human.camping.dao.SearchDAO;
 import kr.human.camping.vo.CompanyVO;
+import kr.human.camping.vo.PagingVO;
+import kr.human.camping.vo.SearchPagingVO;
 
 @Service("serchService")
+@Transactional
 public class SearchServiceImpl implements SearchService{
 	
 	@Autowired
@@ -27,58 +31,51 @@ public class SearchServiceImpl implements SearchService{
 		return companyVO;
 	}
 
-	@SuppressWarnings("null")
 	@Override
-	public List<CompanyVO> CompanyCode(int areacode, int detailcode,List<String> eco,List<String>roomtype,List<String>theme) {
-		List<CompanyVO> companyVO = null;
-		HashMap<String, Object> map = new HashMap<>();
-		List<String> eco_list=null;
+	public SearchPagingVO<CompanyVO> CompanyCode(int areacode, int detailcode,List<String> eco,List<String>roomtype,List<String>theme,int currentPage, int pageSize, int blockSize,String keyword) {
+		SearchPagingVO<CompanyVO> pagingVO = null;
+		HashMap<String, Object> vomap = new HashMap<>();
+
+		
 		try {
 			
-			map.put("areacode", areacode);
-			map.put("detailcode", detailcode);
+			vomap.put("areacode", areacode);
+			vomap.put("detailcode", detailcode);
+			if(keyword !=null) {
+				vomap.put("keyword", keyword);
+			}
 			if(eco !=null) {
-				map.put("eco", eco);
+				vomap.put("eco", eco);
 			}
 			if(roomtype !=null) {
-				map.put("roomtype", roomtype);
+				vomap.put("roomtype", roomtype);
 			}
 			if(theme !=null) {
-				map.put("theme", theme);
+				vomap.put("theme", theme);
 			}
+			int totalCount = searchDAO.searchCount(vomap);
+			System.out.println("serviceImpl: " + vomap);
+			System.out.println("serviceImpl: " + totalCount + "개");
 			
-			System.out.println("serviceImpl: " + map);
-			companyVO = searchDAO.searchBycode(map);
+			pagingVO = new SearchPagingVO<>(totalCount, currentPage, pageSize, blockSize);
+			vomap.put("startNo", pagingVO.getStartNo());
+			vomap.put("endNo", pagingVO.getEndNo());
 			
-			//System.out.println("serviceImpl: " + companyVO);
+			System.out.println("ServiceImpl에서의 CompanyCode(pagingmap)호출 :  " + vomap);
+			System.out.println("----------------------------------------------------------");
+			System.out.println("ServiceImpl에서의 CompanyCode(pagingVO)호출 :  " + pagingVO);
+			if(pagingVO.getTotalCount()>0)
+				pagingVO.setList(searchDAO.searchBycode(vomap));
 			
-		}catch (Exception e){
-			e.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
-		return companyVO;
+		System.out.println("----------------------------------------------------------");
+		System.out.println("ServiceImpl에서의 리턴 되기전 CompanyCode(pagingVO)호출 :  " + pagingVO);
+		return pagingVO;
 	}
-	/*
-	@Override
-	public List<CompanyVO> CompanyCode(int areacode, int detailcode) {
-		List<CompanyVO> companyVO = null;
-		HashMap<String, Integer> map = new HashMap<>();
-		try {
-			
-			map.put("areacode", areacode);
-			map.put("detailcode", detailcode);
-			companyVO = searchDAO.searchBycode(map);
-			
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return companyVO;
-	}
-	*/
 
-	@Override
-	public int selectCompanyCount() {
-		
-		return 0;
-	}
+	
+	
 	
 }

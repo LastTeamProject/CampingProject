@@ -164,12 +164,22 @@ COMMIT;
 SELECT * FROM TAB;
 DROP SEQUENCE member_idx_seq;
 DROP TABLE MEMBERS ;
-SELECT * FROM company;
+SELECT * FROM COMPANY_ROOM;
+SELECT * FROM COMPANY;
+select * from company eco in(SELECT eco FROM COMPANY c WHERE areacode=3 and detailcode=301);
+SELECT * FROM company WHERE '산' in (SELECT eco FROM COMPANY c WHERE areacode=3 and detailcode=301); -- 코드값으로 먼저 분류한 업체들
+-- 윗 리스트에서 선택한 값이 있는걸 가져와야 한다.
+-- 그렇다면 
+SELECT eco FROM COMPANY c WHERE areacode=3 and detailcode=301 AND eco = '강';
 
-<<<<<<< HEAD
-SELECT * FROM company
-WHERE areacode = 3 AND detailcode = 303 AND eco='강';
-=======
+--전체 업체(지역코드 3 상제주소 303 )
+select
+c.name 
+from company c 
+WHERE c.AREACODE =3 AND DETAILCODE =303
+AND c.NAME LIKE '%캠핑%';
+
+select * from (select rownum rnum, R.* from (select c.* from company c WHERE areacode=3 and 
+detailcode=304 order by c.idx DESC) R where rownum <= 20 ) Q where rnum >= 11; 
 
 
->>>>>>> seongseok2
