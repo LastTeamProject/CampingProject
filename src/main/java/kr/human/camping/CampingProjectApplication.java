@@ -24,8 +24,8 @@ public class CampingProjectApplication {
 	@Autowired
 	CSVService csvService;
 	
-	@Autowired
-	CSVService2 csvService2;
+//	@Autowired
+//	CSVService2 csvService2;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CampingProjectApplication.class, args);
@@ -43,7 +43,7 @@ public class CampingProjectApplication {
 					System.setProperty("java.awt.headless", "false");
 					Desktop.getDesktop().browse(new URI("http://localhost:8080/"));
 					//csvService.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 업체 데이터)
-					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
+//					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (URISyntaxException e) {

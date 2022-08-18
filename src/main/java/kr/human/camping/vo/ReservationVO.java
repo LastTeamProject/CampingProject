@@ -6,5 +6,8 @@ import lombok.Data;
 public class ReservationVO {
 	private String id;
 	private int roomidx;
-	private String email;
+//	private String email;
+	private int total;
+	private String startday;
+	private String endday;
 }
