@@ -44,6 +44,7 @@ public class CampingProjectApplication {
 					Desktop.getDesktop().browse(new URI("http://localhost:8080/"));
 					//csvService.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 업체 데이터)
 <<<<<<< HEAD
+<<<<<<< HEAD
 //					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 =======
 <<<<<<< HEAD
@@ -52,6 +53,9 @@ public class CampingProjectApplication {
 //					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 >>>>>>> hoegyeung99
 >>>>>>> db9cee883c0ad0c064d8f04471bfb701a8822d1e
+=======
+//					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
+>>>>>>> seongseok
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (URISyntaxException e) {

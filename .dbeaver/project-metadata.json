@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab","default-datasource":"oracle_thin-181702d528f-3fbd5247b20735ab","default-schema":"JSPUSER"}}}
 =======
 <<<<<<< HEAD
@@ -7,3 +8,6 @@
 {"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-1821496516a-51285224b41a9272","default-datasource":"oracle_thin-1821496516a-51285224b41a9272","default-schema":"JSPUSER"}}}
 >>>>>>> hoegyeung99
 >>>>>>> db9cee883c0ad0c064d8f04471bfb701a8822d1e
+=======
+{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab","default-datasource":"oracle_thin-181702d528f-3fbd5247b20735ab","default-schema":"JSPUSER"}}}
+>>>>>>> seongseok
