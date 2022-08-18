@@ -26,18 +26,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private final UserService userService;
 	
+	
+	@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+	}
+	
 	// Enable jdbc authentication
 //	@Autowired
 //    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//		System.out.println("configAuthentication");
+//		System.out.println("configAuthentication security111");
+//		
+//		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+//		
+//		System.out.println("security222");
 //		
 //        auth
 //        .jdbcAuthentication()
 //        .passwordEncoder(new BCryptPasswordEncoder())
 //        .dataSource(dataSource)
-//        //.authoritiesByUsernameQuery("select idx, id, role role from member_role where id=?")
-//        .usersByUsernameQuery("select idx, id, password, name, phone, email, gender from member where id=?")
+//        .authoritiesByUsernameQuery("select idx, id, role role from member_role where id=?")
+//        .getUserDetailsService()
+//        //.usersByUsernameQuery("select idx, id, password, name, phone, email, gender from member where id=?")
 //        ;
+//        
+//        System.out.println("security333");
 //    }
 
 	@Override
@@ -55,20 +68,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/welcome").permitAll()
 		.antMatchers("/Emailwelcome").permitAll()
 		.antMatchers("/findID").permitAll()
+		.antMatchers("/findIDpage").permitAll()
 		.antMatchers("/findPassword").permitAll()
 		.antMatchers("/findpage").permitAll()
 		.antMatchers("/IdOverlap").permitAll()
 		.antMatchers("/EmailOverlap").permitAll()
 		.antMatchers("/confilm").permitAll()
+		.antMatchers("/MemberInfoUpdate").hasAnyRole("user", "admin")
+		.antMatchers("/InfoUpdate").hasAnyRole("user", "admin")
 		.antMatchers("/**").permitAll()
-		.antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
-		.antMatchers("/getEmployees").hasAnyRole("USER", "ADMIN")
-		.antMatchers("/addNewEmployee").hasAnyRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
-		.formLogin().usernameParameter("id").passwordParameter("password").loginPage("/login").permitAll()
-		.loginProcessingUrl("/login_proc")
-        .defaultSuccessUrl("/user_access")
+		.formLogin()
+		.usernameParameter("id")
+		.passwordParameter("password")
+		.loginPage("/login").permitAll()
+		.loginProcessingUrl("/login_proc") 
+		.defaultSuccessUrl("/user_access")
+        .successHandler(new MyLoginSuccessHandler())
         .failureUrl("/access_denied")
 		.and()
 		.logout().permitAll();
@@ -76,11 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 	}
 	
-	
-	@Autowired
-	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
-	}
+
 
 
 }

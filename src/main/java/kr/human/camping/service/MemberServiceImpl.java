@@ -66,7 +66,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void MemberUpdate(MemberVO vo) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String password = vo.getPassword();
 		try {
+			if(vo.getPassword() != null||vo.getPassword().length() != 0) {
+				vo.setPassword(passwordEncoder.encode(password));
+			}else {
+				vo.setPassword(null);
+			}
 			memberDAO.update(vo);
 		} catch (SQLException e) {
 			e.printStackTrace();

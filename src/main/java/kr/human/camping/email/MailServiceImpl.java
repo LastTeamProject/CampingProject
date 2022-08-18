@@ -33,7 +33,7 @@ public class MailServiceImpl implements MailService{
 			context.setVariable("id", content);
 			String html = templateEngine.process("Emailwelcome", context);
 			mailHandler = new MailHandler(javaMailSender);
-			mailHandler.setFrom("properties 에있는 자기 이메일이랑 맞춰야함", "힐링캠핑");
+			mailHandler.setFrom("hyunwoungkim@naver.com", "힐링캠핑"); //properties 에있는 자기 이메일이랑 맞춰야함
 			mailHandler.setTo(toAddress); // 받는사람
 			mailHandler.setSubject(subject + " 님 가입 축하드립니다. 인증 메일입니다."); // 제목
 			mailHandler.setText(html);
@@ -55,7 +55,7 @@ public class MailServiceImpl implements MailService{
 			context.setVariable("password", map.get("password"));
 			String html = templateEngine.process("newPasswordEmail", context);
 			mailHandler = new MailHandler(javaMailSender);
-			mailHandler.setFrom("properties 에있는 자기 이메일이랑 맞춰야함", "힐링캠핑");
+			mailHandler.setFrom("hyunwoungkim@naver.com", "힐링캠핑");
 			mailHandler.setTo(map.get("email")); // 받는사람
 			mailHandler.setSubject(map.get("name") + " 님 임시비밀번호 발급 메일입니다."); // 제목
 			mailHandler.setText(html);

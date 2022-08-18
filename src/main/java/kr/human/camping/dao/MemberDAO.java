@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.human.camping.vo.MemberVO;
-import kr.human.camping.vo.UserVo;
 
 @Mapper
 public interface MemberDAO {
@@ -41,7 +40,5 @@ public interface MemberDAO {
 	// 14. 권한'user'로 바꿔주기
 	void updateAccess(String id) throws SQLException;
 	
-	// 로그인
-    UserVo getUserAccount(String id);
 	
 }

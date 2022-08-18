@@ -2,6 +2,10 @@ package kr.human.camping.controller;
 
 
 import java.util.HashMap;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
+import com.sun.mail.iap.Response;
+
 import kr.human.camping.email.MailService;
 import kr.human.camping.service.MemberService;
 import kr.human.camping.service.PasswordService;
 import kr.human.camping.vo.MemberVO;
-import kr.human.camping.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 
 @Controller("MemberController")
@@ -95,8 +100,8 @@ public class MemberController {
 	@RequestMapping("/user_access")
     public String userAccess(Model model, Authentication authentication) {
         //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
-        UserVo userVo = (UserVo) authentication.getPrincipal();  //userDetail 객체를 가져옴
-        model.addAttribute("info", userVo.getId() +"의 "+ userVo.getUserName()+ "님");      //유저 아이디
+        MemberVO userVo = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
+        model.addAttribute("info", userVo.getId() +"의 "+ userVo.getName()+ "님");      //유저 아이디
         return "user_access";
     }
 	
@@ -119,24 +124,31 @@ public class MemberController {
 	
 	// 아이디 찾기
 	@RequestMapping("/findID")
-	public String findID(@ModelAttribute Model model) {
+	public String findID(@RequestParam("email") String email, Model model) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		map = memberService.findID((String)model.getAttribute("email"));
+		System.out.println(model.getAttribute(email));
+		map = memberService.findID(email);
 		model.addAttribute("id",map.get("id"));
 		model.addAttribute("name",map.get("name"));
-		return "login";
+		return "findIDpage";
 	}
 	
 	// 비밀번호 찾기
 	// map에는 id, email, name 을 넘겨준다. 
-	@RequestMapping("/findPassword")
-	public String findPassword(@ModelAttribute HashMap<String, String> map) {
+	@RequestMapping(value ="/findPassword", method = RequestMethod.POST)
+	public String findPassword(@RequestParam HashMap<String, String> map, Model model) {
 		// 새로운 비밀번호 생성
 		String newPassword = PasswordService.makeNewPassword();
+		System.out.println("새로운 비번: " + newPassword);
+		System.out.println("이름: " + map.get("name"));
+		System.out.println("Email: " + map.get("email"));
+		System.out.println("ID: " + map.get("id"));
 		// 새비밀번호를 넣어서 서비스로 GO!
 		map.put("password", newPassword);
 		memberService.changePassword(map);
 		// 비밀번호 해당 email로 쏴주고
+		map.put("password", newPassword);
+		System.out.println(map);
 		mailService.sendEmail(map);
 		return "login";
 	}
@@ -148,12 +160,32 @@ public class MemberController {
 		return "updateInfo";
 	}
 	
+	// 아이디/비밀번호 찾기페이지
 	@RequestMapping("/findpage")
 	public String findpage() {
 		
 		return "findpage";
 	}
 	
+	// 내 정보 수정하기페이지 이동
+	@RequestMapping(value="/MemberInfoUpdate", method = RequestMethod.GET)
+	public String MemberInfoUpdate(HttpServletRequest request) {
+		System.out.println("MemeberInfoUpdate Controller");
+		HttpSession session = request.getSession();
+		System.out.println("session : "+session.getAttribute("UserInfo"));
+		if(session.getAttribute("UserInfo") != null ) {
+			return "MemberInfoUpdate";
+		}
+		return "/";
+	}
 	
+	// 정보수정
+	@RequestMapping(value="/InfoUpdate", method = RequestMethod.POST)
+	public String passwordCheck(@ModelAttribute MemberVO memberVO, Model model) {
+		System.out.println(memberVO);
+		memberService.MemberUpdate(memberVO);
+		
+		return "MemberInfoUpdate";
+	}
 	
 }

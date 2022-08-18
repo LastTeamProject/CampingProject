@@ -13,7 +13,7 @@
 
 	<!-- 2. 회원 정보 수정 -->
 	<update id="update" parameterType="MemberVO">
-		update member set password = #{password}, name = #{name}, email = #{email}, gender = #{gender}
+		update member set <if test="password != null||password !=''">password = #{password},</if> name = #{name}, email = #{email}, gender = #{gender}, phone = #{phone}
 		where id=#{id}
 	</update>
 
@@ -24,7 +24,7 @@
 	
 	<!-- 4. 회원정보 가져오기 -->
 	<select id="selectByMemberInfo" parameterType="string" resultType="MemberVO">
-		select * from memeber where id=#{id}
+		select m.*, ml.ROLE role from MEMBER m JOIN member_role ml ON m.id = ml.id where m.id=#{id}
 	</select>
 	
 	<!-- 5. 전체 회원 리스트 가져오기 -->
@@ -78,12 +78,6 @@
 		update member_role set role = 'user' where id = #{id}
 	</update>
 	
-	<!-- 로그인 -->
-    <select id="getUserAccount" parameterType="string" resultType="kr.human.camping.vo.UserVo">
-        SELECT idx USER_NO, ID, PASSWORD,
-        		NAME, '1' USER_AUTH, '' APPEND_DATE, '' UPDATE_DATE
-        FROM member
-        WHERE id= #{id}
-    </select>
+	
 	
 </mapper>

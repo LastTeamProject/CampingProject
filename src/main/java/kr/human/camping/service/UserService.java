@@ -1,7 +1,7 @@
 package kr.human.camping.service;
 
 import kr.human.camping.dao.MemberDAO;
-import kr.human.camping.vo.UserVo;
+import kr.human.camping.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,13 +18,17 @@ public class UserService implements UserDetailsService{
     private final MemberDAO userMapper;
 
     @Override
-    public UserVo loadUserByUsername(String id) throws UsernameNotFoundException {
-        //여기서 받은 유저 패스워드와 비교하여 로그인 인증
-        UserVo userVo = userMapper.getUserAccount(id);
-        if (userVo == null){
-            throw new UsernameNotFoundException("User not authorized.");
-        }
-
-        return userVo;
+    public MemberVO loadUserByUsername(String id) throws UsernameNotFoundException {
+    	MemberVO memberVO = new MemberVO();
+    	try {
+	    	//여기서 받은 유저 패스워드와 비교하여 로그인 인증
+	        memberVO = userMapper.selectByMemberInfo(id);
+	        if (memberVO == null){
+	            throw new UsernameNotFoundException("User not authorized.");
+	        }
+        }catch (Exception e) {
+        	e.printStackTrace();
+		}
+        return memberVO;
     }
 }

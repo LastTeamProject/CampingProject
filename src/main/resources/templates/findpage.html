@@ -12,65 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	// id중복 확인 하기
-	$('#id').keyup(function() {
-		
-		var value = $(this).val();
-		if(value!=null && value.length>=4){
-			$.ajax({
-				url : "IdOverlap",
-				type : "GET",
-				data : {"id":value},
-				success : function(data){
-					if(data*1==0){
-						$("#msg").html("사용가능한 ID입니다.").css('color','blue');
-					}else{
-						$("#msg").html("이미 있는 ID입니다.").css('color','red');
-					}
-				},
-				error : function(){
-					alert('에러다!!!!')
-				}
-			});
-		}else{
-			$("#msg").html("최소4자 이상입니다.").css('color','black');
-		}
-	});
-	
-	
-	// email중복 확인 하기
-	$("#email").keyup(function() {
-		var value = $(this).val();
-			$.ajax({
-				url : "EmailOverlap",
-				type : "GET",
-				data : {"email":value},
-				success : function(data){
-					if(data*1==0){
-						$("#emsg").html("사용가능한 Email입니다.").css('color','blue');
-					}else{
-						$("#emsg").html("이미 사용한 Email입니다. 계정이 있는지 확인해 주세요.").css('color','red');
-					}
-				},
-				error : function(){
-					alert('에러다!!!!')
-				}
-			});
-	});
-	
-	
-	// 2차 비밀번호 대조하기
-	$(document).on('click','#password2',function(){
-		// 1차 원본 password를 가져온다.
-		var password1 = document.getElementById('password1').value;
-		$(document).on('keyup','#password2',function(){
-			var password2 = $(this).val();
-			if (password1 == password2){
-				$("#pmsg").html("일치").css('color','blue');
-			} else{
-				$("#pmsg").html("불일치").css('color','red');
-			}
-		});
+	$(document).on('click','#clicker',function(){
+		alert("회원님 메일로 임시비밀번호가 발송되었습니다.");
 	});
 });
 		
@@ -462,9 +405,10 @@ $(document).ready(function(){
 													<i class="input-icon uil uil-user"></i>
 												</div>
 												<div id="msg"></div>		
-												
-												
-												<button class="btn mt-4" type="submit">Password찾기</button>
+												<button id="clicker" class="btn mt-4" type="submit">Password찾기</button>
+												<div class="find">
+	                            				<p class="mb-0 mt-4 text-center"><a href="/login" class="ID">로그인 하러가기</a></p>
+                            				</div>
 					      					</div>
 				      					</div>
 			      					</form>
