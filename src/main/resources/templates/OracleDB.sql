@@ -17,10 +17,19 @@ INSERT INTO JSPUSER."MEMBER"
 VALUES('user01', member_idx_seq.nextval, '1234', '한사람', 01053244561, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
 INSERT INTO JSPUSER."MEMBER"
 (ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
-VALUES('user02', member_idx_seq.nextval, '1234', '두사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+VALUES('user02', member_idx_seq.nextval, '1234', '두사람', 01243453266, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
 INSERT INTO JSPUSER."MEMBER"
 (ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
-VALUES('user03', member_idx_seq.nextval, '1234', '세사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+VALUES('user03', member_idx_seq.nextval, '1234', '세사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user04', member_idx_seq.nextval, '1234', '네사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user05', member_idx_seq.nextval, '1234', '오사람', 12434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user06', member_idx_seq.nextval, '1234', '육사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
 
@@ -41,8 +50,17 @@ INSERT INTO JSPUSER.MEMBER_ROLE
 VALUES(member_role_idx_seq.nextval, 'user02', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user03', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
 
+select * from MEMBER WHERE id = (SELECT id FROM MEMBER_ROLE WHERE ROLE='user') 
+	order by idx DESC;
+
+select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
+	 			from MEMBER m full outer join member_role on m.id=member_role.id and not role='admin' order by m.idx DESC;
+	 		
 SELECT * FROM member;
 
 -- 업체 테이블

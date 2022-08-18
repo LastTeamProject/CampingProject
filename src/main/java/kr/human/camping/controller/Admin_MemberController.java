@@ -19,13 +19,16 @@ public class Admin_MemberController {
 	// 전체 목록보기
 	@RequestMapping(value = "/MemberList")
 	public String selectByMemberList(
+			@RequestParam(required = false, defaultValue = "user") String Membertype,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
 			Model model 
 			){
 		PagingVO<MemberVO> pagingVO = admin_MemberService.selectByMemberList(p, s, b);
+		PagingVO<MemberVO> dormancyVO = admin_MemberService.selectByDormancyMember(Membertype, p, s, b);
 		model.addAttribute("pv", pagingVO);
+		model.addAttribute("dv", dormancyVO);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);

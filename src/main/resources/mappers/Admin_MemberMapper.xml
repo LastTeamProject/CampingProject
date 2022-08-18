@@ -31,10 +31,31 @@
   			]]> 
 	</select>
 	
-	 	<!-- 휴먼 회원정보 가져오기 --> 
-<!-- 	<select id="selectByDormancyMember" resultType="string"> -->
-	
-<!-- 		select id from member_role where role='dormancy' -->
-<!-- 	</select> -->
+	<!-- 휴먼회원 수 구하기 -->
+	<select id="selectDormancyCount" resultType="int">
+		select count(*) from MEMBER m full outer join member_role on m.id=member_role.id and role='dormancy'
+	</select>
+	<!-- 휴먼 회원정보 가져오기 --> 
+	<select id="selectByDormancyMember" parameterType="hashmap" resultType="MemberVO">
+		
+		select 
+ 			*
+ 		from
+	 		(select 
+	 			rownum rnum, R.*
+	 		from
+	 			(select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
+	 			from MEMBER m full outer join member_role on m.id=member_role.id and role='dormancy' order by m.idx DESC) R
+	 		where
+	 			<![CDATA[
+ 	 				rownum <= #{endNo}
+ 	 			]]> 
+			) Q
+		where
+ 			<![CDATA[
+  				rnum >= #{startNo} 
+  			]]> 
+	</select>
+
 
 </mapper>
