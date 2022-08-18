@@ -15,7 +15,17 @@
 	
 	<!-- 나의 예약목록 보기 -->
 	<select id="selectMyReservation" parameterType="hashmap" resultType="ReservationVO">
-		 select * from (select rownum rnum, R.* from (select * from reservation where id=#{id} order by idx desc) R where
+		 select 
+		 * 
+		 from 
+			(select 
+			rownum rnum, 
+			R.* 
+			from 
+				(select 
+				* 
+				from reservation 
+				where id=#{id} order by idx desc) R where
 		<![CDATA[ rownum <= #{endNo} ]]>
 		) Q where
 		<![CDATA[ rnum >= #{startNo} ]]>

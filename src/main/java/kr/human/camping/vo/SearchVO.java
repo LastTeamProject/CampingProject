@@ -1,35 +1,29 @@
 package kr.human.camping.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class SearchVO {
-	//현재 페이지
-	private int pageNum;
-	
-	//한페이지당 보여질 게시물 갯수
-	private int amount;
-	//기본 생성자 -> 기본세팅 : pageNum =1, amount=10
-	public SearchVO(int pageNum, int amount) {
-		this.pageNum = pageNum;
-		this.amount = amount;
-	}
+	//현재 페이지 번호
+	private int currentPageNo;
+	//페이지당 출력할 데이터 개수
+	private int recordsPerPage;
+	//화면하단에 출력할 페이지 사이즈
+	private int pageSize;
+	//검색키워드
+	private String searchType;
 	
 	public SearchVO() {
-		this(1,10);
+		
+		this.currentPageNo =1;
+		this.recordsPerPage = 10;
+		this.pageSize=10;
 	}
-
-	public int getPageNum() {
-		return pageNum;
-	}
-	@Override
-	public String toString() {
-		return "SearchVO [pageNum=" + pageNum + ", amount=" + amount + "]";
-	}
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+	
+	public int getStartPage() {
+		return (currentPageNo-1 ) * recordsPerPage;
 	}
 }

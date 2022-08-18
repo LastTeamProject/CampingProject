@@ -23,4 +23,6 @@ public interface SearchDAO {
 	void update(CompanyVO companyVO) throws SQLException;
 	// 6. 업체 삭제
 	void delete(int idx) throws SQLException;
+	// 7. 검색한 갯수
+	int searchCount(HashMap<String, Object> map) throws SQLException;
 }
