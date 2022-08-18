@@ -104,4 +104,17 @@ public class ReservationServiceImpl implements ReservationService {
 		return vo;
 	}
 
+	@Override
+	public List<ReservationVO> selectReservationRoomList(int idx) {
+		List<ReservationVO> list = null;
+		
+		try {
+			list = reservationDAO.selectReservationRoomList(idx);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

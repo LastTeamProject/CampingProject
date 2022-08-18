@@ -23,7 +23,7 @@
 	
 	<!-- 예약하기 -->
 	<insert id="insertReservation" parameterType="ReservationVO">
-		insert into reservation values(id=#{id},roomidx=#{roomidx}, startday=#{startday}, endday=#{endday})
+		insert into reservation values(#{id},#{roomidx},#{total},#{startday},#{endday})
 	</insert>
 	
 	<!-- 예약 취소하기 -->
@@ -44,4 +44,13 @@
 		select * from company where idx=#{idx}
 	</select>
 	
+		<!-- 1 페이지 구하기 -->
+	<select id="selectReservationRoomList" parameterType="int" resultType="ReservationVO">
+		SELECT  
+ 			*
+ 		FROM 
+ 			RESERVATION r 
+ 		WHERE 
+ 			ROOMIDX = #{idx}
+	</select>
 </mapper>

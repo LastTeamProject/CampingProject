@@ -23,6 +23,7 @@ public interface ReservationDAO {
 	void deleteReservation(int roomidx) throws SQLException;
     // 한 페이지 정보 보기
 	List<ReservationVO> selectReservationList(HashMap<String, Integer> map) throws SQLException;
+	List<ReservationVO> selectReservationRoomList(int idx) throws SQLException;
 	// 업체 한개 가져오기(예약시)
 	CompanyVO selectByIdx(int roomidx) throws SQLException;
 	
