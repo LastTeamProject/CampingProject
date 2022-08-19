@@ -30,6 +30,21 @@ VALUES('user05', member_idx_seq.nextval, '1234', '오사람', 12434532663, 'ㅁ�
 INSERT INTO JSPUSER."MEMBER"
 (ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
 VALUES('user06', member_idx_seq.nextval, '1234', '육사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user07', member_idx_seq.nextval, '1234', '칠사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user08', member_idx_seq.nextval, '1234', '팔사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user09', member_idx_seq.nextval, '1234', '구사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user10', member_idx_seq.nextval, '1234', '십사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('user11', member_idx_seq.nextval, '1234', '십일사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
 
@@ -47,6 +62,9 @@ INSERT INTO JSPUSER.MEMBER_ROLE
 VALUES(member_role_idx_seq.nextval, 'user01', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user01', 'dormancy', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user02', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
@@ -54,14 +72,57 @@ VALUES(member_role_idx_seq.nextval, 'user03', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
-
-select * from MEMBER WHERE id = (SELECT id FROM MEMBER_ROLE WHERE ROLE='user') 
-	order by idx DESC;
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user02', 'dormancy', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user04', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user04', 'dormancy', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user05', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user05', 'dormancy', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user06', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user06', 'dormancy', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user07', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user08', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user09', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user10', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'user11', 'user', '', 0);
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
-	 			from MEMBER m full outer join member_role on m.id=member_role.id and not role='admin' order by m.idx DESC;
-	 		
-SELECT * FROM member;
+	from MEMBER m full outer join member_role 
+	on m.id=member_role.id 
+	and not role='admin' 
+	order by m.idx DESC;
+
+SELECT DISTINCT m.name, m.id, m.phone, m.email, m.gender, mr.role
+	FROM "MEMBER" m, MEMBER_ROLE mr 
+	WHERE mr."ROLE" = 'user'
+	AND m.id=mr.id;
+
+select * from member_role where role='dormancy';
+
+SELECT * FROM MEMBER_ROLE mr ;
 
 -- 업체 테이블
 CREATE SEQUENCE company_idx_seq;
