@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.human.camping.service.CSVService;
 import kr.human.camping.service.SearchService;
 import kr.human.camping.service.TestService;
+import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.MemberVO;
 import kr.human.camping.vo.PagingVO;
+import kr.human.camping.vo.SearchListPagingVO;
 import kr.human.camping.vo.SelectRolePagingVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,30 +35,26 @@ public class TestController {
 		model.addAttribute("serverTime", testService.today());
 		return "index";
 	}
-
 	
 	// 전체 목록보기
-	@RequestMapping(value = "/test")
-	public String selectByMemberlist(
-			@RequestParam(required = false, defaultValue = "user") String role,
+	@RequestMapping("/test")
+	public String selectList(
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
+			@RequestParam(required = false, defaultValue = "") String keyword,
 			Model model 
 			){
-		SelectRolePagingVO<MemberVO> pagingVO = testService.selectByMemberList(role, p, s, b);
-		log.info("pagingVO 호출 : " + pagingVO);
+		SearchListPagingVO<FileBoardVO> pagingVO = testService.selectList(keyword, p, s, b);
 		model.addAttribute("pv", pagingVO);
-		model.addAttribute("role", role);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
+		model.addAttribute("keyword",keyword);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "test";
 	}
-	
 
-	
 	
 }

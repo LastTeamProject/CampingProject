@@ -25,7 +25,13 @@
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			
+			$("#searchid").click(function() {
+				var searchid = $(this).val();
+				if(keyword != null){
+					var url = "?keyword=" + $("#keyword").val();
+				}
+				location.href=url;
+			});
 		});
 	</script>
 </head>
@@ -71,8 +77,8 @@
 		</tr>						
 		<tr>
 			<td class="sub_title" colspan="2" >
-				<input type="text" placeholder="제목검색">
-				<button>검색</button>
+				<input type="search" id="keyword" name="keyword" th:value = "${keyword}" placeholder="업체명을 입력해주세요."/>
+				<input type ="button" value="검색" id="searchid">
 			</td>
 			<td class="sub_title" colspan="3">
 				<button class="btn btn-dark" 

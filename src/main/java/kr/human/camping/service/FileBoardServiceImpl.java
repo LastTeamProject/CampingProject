@@ -12,24 +12,36 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.human.camping.dao.FileBoardDAO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
+import kr.human.camping.vo.SearchListPagingVO;
+import lombok.extern.slf4j.Slf4j;
 
 @Service("fileBoardService")
 @Transactional
+@Slf4j
 public class FileBoardServiceImpl  implements FileBoardService{
 
 	@Autowired
 	private FileBoardDAO fileBoardDAO;
 
 	@Override
-	public PagingVO<FileBoardVO> selectList(int currentPage, int pageSize, int blockSize) {
-		PagingVO<FileBoardVO> pagingVO = null;
+	public SearchListPagingVO<FileBoardVO> selectList(String keyword, int p, int s, int b) {
+		SearchListPagingVO<FileBoardVO> pagingVO = null;
+		HashMap<String, Object> map = new HashMap<>();
 		try {
-			int totalCount = fileBoardDAO.selectCount();
-			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, Integer> hashMap = new HashMap<>();
+			if(keyword != null) {
+				map.put("keyword", keyword);
+			}
+			int totalCount = fileBoardDAO.selectCount(map);
+			log.info("testservice map 호출 : " + map);
+			log.info("testservice totalCount 호출 : " + totalCount);
+			pagingVO = new SearchListPagingVO<>(totalCount, p, s, b, keyword);
+			HashMap<String, Object> hashMap = new HashMap<>();
+			hashMap.put("keyword", keyword);
 			hashMap.put("startNo", pagingVO.getStartNo());
 			hashMap.put("endNo", pagingVO.getEndNo());
 			List<FileBoardVO> list = fileBoardDAO.selectList(hashMap);
+			log.info("testservice hashMap 호출 : " + hashMap);
+			log.info("testservice list 호출 : " + list);
 			pagingVO.setList(list);
 		} catch (SQLException e) {
 			e.printStackTrace();

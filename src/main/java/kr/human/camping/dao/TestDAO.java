@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.MemberVO;
 import kr.human.camping.vo.TestVO;
 
@@ -16,8 +17,10 @@ public interface TestDAO {
 	int    mul(HashMap<String, Integer> map) throws SQLException;
 	TestVO vo(TestVO testVO) throws SQLException;
 	
-	
-	// 회원 전체 인원수
-	int selectCount(HashMap<String, Object> vomap) throws SQLException;
-	List<MemberVO> selectByMemberList(HashMap<String, Object> hashMap) throws SQLException;
+	// 전체 개수
+	int selectCount(HashMap<String, Object> map) throws SQLException;
+	// 1개 가져오기
+	FileBoardVO selectByIdx(int idx) throws SQLException;
+	// 전체목록 가져오기
+	List<FileBoardVO> selectList(HashMap<String, Object> map) throws SQLException;
 }

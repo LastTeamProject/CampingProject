@@ -27,30 +27,71 @@
 	
 	
 	<!-- 전체 개수 구하기 -->
-	<select id="selectCount" resultType="int" parameterType="hashmap">
-		select count(*) from member_role where role=#{role} order by idx DESC
-	</select>
+<!-- 	<select id="selectCount" resultType="int" parameterType="hashmap"> -->
+<!-- 		select count(*) from member_role where role=#{role} order by idx DESC -->
+<!-- 	</select> -->
 	<!-- 전체 회원 리스트 가져오기 -->
-	<select id="selectByMemberList" parameterType="hashmap" resultType="MemberVO">
+<!-- 	<select id="selectByMemberList" parameterType="hashmap" resultType="MemberVO"> -->
+<!-- 		select  -->
+<!--  			* -->
+<!--  		from -->
+<!-- 	 		(select  -->
+<!-- 	 			rownum rnum, R.* -->
+<!-- 	 		from -->
+<!-- 	 			(SELECT DISTINCT m.idx, m.name, m.id, m.phone, m.email, m.gender -->
+<!-- 				FROM "MEMBER" m, MEMBER_ROLE mr  -->
+<!-- 				WHERE mr."ROLE" = #{role} -->
+<!-- 				AND m.id=mr.id -->
+<!-- 				order by idx desc) R -->
+<!-- 	 		where -->
+<!-- 	 			<![CDATA[ -->
+<!--  	 				rownum <= #{endNo}  -->
+<!--  	 			]]>  -->
+<!-- 			) Q -->
+<!-- 		where -->
+<!--  			<![CDATA[ -->
+<!--   				rnum >= #{startNo}  -->
+<!--   			]]>  -->
+<!-- 	</select> -->
+	
+	
+	<!-- 1. 전체 개수 구하기 -->
+	<select id="selectCount" parameterType="hashmap" resultType="int">
+		select count(*) from fileBoard
+			<where>
+				<if test="keyword != null">
+					and subject like '%'||#{keyword}||'%'		
+				</if>
+			</where>
+	</select>
+	<!-- 2. 글 1개 구하기 -->
+	<select id="selectByIdx" parameterType="int" resultType="FileBoardVO">
+		select * from fileBoard where idx=#{idx}
+	</select>
+	<!-- 3. 글 1페이지 구하기 -->
+	<select id="selectList" parameterType="hashmap" resultType="FileBoardVO">
 		select 
  			*
  		from
 	 		(select 
 	 			rownum rnum, R.*
 	 		from
-	 			(SELECT DISTINCT m.idx, m.name, m.id, m.phone, m.email, m.gender
-				FROM "MEMBER" m, MEMBER_ROLE mr 
-				WHERE mr."ROLE" = #{role}
-				AND m.id=mr.id
-				order by idx desc) R
+	 			(select * from fileBoard
+	 			
+				<where>
+					<if test="keyword != null">
+						and subject like '%'||#{keyword}||'%'		
+					</if>
+				</where>
+	 			order by idx desc) R
 	 		where
 	 			<![CDATA[
- 	 				rownum <= #{endNo} 
- 	 			]]> 
+	 				rownum <= #{endNo}
+	 			]]>
 			) Q
 		where
  			<![CDATA[
-  				rnum >= #{startNo} 
-  			]]> 
+ 			rnum >= #{startNo}
+ 			]]>
 	</select>
 </mapper>

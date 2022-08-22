@@ -6,8 +6,13 @@
 	<!-- namespace를 인터페이스 이름과 일치 시켜야 한다. -->
 	
 	<!-- 1. 전체 개수 구하기 -->
-	<select id="selectCount" resultType="int">
+	<select id="selectCount" parameterType="hashmap" resultType="int">
 		select count(*) from fileBoard
+			<where>
+				<if test="keyword != null">
+					and subject like '%'||#{keyword}||'%'		
+				</if>
+			</where>
 	</select>
 	<!-- 2. 글 1개 구하기 -->
 	<select id="selectByIdx" parameterType="int" resultType="FileBoardVO">
@@ -21,7 +26,14 @@
 	 		(select 
 	 			rownum rnum, R.*
 	 		from
-	 			(select * from fileBoard order by idx desc) R
+	 			(select * from fileBoard
+	 			
+				<where>
+					<if test="keyword != null">
+						and subject like '%'||#{keyword}||'%'		
+					</if>
+				</where>
+	 			order by idx desc) R
 	 		where
 	 			<![CDATA[
 	 				rownum <= #{endNo}

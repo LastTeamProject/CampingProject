@@ -2,10 +2,11 @@ package kr.human.camping.service;
 
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
+import kr.human.camping.vo.SearchListPagingVO;
 
 public interface FileBoardService {
-	// 목록보기
-	PagingVO<FileBoardVO> selectList(int currentPage, int pageSize, int blockSize);
+	// 전체 회원 목록보기
+	SearchListPagingVO<FileBoardVO> selectList(String keyword, int p, int s, int b);
 	// 1개 내용보기
 	FileBoardVO selectByIdx(int idx, boolean isClick); // isClick 조회수 때문에
 	// 저장하기

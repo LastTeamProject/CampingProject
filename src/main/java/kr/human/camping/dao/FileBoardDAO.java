@@ -11,11 +11,11 @@ import kr.human.camping.vo.FileBoardVO;
 @Mapper
 public interface FileBoardDAO {
 	// 전체 개수
-	int selectCount() throws SQLException;
+	int selectCount(HashMap<String, Object> map) throws SQLException;
 	// 1개 가져오기
 	FileBoardVO selectByIdx(int idx) throws SQLException;
 	// 전체목록 가져오기
-	List<FileBoardVO> selectList(HashMap<String, Integer> map) throws SQLException;
+	List<FileBoardVO> selectList(HashMap<String, Object> map) throws SQLException;
 	// 저장
 	void insert(FileBoardVO fileBoardVO) throws SQLException;
 	// 수정

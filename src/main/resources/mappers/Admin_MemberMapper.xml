@@ -6,8 +6,8 @@
 <!-- namespace를 인터페이스 이름과 일치 시켜야 한다. -->
 	
 	<!-- 전체 개수 구하기 -->
-	<select id="selectCount" resultType="int" parameterType="hashmap">
-		select count(*) from member_role where role=#{role} order by idx DESC
+	<select id="selectCount" parameterType="hashmap" resultType="int">
+		select count(*) from member_role where role=#{role}
 	</select>
 	<!-- 전체 회원 리스트 가져오기 -->
 	<select id="selectByMemberList" parameterType="hashmap" resultType="MemberVO">

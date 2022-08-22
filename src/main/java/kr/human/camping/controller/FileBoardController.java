@@ -14,6 +14,7 @@ import kr.human.camping.service.FileBoardService;
 import kr.human.camping.vo.CommVO;
 import kr.human.camping.vo.FileBoardVO;
 import kr.human.camping.vo.PagingVO;
+import kr.human.camping.vo.SearchListPagingVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -29,14 +30,15 @@ public class FileBoardController {
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
-//			@RequestParam(required = false, defaultValue = "0") int idx,
+			@RequestParam(required = false, defaultValue = "") String keyword,
 			Model model 
 			){
-		PagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(p, s, b);
+		SearchListPagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(keyword, p, s, b);
 		model.addAttribute("pv", pagingVO);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("b", b);
+		model.addAttribute("keyword",keyword);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Notice/list";
