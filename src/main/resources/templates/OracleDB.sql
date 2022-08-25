@@ -125,11 +125,11 @@ SELECT DISTINCT m.name, m.id, m.phone, m.email, m.gender, mr.role
 select * from member_role where role='dormancy';
 
 SELECT * FROM MEMBER_ROLE mr ;
-=======
+
 
 
 SELECT * FROM member;
->>>>>>> hwan91
+
 
 -- 업체 테이블
 CREATE SEQUENCE company_idx_seq;
