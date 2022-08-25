@@ -9,8 +9,13 @@
     <meta name="author" content="">
 
 <title>Log in with your credentials</title>
+<!-- google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <script type="text/javascript">
+
+  
 $(document).ready(function(){
 	// id중복 확인 하기
 	$('#id').keyup(function() {
@@ -108,10 +113,12 @@ $(document).ready(function(){
 		  line-height: 3;
 		}
 		h4 {
+		  font-family: 'Dancing Script', cursive;
 		  font-weight: 600;
 		  margin-bottom: 65px;
 		  margin-top: 30px;
 		  font-size: 40px;
+		  color: black;
 		}
 		h6 span{
 		  padding: 0 20px;
@@ -195,10 +202,12 @@ $(document).ready(function(){
 		  width: 100%;
 		  height: 170%;
 
-		  background-image: url('img/campingIMG2.jpg');
+		  /*background-image: url('img/campingIMG2.jpg');
 		  background-position: bottom center;
 		  background-repeat: no-repeat;
-		  background-size: 100%;
+		  background-size: 100%;*/
+		  border: 1px solid gold;
+		  background-color: white;
 		  position: absolute;
 		  border-radius: 6px;
 		  left: 0;
@@ -443,6 +452,18 @@ $(document).ready(function(){
 											<div class="find">
 	                            				<p class="mb-0 mt-4 text-center findID"><a href="/findpage" class="ID">ID/Password 찿기</a></p>
                             				</div>
+                            				<ul>
+												<li onclick="kakaoLogin();">
+											      <a href="javascript:void(0)">
+											          <span>카카오 로그인</span>
+											      </a>
+												</li>
+												<li onclick="kakaoLogout();">
+											      <a href="javascript:void(0)">
+											          <span>카카오 로그아웃</span>
+											      </a>
+												</li>
+										    </ul>
 				      					</div>
 			      					</div>
 			      					</form>

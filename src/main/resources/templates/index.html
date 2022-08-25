@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8" />
 <title>메인 페이지</title>
 <!-- axicon 사용하기 -->
@@ -62,9 +63,20 @@
 	
 </script>
 
+=======
+	<meta charset="UTF-8" />
+	<title>타임리프를 이용한 템플릿</title>
+<style type="text/css">
+	#middleContext{
+		position: relative;
+		
+	}
+</style>
+>>>>>>> Member(ver.5)
 </head>
 
 <body>
+<<<<<<< HEAD
 	<div class="flex-div">
 		<div class="outer-div">
 			<div class="roominfo-div"> 
@@ -128,5 +140,12 @@
 			</div>
 		</div>
 	</div>
+=======
+<div th:replace="decorators/header.html"></div>
+<div id="middleContext">
+	<h1>Boot Hello World!!!!</h1>
+	<h2 th:text="${serverTime }">서버시간</h2>
+</div>
+>>>>>>> Member(ver.5)
 </body>
 </html>

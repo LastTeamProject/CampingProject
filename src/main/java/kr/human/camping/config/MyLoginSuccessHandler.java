@@ -21,10 +21,10 @@ import kr.human.camping.vo.MemberVO;
 public class MyLoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		System.out.println("왜 안되? 세션");
 		HttpSession session = request.getSession();
 		session.setAttribute("test", "sessionOK");
-		System.out.println((MemberVO)authentication.getPrincipal());  
+		System.out.println((MemberVO)authentication.getPrincipal());
+		System.out.println(authentication.getPrincipal());
 		session.setAttribute("UserInfo", (MemberVO)authentication.getPrincipal());
 		System.out.println("session : "+session.getAttribute("UserInfo"));
 		

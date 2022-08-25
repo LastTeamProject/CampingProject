@@ -19,6 +19,14 @@
 	</properties>
 	<dependencies>
 	
+		<!-- https://mvnrepository.com/artifact/org.sitemesh/sitemesh -->
+		<dependency>
+		    <groupId>org.sitemesh</groupId>
+		    <artifactId>sitemesh</artifactId>
+		    <version>3.0.1</version>
+		</dependency>
+
+	
 		 <!--  JavaMail --> 
 		<dependency>
 			<groupId>javax.mail</groupId>
