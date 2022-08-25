@@ -70,5 +70,4 @@ public class ReservationController {
 			}
 			return "redirect:/roomList";
 		}
-	
 }

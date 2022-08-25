@@ -1,5 +1,6 @@
 -- 회원 및 관리자 계정 테이블
 CREATE SEQUENCE member_idx_seq;
+SELECT * FROM "MEMBER" m ;
 CREATE TABLE MEMBER(
 	id varchar2(100) PRIMARY KEY,
 	idx NUMBER,
@@ -128,6 +129,7 @@ SELECT * FROM MEMBER_ROLE mr ;
 CREATE SEQUENCE company_idx_seq;
 DROP SEQUENCE company_idx_seq;
 DROP TABLE COMPANY;
+SELECT * FROM COMPANY c ;
 CREATE table company(
 	idx NUMBER PRIMARY KEY,
 	name varchar2(100) NOT null,
