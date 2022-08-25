@@ -117,9 +117,24 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		/*<![CDATA[*/
 		var a1 = [[${area1}]];
 		var a2 = [[${area2}]];
+		var p = [[${p}]];
+		var s = [[${s}]];
+		var b = [[${b}]];
 		/*]]>*/
 	
-	
+	function makeJson(key,value){
+			var json ={}
+			json["area1"] = '[[${area1}]]';
+			json["area2"] = '[[${area2}]]';
+			json["keyword"] = '[[${keyword}]]';
+			json["eco"] = '[[${eco}]]';
+			json["theme"] = '[[${theme}]]';
+			json["roomtype"] = '[[${roomtype}]]';
+			json["s"] = '[[${s}]]';
+			json["b"] = '[[${b}]]';
+			json[key] = value;
+			return json;
+		}
 	selectItem=[];
 	$(function(){
 		// 대항목 표시
@@ -167,18 +182,22 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		var area1 = document.getElementById("area1").value;
 		var area2 = $(this).val();
 		var url ='?area1=' + area1 + "&area2=" + area2;
-
 		location.href=url
 		
 	});
-	
+	//검색버튼을 클릭함 
 	$(document).on('click','#searchid',function(){
 		var area1 = document.getElementById("area1").value;
 		var area2 = document.getElementById("area2").value;
-		var url = '?area1=' + area1 + "&area2=" + area2;
+//		var url = "?p=" + p + "&s=" +s +"&b=" + b + "&area1=" + area1 + "&area2=" + area2;
+		var url = "?area1=" + area1 + "&area2=" + area2;
 		var keyword = document.getElementById("keyword").value;
 		
-		if(keyword != null){
+		if(keyword == ""){
+			
+		}else if(keyword == null){ //주소창에 null이 들어가면안됨
+						
+		}else{
 			url += "&keyword=" + $("#keyword").val();
 		}
 		
@@ -218,10 +237,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		if($("#pet4").is(':checked')){
 			url += "&theme=" + $("#pet4").val();
 		}
-		
 		location.href=url
 	});
-		
+	
+	
+	
 </script>
 <style type="text/css">
 .info{
@@ -264,7 +284,7 @@ thead{
 .form-group{
 	width : 500px;
 }
-.sub_title {
+.pageBtn {
 	border: none; 
 	text-align: right;
 }
@@ -273,19 +293,17 @@ thead{
 <body>
 	<form th:action="@{/search}" method="get" th:object="${search}">
 		<h1>검색창</h1>
-			<div id="select" class="info"></div>
 				<select name="area1" id="area1"></select>
 				<select name="area2" id="area2"></select>
-			<div>
 			
 			<div class = "form-group">
 				<label for ="keyword">캠핑장</label>
-				<input type="search" id="keyword" name="keyword" th:value = "${keyword}" class="form-control" placeholder="업체명을 입력해주세요."/>
+				<input type="search" id="keyword" name="keyword" class="form-control" placeholder="업체명을 입력해주세요."/>
 			</div>
 				
 			<h3>자연환경</h3>
 			<div>
-				<th:block th:each="eco, cnt:${eco}" >
+				<th:block th:each="eco, cnt:${eco_list}" >
 				<label >
 					<input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}'/>
 					<span th:text="${eco.value}"></span>
@@ -295,7 +313,7 @@ thead{
 			</div>
 			<h3>숙소유형</h3>
 			<div>
-				<th:block th:each="roomtype, cnt:${roomtype}" >
+				<th:block th:each="roomtype, cnt:${roomtype_list}" >
 				<label >
 					<input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}'/>
 					<span th:text="${roomtype.value}"></span>
@@ -305,7 +323,7 @@ thead{
 			</div>
 			<h3>테마</h3>
 			<div>
-				<th:block th:each="theme, cnt:${theme}" >
+				<th:block th:each="theme, cnt:${theme_list}" >
 				<label >
 					<input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}'/>
 					<span th:text="${theme.value}"></span>
@@ -316,6 +334,7 @@ thead{
 			<input type ="button" value="검색" id="searchid">
 		</div>
 	</form>
+	
 	<table>
 		<tr>
 			<td class="title" colspan="3">업체 리스트</td>
@@ -327,18 +346,6 @@ thead{
 			<th:block th:if="${pv.totalCount}">
 				<tr th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
 					<td th:text="${vo.name}">name</td> 
-					<!--<td th:text="${item.idx}">idx</td> 
-					<td th:text="${vo.areacode}">areacode</td> 
-					<td th:text="${vo.detailcode}">detailcode</td> 
-					<td th:text="${item.eco}">eco</td> 
-					<td th:text="${item.roomtype}">roomtype</td> 
-					<td th:text="${item.theme}">theme</td> 
-					<td th:text="${item.add1}">add1</td> 
-					<td th:text="${item.add2}">add2</td> 
-					<td th:text="${item.postcode}">postcode</td> 
-					<td th:text="${item.latitude}">latitude</td> 
-					<td th:text="${item.longitude}">longitude</td> 
-					 -->
 				</tr>
 			</th:block>
 			
@@ -348,11 +355,34 @@ thead{
 					해당 업체가 없습니다.
 					</td>
 				</tr>
-			</th:block>			
+			</th:block>
 		</tbody>
-		<tr>
-			<td th:utext="${pv.pageList}" colspan="6" class="sub_title" style="text-align: center;"/>
-		</tr>
 	</table>
+			<ul class="pagination pagination-sm justify-content-center">
+			
+				<li class="page-item" th:if="${pv.startPage gt 1}">
+			      <a class="page-link" href="#" aria-label="Previous" th:onclick='sendGet("?", makeJson("p","[[${pv.startPage-1}]]"), "get")'>
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    
+			    <th:block th:each='num : ${#numbers.sequence(pv.startPage,pv.endPage)}'> 
+			    	
+				    <li th:if="${num==p}" class="page-item active" aria-current="page">
+				      <span class="page-link" th:text="${num}"></span>
+				    </li>
+				    <li th:if="${num!=p}" class="page-item">
+				    	<a class="page-link" href="#" th:text="${num}" 
+				    	th:onclick='sendGet("?", makeJson("p","[[${num}]]"), "get")'></a>
+				    </li>
+			    </th:block>
+			    
+			    <li class="page-item" th:if="${pv.endPage lt pv.totalPage}">
+			      <a class="page-link" href="#" aria-label="Next"  th:onclick='sendGet("?", makeJson("p","[[${pv.endPage+1}]]"), "get")'>
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			    
+		  	</ul>		
 </body>
 </html>

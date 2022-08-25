@@ -18,7 +18,7 @@
 	<select id="searchByareacode" parameterType="int" resultType="CompanyVO">
 		select * from company where areacode=#{areacode} 
 	</select>
-	<select id="searchCount" resultType="int" parameterType="hashmap">
+	<select id="searchCount" resultType="int" parameterType="map">
 			select
 	 			count(*) 
 	 			from company
@@ -28,24 +28,24 @@
 					and detailcode=#{detailcode}
 				</if>
 				<!-- 검색키워드가 있을때 -->
-				<if test="keyword != null">
+				<if test='keyword != null'>
 					and name like '%'||#{keyword}||'%'				
 				</if>
 				
 					
-				<if test="eco != null">
+				<if test='eco !=null'>
 				and
 					<foreach collection="eco" item="eco" open="eco in(" close=")" separator=",">
 						#{eco}
 					</foreach>
 				</if>
-				<if test="roomtype != null">
+				<if test='roomtype != null'>
 				and
 					<foreach collection="roomtype" item="roomtype" open="roomtype in(" close=")" separator=",">
 						#{roomtype}
 					</foreach>
 				</if>
-				<if test="theme != null">
+				<if test='theme != null'>
 				and
 					<foreach collection="theme" item="theme" open="theme in(" close=")" separator=",">
 						#{theme}
@@ -70,23 +70,23 @@
 					and detailcode=#{detailcode}
 				</if>
 				<!-- 검색키워드가 있을때 -->
-				<if test="keyword != null">
+				<if test='keyword != null'>
 					and c.name like '%'||#{keyword}||'%'				
 				</if>
 					
-				<if test="eco != null">
+				<if test='eco !=null'>
 				and
 					<foreach collection="eco" item="eco" open="eco in(" close=")" separator=",">
 						#{eco}
 					</foreach>
 				</if>
-				<if test="roomtype != null">
+				<if test='roomtype != null'>
 				and
 					<foreach collection="roomtype" item="roomtype" open="roomtype in(" close=")" separator=",">
 						#{roomtype}
 					</foreach>
 				</if>
-				<if test="theme != null">
+				<if test='theme != null'>
 				and
 					<foreach collection="theme" item="theme" open="theme in(" close=")" separator=",">
 						#{theme}

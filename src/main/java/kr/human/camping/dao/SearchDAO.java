@@ -3,6 +3,7 @@ package kr.human.camping.dao;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,7 +17,7 @@ public interface SearchDAO {
 	// 2. 지역코드만 같은 업체 리스트
 	List<CompanyVO> searchByareacode(int areacode) throws SQLException;
 	// 3. 지역코드, 상세코드가 같은 업체 리스트
-	List<CompanyVO> searchBycode(HashMap<String, Object> map)throws SQLException;
+	List<CompanyVO> searchBycode(Map<String, Object> map)throws SQLException;
 	// 4. 업체 추가
 	void insert(CompanyVO companyVO) throws SQLException;
 	// 5. 업체 업데이트
@@ -24,5 +25,5 @@ public interface SearchDAO {
 	// 6. 업체 삭제
 	void delete(int idx) throws SQLException;
 	// 7. 검색한 갯수
-	int searchCount(HashMap<String, Object> map) throws SQLException;
+	int searchCount(Map<String, Object> map) throws SQLException;
 }
