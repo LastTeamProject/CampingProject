@@ -21,7 +21,7 @@ import kr.human.camping.service.CSVService2;
 @SpringBootApplication
 public class CampingProjectApplication {
 	
-	//@Autowired
+	@Autowired
 	//CSVService csvService;
 	
 

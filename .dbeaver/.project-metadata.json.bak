@@ -1,13 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab"}}}
-=======
 {"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-1821496516a-51285224b41a9272"}}}
->>>>>>> db9cee883c0ad0c064d8f04471bfb701a8822d1e
-=======
-{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab"}}}
->>>>>>> seongseok
-=======
-{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181fa3be3cd-6e57b475960c4230"}}}
->>>>>>> hwan91
