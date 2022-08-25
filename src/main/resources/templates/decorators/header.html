@@ -26,6 +26,9 @@
 		position: relative;
 		margin-left: 170px;
 		margin-top: -55px;
+		display: flex;
+		flex-direction:row-reverse;
+		
 		
 	}
 	.navbox{
@@ -37,7 +40,7 @@
 
 	
 	.tbtn{
-		margin-left: 90px;
+		
 	}
 </style>
 </head>
@@ -47,22 +50,19 @@
 	
 	<nav class="navbar bg-light fixed-top nav">
 	  <div class="navbox">
-
-	    <a class="navbar-brand navcontent" href="/">HOME</a>
-	    <a class="navbar-brand navcontent" href="">캠핑장 둘러보기</a>
-	    <a class="navbar-brand navcontent" href="#">Camping Go!</a>
+   
 	    <button class="navbar-toggler tbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
 	    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 	      <div class="offcanvas-header">
-	        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+	        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">여행의 즐거움 시작</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	      </div>
 	      <div class="offcanvas-body">
 	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 	          <li class="nav-item">
-	            <a class="nav-link active" aria-current="page" href="#">Home</a>
+	            <a class="nav-link active" aria-current="page" href="/login">로그인/회원가입</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link" href="#">Link</a>
