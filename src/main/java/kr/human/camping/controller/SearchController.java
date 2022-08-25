@@ -33,15 +33,49 @@ public class SearchController {
 			@RequestParam(required = false, defaultValue = "1") int p,  //현재 페이지
 			@RequestParam(required = false, defaultValue = "10") int s, //보여줄 리스트 갯수
 			@RequestParam(required = false, defaultValue = "5") int b,  //네비게이션 바의 갯수
-			@RequestParam(required = false, value="keyword") String keyword,
+			@RequestParam(required = false) String keyword,
 			Model model) {
 		
 
-			System.out.println("데이터 확인!!" + "area1 : " + area1 + "," +"area2 : "+ area2 + "," +"eco : "+ eco + "," +"roomtype : "+roomtype+ ","+"theme : " +theme+","+"keyword : "+keyword);
-			//여기서 안넘어감 왜지 ??? 
-			SearchPagingVO<CompanyVO> pv = searchService.CompanyCode(area1, area2,eco,roomtype,theme,p, s, b,keyword);
 			
-			System.out.println("SearchController 에서 search(pv) 호출 :" + pv);
+			System.out.println("데이터 확인!!" + "area1 : " + area1 + "," +"area2 : "+ area2 + "," +"eco : "+ eco + "," +"roomtype : "+roomtype+ ","+"theme : " +theme+","+"keyword : "+keyword);
+			System.out.println("-".repeat(50));
+			System.out.println("SearchController eco데이터 확인 : " + eco);
+
+			System.out.println("-".repeat(50));
+			System.out.println("SearchController roomtype데이터 확인 : " + roomtype);
+
+			System.out.println("-".repeat(50));
+			System.out.println("SearchController theme데이터 확인 : " + theme);
+
+			System.out.println("-".repeat(50));
+			System.out.println("SearchController keyowrd데이터 확인 : "+ keyword);
+			System.out.println("-".repeat(50));
+			
+			if(eco!=null) {
+				System.out.println("*".repeat(80));
+				System.out.println(eco.size());
+				System.out.println("*".repeat(80));
+				if(eco.size()==0) eco = null;
+			}
+			if(roomtype!=null) {
+				System.out.println("*".repeat(80));
+				System.out.println(roomtype.size());
+				System.out.println("*".repeat(80));
+				if(roomtype.size()==0) roomtype = null;
+			}
+			if(theme!=null) {
+				System.out.println("*".repeat(80));
+				System.out.println(theme.size());
+				System.out.println("*".repeat(80));
+				if(theme.size()==0) theme = null;
+			}
+		
+			
+
+			
+			SearchPagingVO<CompanyVO> pv = searchService.CompanyCode(p, s, b,area1, area2,eco,roomtype,theme,keyword);
+			
 			model.addAttribute("pv",pv);
 			model.addAttribute("p", p);
 			model.addAttribute("s", s);
@@ -50,38 +84,61 @@ public class SearchController {
 			model.addAttribute("newLine", "\n");		
 			model.addAttribute("area1",area1);
 			model.addAttribute("area2",area2);
-			model.addAttribute("eco",eco_list());
-			model.addAttribute("roomtype",roomtype_list());
-			model.addAttribute("theme",theme_list());
+			
+			if(eco !=null) {
+				String e = eco.toString();
+				e = e.substring(1, e.length()-1);
+				model.addAttribute("eco",e);
+			}else {
+			model.addAttribute("eco",eco);
+			}
+			if(roomtype != null) {
+				String r = roomtype.toString();
+				r = r.substring(1, r.length()-1);
+				model.addAttribute("roomtype",r);
+			}else {
+			model.addAttribute("roomtype",roomtype);
+			}
+			if(theme != null) {
+				String t = theme.toString();
+				t = t.substring(1, t.length()-1);
+				model.addAttribute("theme",t);
+			}else {
+			model.addAttribute("roomtype",theme);
+			}
+			
+			model.addAttribute("eco_list",eco_list());
+			model.addAttribute("roomtype_list",roomtype_list());
+			model.addAttribute("theme_list",theme_list());
 			model.addAttribute("keyword",keyword);
 		return "search";
 	}
-	@ModelAttribute("eco")
+	@ModelAttribute("eco_list")
 	public Map<String, String> eco_list(){
-		Map<String,String> eco= new LinkedHashMap<String, String>();
-		eco.put("mountain", "산");
-		eco.put("sea", "바다");
-		eco.put("river", "강");
-		eco.put("lake", "호수");
-		return eco;
+		Map<String,String> eco_list= new LinkedHashMap<String, String>();
+		eco_list.put("mountain", "산");
+		eco_list.put("sea", "바다");
+		eco_list.put("river", "강");
+		eco_list.put("lake", "호수");
+		return eco_list;
 	}
-	@ModelAttribute("roomtype")
+	@ModelAttribute("roomtype_list")
 	public Map<String, String> roomtype_list(){
-		Map<String,String> roomtype= new LinkedHashMap<String, String>();
-		roomtype.put("camping", "캠핑");
-		roomtype.put("caravan", "카라반");
-		roomtype.put("glamping", "글램핑");
-		roomtype.put("easycamping", "이지캠핑");
-		return roomtype;
+		Map<String,String> roomtype_list= new LinkedHashMap<String, String>();
+		roomtype_list.put("camping", "캠핑");
+		roomtype_list.put("caravan", "카라반");
+		roomtype_list.put("glamping", "글램핑");
+		roomtype_list.put("easycamping", "이지캠핑");
+		return roomtype_list;
 	}
-	@ModelAttribute("theme")
+	@ModelAttribute("theme_list")
 	public Map<String, String> theme_list(){
-		Map<String,String> theme= new LinkedHashMap<String, String>();
-		theme.put("family", "가족");
-		theme.put("couple", "연인");
-		theme.put("kids", "키즈");
-		theme.put("pet", "반려동물");
-		return theme;
+		Map<String,String> theme_list= new LinkedHashMap<String, String>();
+		theme_list.put("family", "가족");
+		theme_list.put("couple", "연인");
+		theme_list.put("kids", "키즈");
+		theme_list.put("pet", "반려동물");
+		return theme_list;
 	}
 	
 	

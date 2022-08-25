@@ -48,7 +48,7 @@ INSERT INTO JSPUSER."MEMBER"
 VALUES('user11', member_idx_seq.nextval, '1234', '십일사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
-
+SELECT * FROM MEMBER_ROLE mr , "MEMBER" m 
 -- 회원 및 관리자 계정 권한 나누는 테이블
 CREATE SEQUENCE member_role_idx_seq;
 CREATE TABLE member_role(
@@ -73,6 +73,7 @@ VALUES(member_role_idx_seq.nextval, 'user03', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
+<<<<<<< HEAD
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user02', 'dormancy', '', 0);
@@ -124,6 +125,11 @@ SELECT DISTINCT m.name, m.id, m.phone, m.email, m.gender, mr.role
 select * from member_role where role='dormancy';
 
 SELECT * FROM MEMBER_ROLE mr ;
+=======
+
+
+SELECT * FROM member;
+>>>>>>> hwan91
 
 -- 업체 테이블
 CREATE SEQUENCE company_idx_seq;
