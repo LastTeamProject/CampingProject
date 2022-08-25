@@ -3,9 +3,18 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>타임리프를 이용한 템플릿</title>
+<style type="text/css">
+	#middleContext{
+		position: relative;
+		
+	}
+</style>
 </head>
 <body>
+<div th:replace="decorators/header.html"></div>
+<div id="middleContext">
 	<h1>Boot Hello World!!!!</h1>
 	<h2 th:text="${serverTime }">서버시간</h2>
+</div>
 </body>
 </html>
