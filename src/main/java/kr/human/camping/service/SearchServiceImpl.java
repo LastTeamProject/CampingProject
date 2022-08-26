@@ -51,7 +51,7 @@ public class SearchServiceImpl implements SearchService{
 			
 			vomap.put("areacode", areacode);
 			vomap.put("detailcode", detailcode);
-			if(keyword !=null && keyword.equals("")) { //keyword가 null 아니고 ""이게 아닐때 
+			if(keyword !=null) { //keyword가 null 아니고 ""이게 아닐때 
 				System.out.println("null이면 실행 안됩니다.-------------------------------------------");
 				System.out.println("serviceImpl에서의 null 체크 후 keyword : " + keyword);
 				System.out.println("-------------------------------------------------------");
