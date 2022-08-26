@@ -89,7 +89,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .failureUrl("/access_denied")
 		.and()
 		.logout()
-		.logoutSuccessUrl("/login")
 		.invalidateHttpSession(true).logoutSuccessUrl("/");
 
 		http.csrf().disable();

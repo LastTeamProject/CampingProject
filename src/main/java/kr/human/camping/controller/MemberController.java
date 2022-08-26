@@ -53,9 +53,17 @@ public class MemberController {
 		return new SpringSecurityDialect();
 	}
 	
+	
+	
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model ) {
+	public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model, HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		MemberVO vo = new MemberVO();
+		vo = (MemberVO)session.getAttribute("UserInfo");
+		if(vo != null) {
+			return "redirect:/";
+		}
 		if(error!=null) model.addAttribute("error","error");
 		if(logout!=null) model.addAttribute("logout","logout");
 		return "login";
@@ -101,11 +109,10 @@ public class MemberController {
 	
 	/**
      * 로그인 실패 폼
-     * @return
      */
 	@RequestMapping("/access_denied")
     public String accessDenied() {
-        return "access_denied";
+        return "redirect:/login";
     }
 	
 	// 로그인 성공 폼
@@ -113,8 +120,8 @@ public class MemberController {
     public String userAccess(Model model, Authentication authentication) {
         //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
         MemberVO userVo = (MemberVO) authentication.getPrincipal();  //userDetail 객체를 가져옴
-        model.addAttribute("info", userVo.getId() +"의 "+ userVo.getName()+ "님");      //유저 아이디
-        return "user_access";
+        model.addAttribute("UserInfo", userVo); //유저 정보
+        return "index";
     }
 	
 	
