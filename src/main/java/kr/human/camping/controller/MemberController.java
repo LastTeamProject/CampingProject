@@ -61,6 +61,14 @@ public class MemberController {
 		return "login";
 	}
 	
+	// 관리자 로그인
+	@RequestMapping(value = "/login2", method = RequestMethod.GET)
+	public String login2(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model ) {
+		if(error!=null) model.addAttribute("error","error");
+		if(logout!=null) model.addAttribute("logout","logout");
+		return "login2";
+	}
+	
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insertMemeber(@ModelAttribute MemberVO memberVO, Model model) {
