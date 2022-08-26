@@ -70,12 +70,18 @@ public class MemberController {
 	}
 	
 	// 관리자 로그인
-	@RequestMapping(value = "/login2", method = RequestMethod.GET)
-	public String login2(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model ) {
-		if(error!=null) model.addAttribute("error","error");
-		if(logout!=null) model.addAttribute("logout","logout");
-		return "login2";
-	}
+//	@RequestMapping(value = "/login2", method = RequestMethod.GET)
+//	public String login2(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Model model, HttpServletRequest request ) {
+//		HttpSession session = request.getSession();
+//		MemberVO vo = new MemberVO();
+//		vo = (MemberVO)session.getAttribute("UserInfo");
+//		if(vo != null && vo.getRole() == "admin") {
+//			return "redirect:/";
+//		}
+//		if(error!=null) model.addAttribute("error","error");
+//		if(logout!=null) model.addAttribute("logout","logout");
+//		return "login2";
+//	}
 	
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

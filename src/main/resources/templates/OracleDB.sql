@@ -46,6 +46,9 @@ VALUES('user10', member_idx_seq.nextval, '1234', '십사람', 02434532663, 'ㅁ�
 INSERT INTO JSPUSER."MEMBER"
 (ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
 VALUES('user11', member_idx_seq.nextval, '1234', '십일사람', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '0', '', 0, '');
+INSERT INTO JSPUSER."MEMBER"
+(ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
+VALUES('admin', member_idx_seq.nextval, '1234', '관리자일', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
 SELECT * FROM MEMBER_ROLE mr , "MEMBER" m 
@@ -110,6 +113,9 @@ VALUES(member_role_idx_seq.nextval, 'user10', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user11', 'user', '', 0);
+INSERT INTO JSPUSER.MEMBER_ROLE
+(IDX, ID, "ROLE", COL1, COL2)
+VALUES(member_role_idx_seq.nextval, 'admin', 'admin', '', 0);
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
 	from MEMBER m full outer join member_role 

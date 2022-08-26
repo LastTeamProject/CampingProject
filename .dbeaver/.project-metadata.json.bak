@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab"}}}
-=======
-{"resources":{"src/main/resources/templates/OracleDB.sql":{"sql-editor-data-source-id":"oracle_thin-1821496516a-51285224b41a9272"}}}
->>>>>>> hoegyeung99
+{"resources":{"src/main/resources/templates/OracleDB.sql":{"default-schema":"JSPUSER","sql-editor-data-source-id":"oracle_thin-181702d528f-3fbd5247b20735ab","default-datasource":"oracle_thin-181fa3be3cd-6e57b475960c4230"}}}
