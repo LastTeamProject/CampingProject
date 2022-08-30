@@ -37,6 +37,13 @@ public class TestController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/map2")
+	public String map2(Model model) {
+		model.addAttribute("serverTime", testService.today());
+		model.addAttribute("today", testService.today());
+		return "map2";
+	}
+	
 	// 전체 목록보기
 	@RequestMapping("/test")
 	public String selectList(

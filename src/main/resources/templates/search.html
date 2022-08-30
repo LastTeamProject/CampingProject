@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8" />
-<title>검색된 업체 리스트</title>
+<title>camping go</title>
 <!-- axicon 사용하기 -->
 <link rel="stylesheet" type="text/css" href="axicon/axicon.min.css" />
 <!-- 부트스트랩을 사용하기 위한 준비 시작 -->
@@ -250,7 +250,12 @@
 		}
 		location.href=url
 	});
-	
+	// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+	function makeClickListener(data) {
+	    return function() {
+	    	location.href="/roomList?idx=" + data
+	    };
+	}
 	$(function(){
 
 		$.ajax("/mapList",{
@@ -294,8 +299,9 @@
 					var marker = new kakao.maps.Marker({
 					    map: map, // 마커를 표시할 지도
 					    position: position2[i].latlng, // 마커를 표시할 위치
-					    title : position2[i].title // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-					    idx : position2[i].idx
+					    title : position2[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					    idx : position2[i].idx,
+					    clickable : true
 					    //image : markerImage // 마커 이미지 
 					});
 					
@@ -311,26 +317,26 @@
 					
 					//마커를 markers 배열에 추가
 					markers.push(marker);
+					// 마커에 클릭이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'click', makeClickListener(
+								position2[i].idx
+					));
 				}
+					// 마커에 마우스오버 이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'mouseover', function() {
+					  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+					    infowindow.open(map, marker);
+					});
+	
+					// 마커에 마우스아웃 이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'mouseout', function() {
+					    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+					    infowindow.close();
+					});
 				
 	            //클러스터러에 마커들을 추가합니다.
 				clusterer.addMarkers(markers);
 
-				// 마커에 클릭이벤트를 등록합니다
-				kakao.maps.event.addListener(marker, 'click', function() {
-				      
-				});
-				// 마커에 마우스오버 이벤트를 등록합니다
-				kakao.maps.event.addListener(marker, 'mouseover', function() {
-				  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-				    infowindow.open(map, marker);
-				});
-
-				// 마커에 마우스아웃 이벤트를 등록합니다
-				kakao.maps.event.addListener(marker, 'mouseout', function() {
-				    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-				    infowindow.close();
-				});
 				// 마커 클러스터러에 클릭이벤트를 등록합니다
 			    // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
 			    // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
@@ -399,17 +405,113 @@
 </style>
 </head>
 <body>
+	<!-- 
+<form th:action="@{/search}" method="get" th:object="${search}">
+		<h1>검색창</h1>
+				<select name="area1" id="area1"></select>
+				<select name="area2" id="area2"></select>
+			
+			<div class = "form-group">
+				<label for ="keyword">캠핑장</label>
+				<input type="search" id="keyword" name="keyword" class="form-control" placeholder="업체명을 입력해주세요."/>
+			</div>
+				
+			<h3>자연환경</h3>
+			<div>
+				<th:block th:each="eco, cnt:${eco_list}" >
+				<label >
+					<input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}'/>
+					<span th:text="${eco.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<h3>숙소유형</h3>
+			<div>
+				<th:block th:each="roomtype, cnt:${roomtype_list}" >
+				<label >
+					<input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}'/>
+					<span th:text="${roomtype.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<h3>테마</h3>
+			<div>
+				<th:block th:each="theme, cnt:${theme_list}" >
+				<label >
+					<input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}'/>
+					<span th:text="${theme.value}"></span>
+				</label>
+				&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<input type ="button" value="검색" id="searchid">
+
+		</form>
+		
+	 <div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div> 
+
+	<table>
+		<tr>
+			<td class="title" colspan="3">업체 리스트</td>
+		</tr>
+		<tr>
+			<th scope="col">업체명</th>
+		</tr>
+		<tbody>		
+			<th:block th:if="${pv.totalCount}">
+				<tr th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
+					<td th:text="${vo.name}">name</td> 
+				</tr>
+			</th:block>
+			
+			<th:block th:unless="${pv.totalCount}">
+				<tr>
+					<td colspan="3" align="center">
+					해당 업체가 없습니다.
+					</td>
+				</tr>
+			</th:block>
+		</tbody>
+	</table>
+			<ul class="pagination pagination-sm justify-content-center">
+			
+				<li class="page-item" th:if="${pv.startPage gt 1}">
+			      <a class="page-link" href="#" aria-label="Previous" th:onclick='sendGet("?", makeJson("p","[[${pv.startPage-1}]]"), "get")'>
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    
+			    <th:block th:each='num : ${#numbers.sequence(pv.startPage,pv.endPage)}'> 
+			    	
+				    <li th:if="${num==p}" class="page-item active" aria-current="page">
+				      <span class="page-link" th:text="${num}"></span>
+				    </li>
+				    <li th:if="${num!=p}" class="page-item">
+				    	<a class="page-link" href="#" th:text="${num}" 
+				    	th:onclick='sendGet("?", makeJson("p","[[${num}]]"), "get")'></a>
+				    </li>
+			    </th:block>
+			    
+			    <li class="page-item" th:if="${pv.endPage lt pv.totalPage}">
+			      <a class="page-link" href="#" aria-label="Next"  th:onclick='sendGet("?", makeJson("p","[[${pv.endPage+1}]]"), "get")'>
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			    
+		  	</ul>
+		  	 -->
 	<div class="flex-div">
 		<div class="outer-div">
 			<div th:replace="/decorators/header.html"></div>
 			<!-- 검색 기능 넣을곳 -->
 			<div style="display: flex;">
-			<div
-				style="height: auto; width: 30%; background-color: #F3F6F9; min-height: 1000px">
+			<div style="height: auto; width: 30%; background-color: #F3F6F9; min-height: 1000px">
 				<form th:action="@{/search}" method="get" th:object="${search}">
 					<h3>검색</h3>
-					<select name="area1" id="area1"></select> <select name="area2"
-						id="area2"></select>
+					<select name="area1" id="area1"></select> 
+					<select name="area2" id="area2"></select>
 
 					<div class="form-group">
 						<label for="keyword">캠핑장</label> <input type="search" id="keyword"
@@ -419,8 +521,8 @@
 					<h3>자연환경</h3>
 					<div>
 						<th:block th:each="eco, cnt:${eco_list}">
-							<label> <input type="radio" th:value="${eco.key}"
-								th:id='${eco.key + cnt.count}' /> <span th:text="${eco.value}"></span>
+							<label> <input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}' /> 
+							<span th:text="${eco.value}"></span>
 							</label>
 				&nbsp;&nbsp;
 				</th:block>
@@ -428,9 +530,8 @@
 					<h3>숙소유형</h3>
 					<div>
 						<th:block th:each="roomtype, cnt:${roomtype_list}">
-							<label> <input type="radio" th:value="${roomtype.key}"
-								th:id='${roomtype.key + cnt.count}' /> <span
-								th:text="${roomtype.value}"></span>
+							<label> <input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}' /> 
+							<span th:text="${roomtype.value}"></span>
 							</label>
 				&nbsp;&nbsp;
 				</th:block>
@@ -438,17 +539,16 @@
 					<h3>테마</h3>
 					<div>
 						<th:block th:each="theme, cnt:${theme_list}">
-							<label> <input type="radio" th:value="${theme.key}"
-								th:id='${theme.key + cnt.count}' /> <span
-								th:text="${theme.value}"></span>
+							<label> <input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}' />
+							 <span th:text="${theme.value}"></span>
 							</label>
 				&nbsp;&nbsp;
 				</th:block>
 					</div>
-
 					<input type="button" value="숙소 검색" id="searchid"
 						style="width: 100%; height: 40px; background-color: #DAEDCC; margin-top: 4%; border-radius: 15px">
 				</form>
+				<div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div>
 			</div>
 			<div class="roominfo-div">
 				<div>
@@ -479,30 +579,26 @@
 						<div>검색 결과가 없습니다.</div>
 					</th:block>
 					<ul class="pagination pagination-sm justify-content-center">
-
-						<li class="page-item" th:if="${pv.startPage gt 1}"><a
-							class="page-link" href="#" aria-label="Previous"
-							th:onclick='sendGet("?", makeJson("p","[[${pv.startPage-1}]]"), "get")'>
+						<li class="page-item" th:if="${pv.startPage gt 1}">
+							<a class="page-link" href="#" aria-label="Previous" th:onclick='sendGet("?", makeJson("p","[[${pv.startPage-1}]]"), "get")'>
 								<span aria-hidden="true">&laquo;</span>
-						</a></li>
+							</a>
+						</li>
 
-						<th:block
-							th:each='num : ${#numbers.sequence(pv.startPage,pv.endPage)}'>
+						<th:block th:each='num : ${#numbers.sequence(pv.startPage,pv.endPage)}'>
 
-							<li th:if="${num==p}" class="page-item active"
-								aria-current="page"><span class="page-link"
-								th:text="${num}"></span></li>
-							<li th:if="${num!=p}" class="page-item"><a class="page-link"
-								href="#" th:text="${num}"
-								th:onclick='sendGet("?", makeJson("p","[[${num}]]"), "get")'></a>
+							<li th:if="${num==p}" class="page-item active" aria-current="page">
+								<span class="page-link"th:text="${num}"></span>
+							</li>
+							<li th:if="${num!=p}" class="page-item">
+								<a class="page-link" href="#" th:text="${num}" th:onclick='sendGet("?", makeJson("p","[[${num}]]"), "get")'></a>
 							</li>
 						</th:block>
 
 						<li class="page-item" th:if="${pv.endPage lt pv.totalPage}">
-							<a class="page-link" href="#" aria-label="Next"
-							th:onclick='sendGet("?", makeJson("p","[[${pv.endPage+1}]]"), "get")'>
+							<a class="page-link" href="#" aria-label="Next" th:onclick='sendGet("?", makeJson("p","[[${pv.endPage+1}]]"), "get")'>
 								<span aria-hidden="true">&raquo;</span>
-						</a>
+							</a>
 						</li>
 					</ul>
 				</div>
