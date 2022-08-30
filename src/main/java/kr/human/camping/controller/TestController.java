@@ -33,6 +33,7 @@ public class TestController {
 	@RequestMapping(value = "/")
 	public String home(Model model) {
 		model.addAttribute("serverTime", testService.today());
+		model.addAttribute("today", testService.today());
 		return "index";
 	}
 	

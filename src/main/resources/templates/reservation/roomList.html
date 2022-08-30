@@ -80,17 +80,13 @@
 </head>
 <body>
 	<div class="flex-div">
-		<!-- 검색 기능 넣을곳 -->
-		<div style="height: 500px; width: 20%; background-color: #F3F6F9;">
-			<h5 th:text="${cvo.name}">검색기능</h5>
-			<h5>검색기능</h5>
-		</div>
+
 		<div class="outer-div">
-		<a href="/logout">로그아웃</a>
+		<div th:replace="/decorators/header.html"></div>
 			<div class="roominfo-div">
 				<div>
 					<h5>
-						<b>&nbsp&nbsp 객실 목록</b>
+						<b th:text="|[${cvo.name}]객실목록|"></b>
 					</h5>
 					<hr />
 					<th:block th:if="${list}">
@@ -100,16 +96,16 @@
 							<div class="list-div" th:id="|slideToggleBtn${voStat.count}|">
 								<!-- 방 이미지 -->
 								<img src="img/room.png" alt="room"
-									style="border-radius: 20%; border: 1px solid;">
+									style="border-radius: 20%; border: 1px solid;height: 200px; width: 266px;">
 								<!-- 방 정보 -->
 								<div style="width: 60%">
 									<br />
 									<h4 th:text="|&nbsp ${vo.roomname}|">방이름</h4>
-									<h6>&nbsp 차박가능/개별화장실</h6>
+									<h6>&nbsp; 차박가능/개별화장실</h6>
 									<h6
 										th:text="|&nbsp 기준인원 ${vo.minpeople} / 최대인원 ${vo.maxpeople}|"></h6>
-									<h6>&nbsp 가능객실수 1</h6>
-									<h6>&nbsp 예약가능일 1일 ~ 5일</h6>
+									<h6>&nbsp; 가능객실수 1</h6>
+									<h6>&nbsp; 예약가능일 1일 ~ 5일</h6>
 								</div>
 								<!-- 가격정보 -->
 								<div style="width: 20%">

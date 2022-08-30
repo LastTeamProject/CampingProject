@@ -27,8 +27,7 @@ public class RoomListController {
 	// 방 목록보기
 		@RequestMapping("/roomList")
 		public String selectList(
-				//@RequestParam("idx") int idx, // 업체 리스트에서 받아와야함
-				@RequestParam(required = false, defaultValue = "2") int idx,
+				@RequestParam("idx") int idx, // 업체 리스트에서 받아와야함
 				Model model 
 				){
 			List<RoomVO> list = roomService.selectRoomList(idx);
