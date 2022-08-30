@@ -74,6 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/IdOverlap").permitAll()
 		.antMatchers("/EmailOverlap").permitAll()
 		.antMatchers("/confilm").permitAll()
+		.antMatchers("/chat").permitAll()
 		.antMatchers("/MemberInfoUpdate").hasAnyRole("user", "admin")
 		.antMatchers("/InfoUpdate").hasAnyRole("user", "admin")
 		.antMatchers("/**").permitAll()
