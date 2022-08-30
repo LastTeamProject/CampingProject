@@ -27,31 +27,60 @@
 	});
 </script>
 <style type="text/css">
-.headerBox{
- 	width: 95%;
-	margin: auto; 
-	padding: 5px;
-	border: 1px solid black;
-}
 
-.headerUl {
-	list-style: none;
+.headerMiniMenu {
+	float: left;
+	font-size: 15px;
+ 	position: absolute;
+	right: 10px;
 }
 
 .headerMenu {
 	float: left;
+	margin: 10px;
+	margin-bottom: 0px;
 }
+
+.page {
+	width: 100%;
+	margin: 0 auto;
+}
+
+header {
+	height: 80px;
+	display: flex;
+	align-items: center;
+}
+
 </style>
 </head>
 <body>
-	<header>
-		<div class="headerBox">
-			<ul class="headerUl">
-				<li class="headerMenu"><a th:href="@{/MemberList}">회원관리</a></li>
-				<li class="headerMenu"><a th:href="@{/CompanyList}">업체관리</a></li>
-				<li class="headerMenu"><a th:href="@{/list}">게시판관리</a></li>
-			</ul>
-		</div>
-	</header>
+	<div class="page">
+ 		<header>
+			<table style="width: 80%;">
+				<h2 class="btn btn-dark btn-lg" th:onclick="'location.href=\''+ @{adminMain} + '\''" style="margin: 10px; font-size: 40px;">
+					관리자 모드
+				</h2>
+				<tr class="headerMiniMenu">
+					<td><a th:href="@{#}">사이트메인</a></td>
+					<td><a th:href="@{#}">로그아웃</a></td>
+				</tr>
+				<tr>
+					<td class="headerMenu">
+						<button class="btn btn-dark"
+							th:onclick="'location.href=\''+ @{MemberList} + '\''">회원관리</button>
+					</td>
+					<td class="headerMenu">
+						<button class="btn btn-dark"
+							th:onclick="'location.href=\''+ @{CompanyList} + '\''">업체관리</button>
+					</td>
+					<td class="headerMenu">
+						<button class="btn btn-dark"
+							th:onclick="'location.href=\''+ @{list} + '\''">게시판관리</button>
+					</td>
+				</tr>
+			</table>
+ 		</header>
+	</div>
 </body>
 </html>
