@@ -353,9 +353,6 @@
 	
 </script>
 <style type="text/css">
-<<<<<<< HEAD
-
-            
 
 .info{
 	width: 98%;
@@ -365,14 +362,14 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 	font-size: 15px;
-=======
+}
 .flex-div {
 	width: 100%;
 	height: auto;
 	background-color: #E4E6EF;
 	display: flex;
 	justify-content: center;
->>>>>>> hoegyeung99
+
 }
 
 .outer-div {
@@ -402,103 +399,6 @@
 </style>
 </head>
 <body>
-	<!-- 
-<form th:action="@{/search}" method="get" th:object="${search}">
-		<h1>검색창</h1>
-				<select name="area1" id="area1"></select>
-				<select name="area2" id="area2"></select>
-			
-			<div class = "form-group">
-				<label for ="keyword">캠핑장</label>
-				<input type="search" id="keyword" name="keyword" class="form-control" placeholder="업체명을 입력해주세요."/>
-			</div>
-				
-			<h3>자연환경</h3>
-			<div>
-				<th:block th:each="eco, cnt:${eco_list}" >
-				<label >
-					<input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}'/>
-					<span th:text="${eco.value}"></span>
-				</label>
-				&nbsp;&nbsp;
-				</th:block>
-			</div>
-			<h3>숙소유형</h3>
-			<div>
-				<th:block th:each="roomtype, cnt:${roomtype_list}" >
-				<label >
-					<input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}'/>
-					<span th:text="${roomtype.value}"></span>
-				</label>
-				&nbsp;&nbsp;
-				</th:block>
-			</div>
-			<h3>테마</h3>
-			<div>
-				<th:block th:each="theme, cnt:${theme_list}" >
-				<label >
-					<input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}'/>
-					<span th:text="${theme.value}"></span>
-				</label>
-				&nbsp;&nbsp;
-				</th:block>
-			</div>
-			<input type ="button" value="검색" id="searchid">
-
-		</form>
-		
-	 <div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div> 
-
-	<table>
-		<tr>
-			<td class="title" colspan="3">업체 리스트</td>
-		</tr>
-		<tr>
-			<th scope="col">업체명</th>
-		</tr>
-		<tbody>		
-			<th:block th:if="${pv.totalCount}">
-				<tr th:each="vo, status : ${pv.list}" th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
-					<td th:text="${vo.name}">name</td> 
-				</tr>
-			</th:block>
-			
-			<th:block th:unless="${pv.totalCount}">
-				<tr>
-					<td colspan="3" align="center">
-					해당 업체가 없습니다.
-					</td>
-				</tr>
-			</th:block>
-		</tbody>
-	</table>
-			<ul class="pagination pagination-sm justify-content-center">
-			
-				<li class="page-item" th:if="${pv.startPage gt 1}">
-			      <a class="page-link" href="#" aria-label="Previous" th:onclick='sendGet("?", makeJson("p","[[${pv.startPage-1}]]"), "get")'>
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    
-			    <th:block th:each='num : ${#numbers.sequence(pv.startPage,pv.endPage)}'> 
-			    	
-				    <li th:if="${num==p}" class="page-item active" aria-current="page">
-				      <span class="page-link" th:text="${num}"></span>
-				    </li>
-				    <li th:if="${num!=p}" class="page-item">
-				    	<a class="page-link" href="#" th:text="${num}" 
-				    	th:onclick='sendGet("?", makeJson("p","[[${num}]]"), "get")'></a>
-				    </li>
-			    </th:block>
-			    
-			    <li class="page-item" th:if="${pv.endPage lt pv.totalPage}">
-			      <a class="page-link" href="#" aria-label="Next"  th:onclick='sendGet("?", makeJson("p","[[${pv.endPage+1}]]"), "get")'>
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			    
-		  	</ul>
-		  	 -->
 	<div class="flex-div">
 		<div class="outer-div">
 			<div th:replace="/decorators/header.html"></div>
