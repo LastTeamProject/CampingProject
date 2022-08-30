@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.human.camping.vo.CompanyVO;
-import kr.human.camping.vo.SearchVO;
 
 @Mapper
 public interface SearchDAO {
@@ -26,4 +25,6 @@ public interface SearchDAO {
 	void delete(int idx) throws SQLException;
 	// 7. 검색한 갯수
 	int searchCount(Map<String, Object> map) throws SQLException;
+	// 8. 위도,경도,이름 가져오는 업체 리스트
+	List<CompanyVO> totalCompany() throws SQLException;
 }

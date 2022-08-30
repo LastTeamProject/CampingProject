@@ -257,4 +257,6 @@ AND c.NAME LIKE '%캠핑%';
 select * from (select rownum rnum, R.* from (select c.* from company c WHERE areacode=3 and 
 detailcode=304 order by c.idx DESC) R where rownum <= 20 ) Q where rnum >= 11; 
 
+SELECT LATITUDE , LONGITUDE , NAME  FROM COMPANY c; 
+
 

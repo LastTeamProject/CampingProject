@@ -13,5 +13,6 @@ public interface SearchService {
 	//2.지역코드, 상세코드 , 각 테마 검색한경우
 	SearchPagingVO<CompanyVO> CompanyCode(int currentPage, int pageSize, int blockSize,int areacode, int detailcode, List<String> eco,List<String>roomtype,List<String> theme, String keyword);
 	
-	
+	//3.전체 업체 가져오기 
+	List<CompanyVO> totalCompany();
 }

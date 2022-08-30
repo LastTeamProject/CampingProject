@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.human.camping.service.SearchService;
 import kr.human.camping.vo.CompanyVO;
@@ -22,6 +23,20 @@ public class SearchController {
 
 	@Autowired
 	private SearchService searchService;
+	
+	//ajax 주소받아오기
+	@RequestMapping(value="/mapList" , method = RequestMethod.GET)
+	@ResponseBody
+	public List<CompanyVO> mapList() {
+		List<CompanyVO> totalCompany = searchService.totalCompany();
+		return totalCompany;
+	}
+	//map 테스트용
+	@RequestMapping(value="/map" , method = RequestMethod.GET)
+	public String map() {
+		return "map";
+	}
+	
 	
 	@RequestMapping(value="/search" , method = RequestMethod.GET)
 	public String search(
@@ -75,8 +90,9 @@ public class SearchController {
 
 			
 			SearchPagingVO<CompanyVO> pv = searchService.CompanyCode(p, s, b,area1, area2,eco,roomtype,theme,keyword);
-			
+			List<CompanyVO> totalCompany = searchService.totalCompany();
 			model.addAttribute("pv",pv);
+			model.addAttribute("totalCompany",totalCompany);
 			model.addAttribute("p", p);
 			model.addAttribute("s", s);
 			model.addAttribute("b", b);
