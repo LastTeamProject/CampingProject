@@ -104,6 +104,17 @@ public class SearchServiceImpl implements SearchService{
 		return pagingVO;
 	}
 
+	@Override
+	public List<CompanyVO> totalCompany() {
+		List<CompanyVO> totalCompanyVO = null;
+		 try {
+			totalCompanyVO = searchDAO.totalCompany();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalCompanyVO;
+	}
+
 	
 	
 	
