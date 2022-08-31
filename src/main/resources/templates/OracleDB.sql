@@ -76,7 +76,6 @@ VALUES(member_role_idx_seq.nextval, 'user03', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user03', 'dormancy', '', 0);
-<<<<<<< HEAD
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'user02', 'dormancy', '', 0);
@@ -116,6 +115,10 @@ VALUES(member_role_idx_seq.nextval, 'user11', 'user', '', 0);
 INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'admin', 'admin', '', 0);
+UPDATE JSPUSER.MEMBER_ROLE
+SET ID='oss7140', "ROLE"='admin', COL1='', COL2=0
+WHERE IDX=0;
+
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
 	from MEMBER m full outer join member_role 
