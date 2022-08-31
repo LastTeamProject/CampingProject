@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class ChattController {
 	
-	@RequestMapping("/chatbot")
+	@RequestMapping("/chat")
 	public ModelAndView chatt() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("chatting"); // 채팅페이지명을 넣는다.
