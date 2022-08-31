@@ -275,12 +275,12 @@
 				
 				var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
 			        center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표 
-			        level : 11 // 지도의 확대 레벨 
+			        level : 8 // 지도의 확대 레벨 
 			    });
 				var clusterer = new kakao.maps.MarkerClusterer({
 			        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
 			        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-			        minLevel: 7, // 클러스터 할 최소 지도 레벨 
+			        minLevel: 10, // 클러스터 할 최소 지도 레벨 
 			        disableClickZoom : true //클러스터 마커를 클릭했을때 지도가 확대 되지 않도록 설정한다.
 			    });
 				
@@ -358,40 +358,27 @@
 
 		});
 		
-		function relayout() {    
-				    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-				    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-				    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-		 map.relayout();
-		}
+		
 
 		const modal = document.getElementById("modal")
 
 		function modalOn() {
 		
 			modal.style.display = "flex"
-		    relayout()
+			
 	    
 		}
 		function isModalOn() {
-		    relayout()
 		    modal.style.display === "flex"
 		}
 		function modalOff() {
 		    modal.style.display = "none"
-		    relayout()
 		
 		}
 		const btnModal = document.getElementById("searchmap")
 		btnModal.addEventListener("click", e => {
 			modalOn()	
 		})
-		/*
-		$("#searchmap").click(function(){
-			alert('gkgkgkgk');
-			modalOn();
-		});
-		*/
 
 		const closeBtn = modal.querySelector(".close-area")
 		closeBtn.addEventListener("click", e => {
@@ -409,6 +396,8 @@
 		        modalOff()
 		    }
 		})
+		
+		
 	});
 
 
@@ -496,7 +485,6 @@
             display: inline;
             float: right;
             padding-right: 10px;
-            cursor: pointer;
             text-shadow: 1px 1px 2px gray;
             color: white;
         }
@@ -653,8 +641,8 @@
 				
 				<!-- map div -->
 				 <div id="modal" class="modal-overlay">
-			        <div class="modal-window" style="position: relative;">
-						<div class ="close-area">X</div>
+			        <div class="modal-window">
+						<div class ="close-area" style="margin-left: 97%; cursor: pointer;">X</div>
 						<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;"></div> 
 					</div>
   				</div>
