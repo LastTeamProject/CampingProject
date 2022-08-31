@@ -10,7 +10,7 @@ public interface ReservationService {
 	// 전체 목록보기(관리자용)
 	PagingVO<ReservationVO> selectReservationList(int currentPage, int pageSize, int blockSize);
 	// 나의 예약 목록 보기(회원용)
-	PagingVO<ReservationVO> selectMyReservation(int currentPage, int pageSize, int blockSize, String id);
+	List<ReservationVO> selectMyReservation(String id);
 	
 	List<ReservationVO> selectReservationRoomList(int idx);
 	// 예약 1개 보기

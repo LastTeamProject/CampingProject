@@ -12,6 +12,7 @@ import kr.human.camping.dao.ReservationDAO;
 import kr.human.camping.vo.CompanyVO;
 import kr.human.camping.vo.PagingVO;
 import kr.human.camping.vo.ReservationVO;
+import kr.human.camping.vo.RoomVO;
 
 @Service("reservationService")
 public class ReservationServiceImpl implements ReservationService {
@@ -37,21 +38,14 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public PagingVO<ReservationVO> selectMyReservation(int currentPage, int pageSize, int blockSize, String id) {
-		PagingVO<ReservationVO> pagingVO = null;
+	public List<ReservationVO> selectMyReservation(String id) {
+		List<ReservationVO> list = null;
 		try {
-			int totalCount = reservationDAO.selectReservationCount();
-			pagingVO = new PagingVO<>(totalCount, currentPage, pageSize, blockSize);
-			HashMap<String, Integer> hashMap = new HashMap<>();
-			hashMap.put("id", Integer.parseInt(id));
-			hashMap.put("startNo", pagingVO.getStartNo());
-			hashMap.put("endNo", pagingVO.getEndNo());
-			List<ReservationVO> list = reservationDAO.selectReservationList(hashMap);
-			pagingVO.setList(list);
+			list = reservationDAO.selectMyReservation(id);	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return pagingVO;
+		return list;
 	}
 
 	@Override
@@ -84,7 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
 		boolean result = false;
 		if(reservationVO!=null) {
 			try {
-				reservationDAO.deleteReservation(reservationVO.getRoomidx());
+				reservationDAO.deleteReservation(reservationVO);
 				result = true;
 			} catch (SQLException e) {
 				e.printStackTrace();

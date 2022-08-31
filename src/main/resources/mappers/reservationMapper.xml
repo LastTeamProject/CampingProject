@@ -14,31 +14,19 @@
 	</select>
 	
 	<!-- 나의 예약목록 보기 -->
-	<select id="selectMyReservation" parameterType="hashmap" resultType="ReservationVO">
-		 select 
-		 * 
-		 from 
-			(select 
-			rownum rnum, 
-			R.* 
-			from 
-				(select 
-				* 
-				from reservation 
-				where id=#{id} order by idx desc) R where
-		<![CDATA[ rownum <= #{endNo} ]]>
-		) Q where
-		<![CDATA[ rnum >= #{startNo} ]]>
+	<select id="selectMyReservation" parameterType="string" resultType="ReservationVO">
+		 select * from reservation where id = #{id}
+		
 	</select>
 	
 	<!-- 예약하기 -->
 	<insert id="insertReservation" parameterType="ReservationVO">
-		insert into reservation values(#{id},#{roomidx},#{total},#{startday},#{endday})
+		insert into reservation values(#{id},#{roomidx},#{name},#{roomname},#{total},#{startday},#{endday})
 	</insert>
 	
 	<!-- 예약 취소하기 -->
-	<delete id="deleteReservation" parameterType="int">
-		delete from reservation where roomidx = #{roomidx}
+	<delete id="deleteReservation" parameterType="ReservationVO">
+		delete from reservation where roomidx = #{roomidx} and id = #{id} and total = #{total} and startday = #{startday} and endday = #{endday}
 	</delete>
 	
 	<!-- 1 페이지 구하기 -->
@@ -56,11 +44,6 @@
 	
 		<!-- 1 페이지 구하기 -->
 	<select id="selectReservationRoomList" parameterType="int" resultType="ReservationVO">
-		SELECT  
- 			*
- 		FROM 
- 			RESERVATION r 
- 		WHERE 
- 			ROOMIDX = #{idx}
+		select  * from reservation where roomidx = #{roomidx}
 	</select>
 </mapper>

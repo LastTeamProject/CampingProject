@@ -455,7 +455,7 @@
 					<h5>
 						<b>&nbsp;&nbsp; 숙소목록</b>
 					</h5>
-					<hr />
+					<hr style="border-top: 2px dashed #ddd;"/>
 					<th:block th:if="${pv.totalCount}">
 						<th:block th:each="vo, status: ${pv.list}"
 							th:with="no=${pv.totalCount - (pv.currentPage-1) * pv.pageSize - status.index}">
@@ -472,7 +472,7 @@
 								</div>
 							</div>
 							<br />
-							<hr />
+							<hr style="border-top: 2px dashed #ddd;"/>
 						</th:block>
 					</th:block>
 					<th:block th:unless="${pv.totalCount}">

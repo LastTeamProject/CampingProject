@@ -182,12 +182,14 @@ VALUES(company_room_roomidx_seq.nextval, 3961, '테스트1', 1, 6, 30000, '0', '
 
 SELECT * FROM company_room WHERE idx=(SELECT idx FROM company c WHERE idx=3961);
 
--- 방 예약 테이블
+--  예약 테이블
 DROP TABLE reservation;
 SELECT * FROM RESERVATION r ;
 CREATE TABLE reservation(
 	id varchar2(100) NOT NULL,					-- 회원 및 관리자 계정 테이블의 id와 연결
-	roomidx number NOT NULL,			-- 업체방 테이블의 roomidx와 연결
+	roomidx number NOT NULL,
+	name varchar2(100) NOT null,
+	roomname varchar2(100) NOT NULL,-- 업체방 테이블의 roomidx와 연결
 	--email varchar2(100) NOT NULL,
 	total  number NOT NULL,	            -- 예약 인원수
 	startday varchar2(100) NOT NULL,
