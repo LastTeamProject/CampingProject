@@ -39,7 +39,19 @@ public class AdminController {
 //	}
 	//, method = RequestMethod.POST 나중에 추가해야함
 	@RequestMapping(value = "/adminMain")
-	public String adminPagePost(Model model){
+	public String adminPagePost(
+			@RequestParam(required = false, defaultValue = "1") int p,
+			@RequestParam(required = false, defaultValue = "5") int s,
+			@RequestParam(required = false, defaultValue = "5") int b,
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			Model model 
+			){
+		SearchListPagingVO<FileBoardVO> pagingVO = fileBoardService.selectList(keyword, p, s, b);
+		model.addAttribute("pv", pagingVO);
+		model.addAttribute("p", p);
+		model.addAttribute("s", s);
+		model.addAttribute("b", b);
+		model.addAttribute("keyword",keyword);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "/admin/adminMain";
