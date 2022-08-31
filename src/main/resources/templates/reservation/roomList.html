@@ -80,7 +80,6 @@
 </head>
 <body>
 	<div class="flex-div">
-
 		<div class="outer-div">
 		<div th:replace="/decorators/header.html"></div>
 			<div class="roominfo-div">
@@ -88,7 +87,7 @@
 					<h5>
 						<b th:text="|[${cvo.name}]객실목록|"></b>
 					</h5>
-					<hr />
+					<hr style="border-top: 2px dashed #ddd;"/>
 					<th:block th:if="${list}">
 						<th:block th:each="vo : ${list}">
 							<!-- room list정보 -->
@@ -109,7 +108,7 @@
 								</div>
 								<!-- 가격정보 -->
 								<div style="width: 20%">
-									<br />
+									<br style="border-top: 2px dashed #ddd;"/>
 									<h4 th:text="|${vo.price}원~|"></h4>
 								</div>
 								<!-- room 클릭시 나오는 창 -->
@@ -118,7 +117,7 @@
 							<div th:id="|divBox${voStat.count}|"  style="display: none;">
 								<div class="roominfo-div">
 									<h5 th:text="|[${cvo.name}]*${vo.roomname}|"></h5>
-									<hr />
+									<hr style="border-top: 2px dashed #ddd;"/>
 									<!-- 슬라이드 -->
 									<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 									  <div class="carousel-indicators">
@@ -182,12 +181,12 @@
 									<br />
 									<br />[공용샤워실, 개수대 사용시간]
 									<br />샤워실, 개수대 모두 오전 7시부터 저녁 9시까지만 사용가능합니다.
-									<hr />
 									</div>
+									<br />
 									<input type="button" th:onclick="'location.href=\'' + @{reservation(roomidx = ${vo.roomidx})} + '\''" value=" 예약하기 " style="width: 100%; height: 60px;  background-color: #DAEDCC;">
 								</div>
 							</div>
-							<hr />
+							<hr style="border-top: 2px dashed #ddd;"/>
 						</th:block>
 					</th:block>
 				</div>

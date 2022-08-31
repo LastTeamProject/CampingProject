@@ -1,10 +1,11 @@
 package kr.human.camping.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,12 +56,31 @@ public class ReservationController {
 		}
 		return "/login";
 	}
+	// 나의예약페이지
+		@RequestMapping(value ="/myreservation", method = {RequestMethod.GET})
+			public String selectMyList(Model model,
+					HttpServletRequest request){
+			HttpSession session = request.getSession(); // 세션영역에 있는 객체를 생성하여
+			// 세션에 있는 MemberInfo를 vo에 담는다.
+			MemberVO userVo = (MemberVO)session.getAttribute("UserInfo");  //userDetail 객체를 가져옴
+			log.info("userVo 실행결과 : " + userVo);
+			if(userVo != null) {
+				String id = userVo.getId();
+				List<ReservationVO> list = reservationService.selectMyReservation(id);
+				model.addAttribute("userid", userVo.getId());     //유저 아이디	
+				model.addAttribute("list", list);     // 나의 예약 리스트
+								
+		
+				return "reservation/myreservation";
+			}
+			return "/login";
+		}
 	
-	// 저장/삭제  수정기능은 없습니다.
+	// 저장/삭제 
 		@RequestMapping(value = "reservationupdate", method = RequestMethod.GET)
 		public String updateGet() {
 			
-			return "redirect:/roomList";
+			return "redirect:/search";
 		}
 		
 		@RequestMapping(value = "reservationupdate", method = RequestMethod.POST)
@@ -78,6 +98,6 @@ public class ReservationController {
 				log.info("deleteReservation 실행결과 : " + result);
 				break;
 			}
-			return "redirect:/roomList";
+			return "redirect:/search";
 		}
 }
