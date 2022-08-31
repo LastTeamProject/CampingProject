@@ -3,11 +3,79 @@
 <head>
     <meta charset="utf-8">
     <title>여러개 마커에 이벤트 등록하기1</title>
+    <style>
+        #modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display:none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 600px;
+            height: 600px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
     
+    </style>
 </head>
 <body>
-<div id="map" style="width:100%;height:350px;"></div>
-
+	
+	<div id="container">
+        <h2>Lorem Ipsum</h2>
+        <div id="lorem-ipsum"></div>
+    </div>
+<button class="btn-open-popup" id ="btn-modal">Modal 띄우기</button>
+  <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+			<div class ="close-area">X</div>
+			<div id="map" style="width:100%;height:350px;"></div>
+		</div>
+  </div>
+	
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=11435f10f49f935c7b587d8c605b4c7d"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -79,36 +147,54 @@ function makeClickListener(data) {
         alert(data);
     };
 }
-
-/* 아래와 같이도 할 수 있습니다 */
-/*
-for (var i = 0; i < positions.length; i ++) {
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng // 마커의 위치
-    });
-
-    // 마커에 표시할 인포윈도우를 생성합니다 
-    var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content // 인포윈도우에 표시할 내용
-    });
-
-    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
-    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    (function(marker, infowindow) {
-        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-        kakao.maps.event.addListener(marker, 'mouseover', function() {
-            infowindow.open(map, marker);
-        });
-
-        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-        kakao.maps.event.addListener(marker, 'mouseout', function() {
-            infowindow.close();
-        });
-    })(marker, infowindow);
+function relayout() {    
+    
+    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    map.relayout();
 }
-*/
+
+const modal = document.getElementById("modal")
+
+function modalOn() {
+	
+	modal.style.display = "flex"
+    relayout()
+    
+}
+function isModalOn() {
+    modal.style.display === "flex"
+    relayout()
+}
+function modalOff() {
+    modal.style.display = "none"
+    relayout()
+
+}
+
+const btnModal = document.getElementById("btn-modal")
+btnModal.addEventListener("click", e => {
+	modalOn()
+})
+
+const closeBtn = modal.querySelector(".close-area")
+closeBtn.addEventListener("click", e => {
+    modalOff()
+})
+
+modal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal-overlay")) {
+        modalOff()
+    }
+})
+window.addEventListener("keyup", e => {
+    if(isModalOn() && e.key === "Escape") {
+        modalOff()
+    }
+})
+
 </script>
 </body>
 </html>

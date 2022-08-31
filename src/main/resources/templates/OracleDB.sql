@@ -239,6 +239,7 @@ COMMIT;
 SELECT * FROM TAB;
 DROP SEQUENCE member_idx_seq;
 DROP TABLE MEMBERS ;
+SELECT * FROM MEMBER;
 SELECT * FROM COMPANY_ROOM;
 SELECT * FROM COMPANY;
 select * from company eco in(SELECT eco FROM COMPANY c WHERE areacode=3 and detailcode=301);

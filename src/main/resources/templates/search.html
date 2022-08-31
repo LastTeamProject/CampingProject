@@ -256,6 +256,8 @@
 	    	location.href="/roomList?idx=" + data
 	    };
 	}
+	
+	
 	$(function(){
 
 		$.ajax("/mapList",{
@@ -348,13 +350,68 @@
 			        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
 			        map.setLevel(level, {anchor: cluster.getCenter()});
 			    });
+				
+				
+				
 			}
 		
 
 		});
 		
+		function relayout() {    
+				    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+				    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+				    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+		 map.relayout();
+		}
 
+		const modal = document.getElementById("modal")
+
+		function modalOn() {
+		
+			modal.style.display = "flex"
+		    relayout()
+	    
+		}
+		function isModalOn() {
+		    relayout()
+		    modal.style.display === "flex"
+		}
+		function modalOff() {
+		    modal.style.display = "none"
+		    relayout()
+		
+		}
+		const btnModal = document.getElementById("searchmap")
+		btnModal.addEventListener("click", e => {
+			modalOn()	
+		})
+		/*
+		$("#searchmap").click(function(){
+			alert('gkgkgkgk');
+			modalOn();
+		});
+		*/
+
+		const closeBtn = modal.querySelector(".close-area")
+		closeBtn.addEventListener("click", e => {
+		    modalOff()
+		})
+
+		modal.addEventListener("click", e => {
+		    const evTarget = e.target
+		    if(evTarget.classList.contains("modal-overlay")) {
+		        modalOff()
+		    }
+		})
+		window.addEventListener("keyup", e => {
+		    if(isModalOn() && e.key === "Escape") {
+		        modalOff()
+		    }
+		})
 	});
+
+
 	
 	
 </script>
@@ -402,6 +459,49 @@
 	margin: 10px;
 	display: flex;
 }
+#modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display:none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index : 50;
+        }
+        #modal .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: auto;
+            height: auto;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        
 </style>
 </head>
 <body>
@@ -450,7 +550,7 @@
 
 		</form>
 		
-	 <div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div> 
+	 
 
 	<table>
 		<tr>
@@ -548,7 +648,16 @@
 					<input type="button" value="숙소 검색" id="searchid"
 						style="width: 100%; height: 40px; background-color: #DAEDCC; margin-top: 4%; border-radius: 15px">
 				</form>
-				<div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div>
+					<input type="button" value="지도 검색" id="searchmap" class="btn-open-popup"
+						style="width: 100%; height: 40px; background-color: #DAEDCC; margin-top: 4%; border-radius: 15px">
+				
+				<!-- map div -->
+				 <div id="modal" class="modal-overlay">
+			        <div class="modal-window" style="position: relative;">
+						<div class ="close-area">X</div>
+						<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;"></div> 
+					</div>
+  				</div>
 			</div>
 			<div class="roominfo-div">
 				<div>
