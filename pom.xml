@@ -38,8 +38,16 @@
 			<artifactId>spring-messaging</artifactId>
 			<version>5.2.2.RELEASE</version>
 		</dependency>
+
+		<!-- json simple -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- json simple -->
 		<!--소켓 종료 -->
-		
+
 		<!-- JavaMail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
