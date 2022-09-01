@@ -31,6 +31,11 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=11435f10f49f935c7b587d8c605b4c7d&libraries=clusterer"></script>
 <script type="text/javascript"></script>
 <script>
+	$(function(){
+		var height=$(".flex-div").css("height");
+		$("#modal").css("height",height);
+		
+	})
 	var area1={
 			"1":"서울특별시",
 			"2":"인천광역시",
@@ -450,14 +455,13 @@
 }
 #modal.modal-overlay {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             position: absolute;
             left: 0;
             top: 0;
             display:none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             background: rgba(255, 255, 255, 0.25);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             backdrop-filter: blur(1.5px);
@@ -475,11 +479,10 @@
             border: 1px solid rgba( 255, 255, 255, 0.18 );
             width: auto;
             height: auto;
-            position: relative;
-            top: -100px;
             padding: 10px;
+            margin-top: 200px;
         }
-        
+
         }
         #modal .close-area {
             display: inline;
@@ -597,39 +600,48 @@
 			<div style="display: flex;">
 			<div style="height: auto; width: 30%; background-color: #F3F6F9; min-height: 1000px">
 				<form th:action="@{/search}" method="get" th:object="${search}">
-					<h3>검색</h3>
+					<h3>&nbsp;&nbsp;검색</h3>
 					<select name="area1" id="area1"></select> 
 					<select name="area2" id="area2"></select>
 
 					<div class="form-group">
-						<label for="keyword">캠핑장</label> <input type="search" id="keyword"
+						<label for="keyword">&nbsp;&nbsp;캠핑장</label> <input type="search" id="keyword"
 							name="keyword" class="form-control" placeholder="업체명을 입력해주세요." />
 					</div>
 
-					<h3>자연환경</h3>
-					<div>
+					<h3>&nbsp;&nbsp;자연환경</h3>
+					<div style="display: flex;flex-wrap: wrap;">
 						<th:block th:each="eco, cnt:${eco_list}">
-							<label> <input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}' /> 
-							<span th:text="${eco.value}"></span>
-							</label>
+							<div style="width: 40%; margin: 1%;height: 30px;text-align: center;">
+								<label>
+									<input type="radio" th:value="${eco.key}" th:id='${eco.key + cnt.count}' /> 
+									<span th:text="${eco.value}"></span>
+								</label>
+							</div>
 				&nbsp;&nbsp;
 				</th:block>
 					</div>
-					<h3>숙소유형</h3>
-					<div>
+					<h3>&nbsp;&nbsp;숙소유형</h3>
+					<div style="display: flex;flex-wrap: wrap;">
 						<th:block th:each="roomtype, cnt:${roomtype_list}">
-							<label> <input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}' /> 
-							<span th:text="${roomtype.value}"></span>
-							</label>
+							<div style="width: 40%; margin: 1%;height: 30px;text-align: center;">
+								<label>
+								 	<input type="radio" th:value="${roomtype.key}" th:id='${roomtype.key + cnt.count}' /> 
+									<span th:text="${roomtype.value}"></span>
+								</label>
+							</div>
 				&nbsp;&nbsp;
 				</th:block>
 					</div>
-					<h3>테마</h3>
-					<div>
+					<h3>&nbsp;&nbsp;테마</h3>
+					<div style="display: flex;flex-wrap: wrap;">
 						<th:block th:each="theme, cnt:${theme_list}">
-							<label> <input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}' />
-							 <span th:text="${theme.value}"></span>
-							</label>
+							<div style="width: 40%; margin: 1%;height: 30px;text-align: center;">
+								<label>
+									<input type="radio" th:value="${theme.key}" th:id='${theme.key + cnt.count}' />
+							 		<span th:text="${theme.value}"></span>
+								</label>
+							</div>
 				&nbsp;&nbsp;
 				</th:block>
 					</div>
@@ -638,17 +650,7 @@
 				</form>
 					<input type="button" value="지도 검색" id="searchmap" class="btn-open-popup"
 						style="width: 100%; height: 40px; background-color: #DAEDCC; margin-top: 4%; border-radius: 15px">
-				<!-- map div -->
-				 <div id="modal" class="modal-overlay">
-			        <div class="modal-window">
-<<<<<<< HEAD
-						<div class ="close-area" style="margin-left: 97%; cursor: pointer;">X</div>
-=======
-						<div class ="close-area" style="margin-left: 97%">X</div>
->>>>>>> hoegyeung99
-						<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;"></div> 
-					</div>
-  				</div>
+				
 			</div>
 			<div class="roominfo-div">
 				<div>
@@ -707,6 +709,14 @@
 				
 		</div>
 	</div>
+<!-- map div -->
+				 <div id="modal" class="modal-overlay">
+			        <div class="modal-window">
 
+						<div class ="close-area" style="margin-left: 97%; cursor: pointer;">X</div>
+
+						<div id="map" style="width:600px;height:600px;position:relative;overflow:hidden;"></div> 
+					</div>
+  				</div>
 </body>
 </html>
