@@ -22,9 +22,15 @@
 <!-- 사용자 정의 자바스크립트 함수를 추가한다 -->
 <script type="text/javascript" src="js/commons.js"></script>
 <script type="text/javascript">
-	$(function() {
-
+$(function() {
+	$("#searchid").click(function() {
+		var searchid = $(this).val();
+		if (keyword != null) {
+			var url = "?keyword=" + $("#keyword").val();
+		}
+		location.href = url;
 	});
+});
 </script>
 <style type="text/css">
 
@@ -51,7 +57,6 @@
 	margin: 0;
 	padding-right: 5px;
 	float: right;
-/* 	background-color: yellow; */
 	width: 20%;
 	height: 45px;
 }
@@ -66,32 +71,35 @@
  	font-size: 5pt;
 }
 
+.Menu{
+	padding: 1%;
+	height: 50px;
+	align-content: left;
+}
+
 .ul{ 
 	list-style-type: none;
 }
 
 .li{
 	float: left;
-	padding: 3px;
-} 
-
-.headerMenu{
-	width: 100%;
-	background-color: green;
+	margin: 0;
+	padding-right: 3px;
 }
 
 .mainDiv {
-	background: #fff;
+/* 	background: #fff; */
 	width: 98%;
 	height: 12%;
 	margin: 1%;
+/* 	border: 1px solid black; */
 	border-radius: 15px;
 	padding: 1%;
 	box-sizing: border-box;
 }
 
 table {
-	width: auto;
+	width: 95%;
 	margin: auto;
 	padding: 5px;
 }
@@ -120,31 +128,32 @@ td {
 	border: none;
 	text-align: right;
 }
+
 </style>
 </head>
 <body>
 	<div class="flex-div">
 		<div class="outer-div">
-			<header style="height: 100px;">
-				<div style="float: left; width: 80%; height: 45px;">
-					<h2 th:onclick="'location.href=\''+ @{adminMain} + '\''">관리자모드</h2>
+			<header style="height: 60px;">
+				<div style="float: left; width: 80%;">
+					<h2 class="btn btn-dark" style="width: 30%; height: 100%; font-size: 20pt; padding: auto; min-width: 180px;" th:onclick="'location.href=\''+ @{adminMain} + '\''">관리자모드</h2>
 				</div>
 	
 				<div class="headerMiniMenu">
-					<ul class="headerMiniMenuUl">
+					<ul class="headerMiniMenuUl" style="min-width: 85px;">
 						<li class="headerMiniMenuLi"><a href="/logout">로그아웃</a></li>
 						<li class="headerMiniMenuLi"><a href="/">사이트메인</a></li>
 					</ul>
 				</div>
-				
-				<div class="headerMenu">
-					<ul class="ul">
-						<li class="li"><button th:onclick="'location.href=\''+ @{MemberList} + '\''">회원관리</button></li>
-						<li class="li"><button th:onclick="'location.href=\''+ @{CompanyList} + '\''">업체관리</button></li>
-						<li class="li"><button th:onclick="'location.href=\''+ @{list} + '\''">게시판관리</button></li>
-					</ul>
-				</div>
 			</header>
+			
+			<div class="Menu">
+				<ul class="ul">
+					<li class="li"><button class="btn btn-danger" th:onclick="'location.href=\''+ @{MemberList} + '\''">회원관리</button></li>
+					<li class="li"><button class="btn btn-danger" th:onclick="'location.href=\''+ @{CompanyList} + '\''">업체관리</button></li>
+					<li class="li"><button class="btn btn-danger" th:onclick="'location.href=\''+ @{list} + '\''">게시판관리</button></li>
+				</ul>
+			</div>
 			
 			<div class="mainDiv">
 				<table>
