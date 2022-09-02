@@ -56,13 +56,17 @@ public class Admin_CompanyController {
 	// 새글쓰기
 	@RequestMapping("/CompanyInsert")
 	public String insert(
+			@RequestParam(required = false, defaultValue = "1") Integer areacode,
+			@RequestParam(required = false, defaultValue = "101") Integer detailcode,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "5") int s,
 			@RequestParam(required = false, defaultValue = "5") int b,
 			Model model) {
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
-		model.addAttribute("b", b);
+		model.addAttribute("b", b);	
+		model.addAttribute("areacode",areacode);
+		model.addAttribute("detailcode",detailcode);
 		model.addAttribute("br", "<br>");
 		model.addAttribute("newLine", "\n");
 		return "admin/Company/CompanyInsert";

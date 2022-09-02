@@ -13,6 +13,7 @@ CREATE TABLE MEMBER(
 	col2 NUMBER,
 	col3 varchar2(100)
 );
+
 INSERT INTO JSPUSER."MEMBER"
 (ID, IDX, PASSWORD, NAME, PHONE, EMAIL, GENDER, COL1, COL2, COL3)
 VALUES('user01', member_idx_seq.nextval, '1234', '한사람', 01053244561, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
@@ -51,7 +52,7 @@ INSERT INTO JSPUSER."MEMBER"
 VALUES('admin', member_idx_seq.nextval, '1234', '관리자일', 02434532663, 'ㅁㄴㅇㄹ@asdf.com', '1', '', 0, '');
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role from MEMBER m full outer join member_role on m.id=member_role.id and role='user' order by m.idx DESC;
-SELECT * FROM MEMBER_ROLE mr , "MEMBER" m 
+SELECT * FROM MEMBER_ROLE mr ;
 -- 회원 및 관리자 계정 권한 나누는 테이블
 CREATE SEQUENCE member_role_idx_seq;
 CREATE TABLE member_role(
@@ -116,7 +117,7 @@ INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'admin', 'admin', '', 0);
 UPDATE JSPUSER.MEMBER_ROLE
-SET ID='oss7140', "ROLE"='admin', COL1='', COL2=0
+SET "ROLE"='admin'
 WHERE IDX=0;
 
 
@@ -166,7 +167,8 @@ CREATE table company(
 
 CREATE SEQUENCE company_room_roomidx_seq;
 DROP TABLE COMPANY_ROOM;
-
+DROP SEQUENCE company_room_roomidx_seq;
+SELECT * FROM COMPANY_ROOM;
 CREATE TABLE company_room(
 	roomidx number PRIMARY KEY,
 	idx NUMBER NOT NULL,				-- 업체 테이블의 idx와 연결

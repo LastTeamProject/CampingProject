@@ -22,9 +22,9 @@ import kr.human.camping.service.CSVService2;
 public class CampingProjectApplication {
 	
 	@Autowired
-	//CSVService csvService;
-	
-
+//	CSVService csvService;
+//	
+//
 //	@Autowired
 //	CSVService2 csvService2;
 
@@ -44,8 +44,8 @@ public class CampingProjectApplication {
 				try {
 					System.setProperty("java.awt.headless", "false");
 					Desktop.getDesktop().browse(new URI("http://localhost:8080/"));
-					//csvService.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 업체 데이터)
-
+//					csvService.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 업체 데이터)
+//
 //					csvService2.saveDB(); //DB에 데이터를 저장하는 함수(캠핑장 방 데이터)
 
 				} catch (IOException e) {
