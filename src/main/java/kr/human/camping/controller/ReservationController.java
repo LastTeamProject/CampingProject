@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.human.camping.service.ReservationService;
 import kr.human.camping.service.RoomService;
@@ -84,10 +85,13 @@ public class ReservationController {
 		}
 		
 		@RequestMapping(value = "reservationupdate", method = RequestMethod.POST)
+		@ResponseBody
 		public String updatePost(@ModelAttribute Comm2VO comm2VO, @ModelAttribute ReservationVO reservationVO) {
 			boolean result = false;
 			log.info("updatePost : " + reservationVO);
 			log.info("updatePost : " + comm2VO);
+			CompanyVO cvo = reservationService.selectCompany(reservationVO.getRoomidx());
+			int idx = cvo.getIdx();
 			switch (comm2VO.getMode()) {
 			case "insert":
 				result = reservationService.insertReservation(reservationVO);
@@ -98,6 +102,6 @@ public class ReservationController {
 				log.info("deleteReservation 실행결과 : " + result);
 				break;
 			}
-			return "redirect:/search";
+			return "/roomList?idx="+idx;
 		}
 }

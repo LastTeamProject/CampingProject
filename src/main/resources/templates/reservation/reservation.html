@@ -155,7 +155,7 @@ function reservCheck( ){ //reservCheck(sessionID){
 		alert("이미 예약된 날짜가 포함되어 있습니다. 다시 확인해 주세요.");
 		return false;		
 	}
-    alert("id=" + id + "   roomidx=" + roomidx +"  인원수=" + total + "  예약시작날짜= " + startday +"  예약퇴실날짜=" + endday ) ;
+   // alert("id=" + id + "   roomidx=" + roomidx +"  인원수=" + total + "  예약시작날짜= " + startday +"  예약퇴실날짜=" + endday ) ;
 	
     var obj = {
 			"id" : id,
@@ -173,9 +173,10 @@ function reservCheck( ){ //reservCheck(sessionID){
 		type : "POST",  
 		data : obj,
 		success : function(data){
-			alert("결과 : " + data);
+			//alert("결과 : " + data);
 			alert("예약 성공");
-			location.reload();
+			location.href=data
+			
 		},
 		error : function(err){
 			alert("예약 실패");
@@ -863,7 +864,7 @@ input{
 						<input type="hidden" th:value="${rvo.roomname}" th:id="roomname"> 
 						<input type="hidden" th:value="insert" th:id="mode"> 
 						<input type="button" onclick="reservCheck()" value=" 예약하기 "  id="reservButton"  class="button" style="width: 100%; height: 60px;  background-color: #DAEDCC;" disabled="disabled">
-						</span>		
+						</span>		 
 					</div>
 				</div>
 		</div>
