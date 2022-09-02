@@ -52,12 +52,7 @@ $(document).ready(function(){
 		font-family: 'Nanum Pen Script', cursive;
 	}
 	 
-	#userdiv{
-		margin: 15px;
-		padding: 10px;
-		border: 1px solid black;
-		border-radius: 5px;
-	}
+
 </style>
 </head>
 <body>
@@ -74,13 +69,12 @@ $(document).ready(function(){
 	        <h3 class="offcanvas-title" id="offcanvasNavbarLabel">캠핑의 즐거운 시작</h3>
 	        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	      </div>
-	      <div id="userdiv" th:if="${session.UserInfo != null}">
-	      	<div th:utext="${session.UserInfo.name} + ' 님 환영합니다.'"></div>
-	      	<div th:text="${session.UserInfo.id}"></div>
-	      	&nbsp; &nbsp; &nbsp;
-		    <a class="nav-link active" aria-current="page" href="/MemberInfoUpdate">내정보 수정하기</a>
-	      	<a href="/logout">로그아웃</a>
+	      <div id="userdiv" th:if="${session.UserInfo != null}" style="display: flex;">
+	      	<div th:text="|&nbsp;&nbsp;${session.UserInfo.name}(${session.UserInfo.id})님 환영합니다.|"></div>
+
+	      	
 	      </div>
+	      
 	      <div class="offcanvas-body">
 	        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 	          <li class="nav-item info" th:if="${session.UserInfo == null}">
@@ -89,19 +83,27 @@ $(document).ready(function(){
 	          <li class="nav-item">
 	            <a class="nav-link active" aria-current="page" href="/search">여행지 둘러보기</a>
 	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link active" aria-current="page" href="/search">예약하러 가기</a>
-	          </li>
-	          <li class="nav-item">
+	          <li class="nav-item" th:if="${session.UserInfo != null}">
 	            <a class="nav-link active" aria-current="page" href="/myreservation">나의 예약 보기</a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link active" aria-current="page" href="/userBoard">공지사항</a>
 	          </li>
+	      	  <li class="nav-item" th:if="${session.UserInfo != null}">
+	          	<a class="nav-link active" aria-current="page" href="/MemberInfoUpdate">내정보 수정하기</a>
+	      	  </li>
+	     	
 	          <li class="nav-item" th:if="${session.UserInfo != null} and ${session.UserInfo.role == 'admin'}">
 	            <a class="nav-link active" aria-current="page" href="/adminMain">관리자 모드</a>
 	          </li>
 	        </ul>
+	        <div th:if="${session.UserInfo != null}" style="margin-top: 150%">
+	      	 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+	      	 	<li class="nav-item">
+	            <a class="nav-link active" aria-current="page" href="/logout">로그아웃</a>
+	          	</li>
+	      	 </ul>
+	      </div>
 	      </div>
 	    </div>
 	  </div>
