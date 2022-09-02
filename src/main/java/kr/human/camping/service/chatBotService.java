@@ -64,7 +64,7 @@ public class chatBotService {
 		*/
 		if(msg.contains("로그인")) {
 			chatbotobj.put("msg", "로그인 페이지는 <a href='local:8080/login'>로그인</a> 으로 접속해주세요.");
-		}
+		} 
 		
 		
 		

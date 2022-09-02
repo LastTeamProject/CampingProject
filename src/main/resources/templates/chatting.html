@@ -23,22 +23,60 @@
 			margin-bottom: 20px;
 		}
 		.chating{
-			background-color: #000;
+			background-color: skyblue;
 			width: 500px;
 			height: 500px;
 			overflow: auto;
 		}
 		.chating .me{
-			color: #F6F6F6;
+			color: black;
 			text-align: right;
 		}
 		.chating .others{
-			color: #FFE400;
+			color: black;
 			text-align: left;
 		}
 		input{
 			width: 330px;
 			height: 25px;
+		}
+		
+		.balloon1{
+			position:relative;
+			margin: 20px;
+			width:200px;
+			height:100px;
+			background: yellow;
+			border-radius: 10px;
+		}
+		.balloon1:after{
+			content:"";
+			border-top:55px solid transparent;
+			border-left: 0px solid transparent;
+			border-right: 25px solid transparent; 
+			border-bottom: 16px solid yellow;
+			position: absolute;
+			top: 15px;
+			left: 200px;
+		}
+		
+		.balloon2{
+			position:relative;
+			margin:20px;
+			width:200px;
+			height:100px;
+			background: yellow;
+			border-radius: 10px;
+		}
+		.balloon2:after{
+			content:"";
+			border-top:16px solid yellow;
+			border-left: 25px solid transparent;
+			border-right: 0px solid transparent;
+			border-bottom: 0px solid transparent;
+			position: absolute;
+			top: 15px;
+			left: -25px;
 		}
 		
 	</style>
@@ -71,9 +109,9 @@
 					}
 				}else if(d.type == "message"){
 					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");	
+						$("#chating").append("<div class='balloon1 me'><p>나 :" + d.msg + "</p></div>");	
 					}else{
-						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+						$("#chating").append("<div class='balloon2 others'><p>" + d.userName + " :" + d.msg + "</p></div>");
 					}
 						
 				}else{
