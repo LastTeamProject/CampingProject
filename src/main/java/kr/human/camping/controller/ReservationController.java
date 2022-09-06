@@ -90,8 +90,6 @@ public class ReservationController {
 			boolean result = false;
 			log.info("updatePost : " + reservationVO);
 			log.info("updatePost : " + comm2VO);
-			CompanyVO cvo = reservationService.selectCompany(reservationVO.getRoomidx());
-			int idx = cvo.getIdx();
 			switch (comm2VO.getMode()) {
 			case "insert":
 				result = reservationService.insertReservation(reservationVO);
@@ -102,6 +100,6 @@ public class ReservationController {
 				log.info("deleteReservation 실행결과 : " + result);
 				break;
 			}
-			return "/roomList?idx="+idx;
+			return "/search";
 		}
 }
