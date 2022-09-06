@@ -10,7 +10,7 @@ public class ChattController {
 	@RequestMapping("/chat")
 	public ModelAndView chatt() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("chatting"); // 채팅페이지명을 넣는다.
+		mv.setViewName("index"); // 채팅페이지명을 넣는다.
 		return mv;
 	}
 }
