@@ -91,13 +91,12 @@ public class ReservationController {
 			log.info("updatePost : " + reservationVO);
 			log.info("reservationVO : " + reservationVO.getRoomidx());
 			log.info("updatePost : " + comm2VO);
-<<<<<<< HEAD
-			CompanyVO cvo = reservationService.selectCompany(reservationVO.getRoomidx());
+
+//			CompanyVO cvo = reservationService.selectCompany(reservationVO.getRoomidx());
 //			log.info("cvo : " + cvo);
 //			int idx = cvo.getIdx();
 //			log.info("idx : " + cvo.getIdx());
-=======
->>>>>>> hoegyeung99
+
 			switch (comm2VO.getMode()) {
 			case "insert":
 				result = reservationService.insertReservation(reservationVO);
