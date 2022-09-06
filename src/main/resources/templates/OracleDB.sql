@@ -117,8 +117,13 @@ INSERT INTO JSPUSER.MEMBER_ROLE
 (IDX, ID, "ROLE", COL1, COL2)
 VALUES(member_role_idx_seq.nextval, 'admin', 'admin', '', 0);
 UPDATE JSPUSER.MEMBER_ROLE
+<<<<<<< HEAD
 SET "ROLE"='admin'
 WHERE IDX=0;
+=======
+SET ID='chhg9999', "ROLE"='admin', COL1='', COL2=0
+WHERE IDX=42;
+>>>>>>> hoegyeung99
 
 
 select m.name, m.id, m.phone, m.email, m.gender, member_role.role 
