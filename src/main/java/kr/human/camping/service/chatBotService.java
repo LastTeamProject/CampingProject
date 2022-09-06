@@ -64,7 +64,35 @@ public class chatBotService {
 		*/
 		if(msg.contains("로그인")) {
 			chatbotobj.put("msg", "로그인 페이지는 <a href='local:8080/login'>로그인</a> 으로 접속해주세요.");
-		} 
+		} else if(msg.contains("안녕") || msg.contains("하이")) {
+			chatbotobj.put("msg", "네, 안녕하세요.");			
+		} else if(msg.contains("바보")) {
+			chatbotobj.put("msg", "바보라고 하지마세요!");			
+			
+		} else if(msg.contains("멍청")) {
+			chatbotobj.put("msg", "아직은 학습이 덜되었지만, 멍청이는 아닙니다!");			
+			
+		} else if(msg.contains("너") && msg.contains("이름")) {
+			chatbotobj.put("msg", "제 이름은 캠핑봇 이에요.");			
+			
+		} else if(msg.contains("예약")) {
+			chatbotobj.put("msg", "숙소 예약은 <a href='/serch'>여행지 둘러보기</a>에서 해당 여행지역 검색후 가고 싶은 숙소로 예약을 하시면 됩니다.");
+			
+		} else if(msg.contains("취소")) {
+			chatbotobj.put("msg", "숙소 예약을 취소하시겠어요? 회경이에게 문의 하세요. 예약시스템 최종 담당자 입니다.");			
+			
+		} else if(msg.contains("캠핑")) {
+			chatbotobj.put("msg", "캠핑은 정말 좋은것 같아요. 오늘 당장 놀러가는거 어때요?");			
+			
+		} else if(msg.contains("추천")) {
+			chatbotobj.put("msg", "네, 캠핑장 추천을 해드릴께요. <a href='/search'>여행지 둘러보기</a>에서 찾아보시면 됩니다. ");			
+			
+		} else if(msg.contains("시발") || msg.contains("좆") || msg.contains("새끼") || msg.contains("개새") || msg.contains("씨발")) {
+			chatbotobj.put("msg", "비속어는 안좋습니다. 비속어는 삼가해주세요.");
+		} else {
+			chatbotobj.put("msg", "아직은 무슨말인지 알수없습니다.");
+			
+		}
 		
 		
 		
